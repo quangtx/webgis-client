@@ -1,0 +1,18 @@
+<button mat-mini-fab
+    color="primary"
+    (click)="showHideLayer()"
+    [matTooltip]="(visiable$ | async).dictionary.showHideLayer"
+    [matTooltipDisabled]="!(visiable$ | async).showTooltip"
+    matTooltipPosition="after"
+    >
+  <mat-icon>{{ iconName }}</mat-icon>
+</button>
+<!-- <button mat-mini-fab
+    color="primary"
+    (click)="showHideLayer()"
+    [matTooltip]="(zoom$ | async).dictionary.zoomIn"
+    [matTooltipDisabled]="!(zoom$ | async).showTooltip"
+    matTooltipPosition="after"
+    @shownState>
+  <mat-icon>layers</mat-icon>
+</button> -->

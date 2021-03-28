@@ -1,0 +1,9 @@
+<div class="module-container">
+    <div *ngIf="(layers$ | async).length === 0; else hasLayers">{{(dictionary$ | async).noLayers}}</div>
+    <ng-template #hasLayers>
+        <mangol-featureinfo-select [layers]="layers$ | async"
+            [dictionary]="dictionary$ | async"></mangol-featureinfo-select>
+        <mangol-featureinfo-results *ngIf="(selectedLayer$ | async) !== null"
+            [dictionary]="dictionary$ | async"></mangol-featureinfo-results>
+    </ng-template>
+</div>

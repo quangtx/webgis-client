@@ -1,0 +1,49 @@
+<mat-list>
+    <h3 mat-subheader>{{(dictionary$ | async).groups}}</h3>
+    <mat-list-item>
+        <button mat-icon-button
+            (click)="toggleGroup()">
+        <mat-icon mat-list-icon
+            fontSet="ms"
+            [fontIcon]="group.checked ? 'ms-directory-open-o' : 'ms-directory-o'"></mat-icon>
+      </button>
+        <mat-toolbar color="default">
+            <mat-toolbar-row>
+                <div *ngIf="(showBadges$ | async) && !group.checked && group.children && group.children.length > 0; else checked"
+                    class="mangol-pointer"
+                    [matBadge]="group.children.length"
+                    matBadgeOverlap="false"
+                    matBadgeColor="primary"
+                    [matTooltip]="group.name"
+                    matTooltipPosition="above"
+                    [matTooltipDisabled]="group.name.length < displayLimit"
+                    (click)="toggleGroup()">{{group.name | shorten:displayLimit}}</div>
+                <ng-template #checked>
+                    <span class="mangol-pointer"
+                        [matTooltip]="group.name"
+                        matTooltipPosition="above"
+                        [matTooltipDisabled]="group.name.length < displayLimit"
+                        (click)="toggleGroup()">{{group.name | shorten:displayLimit}}</span></ng-template>
+                <span class="spacer"></span>
+                <button mat-icon-button
+                    [matMenuTriggerFor]="menu">
+                        <mat-icon>more_vert</mat-icon>
+                      </button>
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item
+                        *ngFor="let item of detailItems"
+                        [disabled]="item.disabled"
+                        (click)="onMenuItemClicked(item)">
+                          <mat-icon [fontSet]="item.fontSet !== null ? item.fontSet : null" [fontIcon]="item.fontSet !== null ? item.fontIcon : null">{{item.fontSet === null ? item.fontIcon : null}}</mat-icon>
+                          <span>{{item.text}}</span>
+                        </button>
+                </mat-menu>
+            </mat-toolbar-row>
+        </mat-toolbar>
+    </mat-list-item>
+</mat-list>
+
+<mangol-layertree-item [items]="group.children"
+    [@slideState]="group.checked ? 'down' : 'up'"
+    [level]="level + 1">
+</mangol-layertree-item>
