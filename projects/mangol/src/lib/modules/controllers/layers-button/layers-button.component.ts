@@ -26,7 +26,6 @@ export class LayersButtonComponent implements OnInit {
   constructor(private store: Store<fromMangol.MangolState>) {
     this.zoom$ = this.store.select(state => state.controllers.zoom);
     this.visiable$ = this.store.select(state => state.controllers.visiable);
-    // this.store.dispatch(new LayersActions.SetLayers(layers));
   }
 
   ngOnInit() {
@@ -36,16 +35,7 @@ export class LayersButtonComponent implements OnInit {
   showHideLayer() {
     this.visiable = this.visiable ? false :true
     this.visiableChange.emit(this.visiable);
-
-    // this.store
-    //   .select(state => state.map.map)
-    //   .pipe(take(1))
-    //   .subscribe((m: Map) => {
-    //     m.getView().animate({
-    //       zoom: m.getView().getZoom() + 1,
-    //       duration: this.animationDuration
-    //     });
-    //   });
+    this.store.dispatch(new LayersActions.SetVisiable(this.visiable));
   }
 
   zoomOut() {

@@ -1,36 +1,18 @@
 <div class="elements-bottom-right" >
     <mangol-zoom-buttons *ngIf="(zoom$ | async).show"></mangol-zoom-buttons>
 </div>
+<div class="elements-top-right" >
+    <app-layers-button iconName="layers" [(visiable)]="visiable"></app-layers-button>
+    <app-measure-line-button></app-measure-line-button>
+    <app-measure-area-button></app-measure-area-button>
+    <app-measure-radius-button></app-measure-radius-button>
+    <app-measure-point-button></app-measure-point-button>
+</div>
 <div class="elements-left">
-    <!-- <mangol-sidebar-button *ngIf="(hasSidebar$ | async) && (sidebarCollapsible$ | async)">
-    </mangol-sidebar-button> -->
     <mangol-rotation-button *ngIf="(rotation$ | async).show"></mangol-rotation-button>
     <mangol-fullscreen-button *ngIf="(fullScreen$ | async).show"></mangol-fullscreen-button>
 </div>
 <div class="elements-right">
     <mangol-position *ngIf="(position$ | async).show"></mangol-position>
-    <!-- <mangol-scalebar></mangol-scalebar> -->
-</div>
-<div class="elements-top-right">
-    <div class="gird-row">
-        <div *ngIf="visiable">
-            <div class="layer-tabs">
-                <mat-tab-group [dynamicHeight]="false">
-                    <mat-tab label="App">
-                        <ng-template matTabContent>
-                            <div class="tab-content">
-                                <div class="map-container-outer">
-                                    <div class="map-container">
-
-                                    </div>
-                                </div>
-                            </div>
-                        </ng-template>
-                    </mat-tab>
-                </mat-tab-group>
-            </div>
-        </div>
-    </div>
-    <!-- <mangol-scalebar></mangol-scalebar> -->
 </div>
 <mangol-cursor></mangol-cursor>

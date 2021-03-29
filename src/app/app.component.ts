@@ -17,7 +17,7 @@ import {
 import { AppService } from './app.service';
 
 export interface MangolDemoItem {
-  link: string;
+  number: string;
   title: string;
 }
 
@@ -60,35 +60,35 @@ export class AppComponent implements OnInit, DoCheck, OnDestroy {
     this.logo = 'assets/img/logo/mangol_logo.png';
     this.items = [
       {
-        link: '/demo-map',
+        number: '/demo-map',
         title: 'Map'
       },
       {
-        link: '/demo-controllers',
+        number: '/demo-controllers',
         title: 'Map controllers'
       },
       {
-        link: '/demo-sidebar',
+        number: '/demo-sidebar',
         title: 'Sidebar'
       },
       {
-        link: '/demo-layertree',
+        number: '/demo-layertree',
         title: 'Layertree'
       },
       {
-        link: '/demo-featureinfo',
+        number: '/demo-featureinfo',
         title: 'Feature info'
       },
       {
-        link: '/demo-measure',
+        number: '/demo-measure',
         title: 'Measure'
       },
       {
-        link: '/demo-print',
+        number: '/demo-print',
         title: 'Print'
       },
       {
-        link: '/demo-full',
+        number: '/demo-full',
         title: 'Full functionality'
       }
     ];
@@ -124,7 +124,7 @@ export class AppComponent implements OnInit, DoCheck, OnDestroy {
     if (window.innerWidth <= 1000) {
       this.appService.sidebarOpenedSubject.next(false);
     }
-    this.router.navigate([item.link]);
+    this.router.navigate([item.number]);
   }
 
   navigateHome() {

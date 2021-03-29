@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 
@@ -26,7 +26,9 @@ import * as fromMangol from './../../store/mangol.reducers';
   styleUrls: ['./controllers.component.scss']
 })
 export class ControllersComponent implements OnInit, OnDestroy {
-  visiable = false;
+  @Input()  visiable: boolean;
+  @Output() visiableChange = new EventEmitter<boolean>();
+
   mangolConfig: MangolConfig;
   config$: Observable<MangolConfig>;
   hasSidebar$: Observable<boolean>;

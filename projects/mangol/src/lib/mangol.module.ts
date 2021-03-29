@@ -18,7 +18,6 @@ import {
   mangolReducers,
   MangolState,
 } from './store/mangol.reducers';
-import { LayersButtonComponent } from './modules/controllers/layers-button/layers-button.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
@@ -67,7 +66,6 @@ export const metaReducers = [
   ],
   declarations: [
     MangolComponent,
-    LayersButtonComponent,
   ],
   providers: [MeasureService],
   exports: [MangolComponent],

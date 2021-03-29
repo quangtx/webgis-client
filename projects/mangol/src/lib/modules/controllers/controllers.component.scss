@@ -18,6 +18,8 @@
 }
 
 .elements-top-right {
+    display: flex;
+    flex-direction: column;
     position: absolute;
     z-index: 10;
     top: 100px;
@@ -53,8 +55,19 @@ mat-tab-group {
 .gird-row {
     display: flex;
 }
-// mangol-zoom-buttons {
-//     position: absolute;
-//     bottom: 2rem;
-//     right: 1rem;
-// }
+
+app-measure-line-button {
+    margin-top: 1rem;
+}
+
+app-measure-area-button {
+    margin-top: 1rem;
+}
+
+app-measure-radius-button {
+    margin-top: 1rem;
+}
+
+app-measure-point-button {
+    margin-top: 1rem;
+}

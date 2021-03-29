@@ -4,7 +4,11 @@ import {
   MangolControllersScalebarOptions,
   MangolControllersZoomOptions,
   MangolControllersFullScreenOptions,
-  MangolControllersVisiableOptions
+  MangolControllersVisiableOptions,
+  MangolControllersLineOptions,
+  MangolControllersAreaOptions,
+  MangolControllersRadiusOptions,
+  MangolControllersPointOptions
 } from './../../interfaces/config-map-controllers.interface';
 import * as ControllersActions from './controllers.actions';
 
@@ -20,6 +24,9 @@ export interface MangolControllersRotationStateModel
 
 export interface ControllersStateModel {
   zoom: MangolControllersZoomOptions;
+  line: MangolControllersLineOptions;
+  area: MangolControllersAreaOptions;
+  radius: MangolControllersRadiusOptions;
   visiable: MangolControllersVisiableOptions;
   scalebar: MangolControllersScalebarOptions;
   position: MangolControllersPositionStateModel;
@@ -29,6 +36,10 @@ export interface ControllersStateModel {
 export interface State {
   zoom: MangolControllersZoomOptions;
   visiable: MangolControllersVisiableOptions;
+  line: MangolControllersLineOptions;
+  area: MangolControllersAreaOptions;
+  radius: MangolControllersRadiusOptions;
+  point: MangolControllersPointOptions;
   scalebar: MangolControllersScalebarOptions;
   position: MangolControllersPositionStateModel;
   rotation: MangolControllersRotationStateModel;
@@ -41,6 +52,34 @@ const initialState: State = {
     dictionary: {
       zoomIn: 'Zoom in',
       zoomOut: 'Zoom out',
+    },
+    showTooltip: true
+  },
+  line: {
+    show: false,
+    dictionary: {
+      line: 'Line',
+    },
+    showTooltip: true
+  },
+  area: {
+    show: false,
+    dictionary: {
+      area: 'Area',
+    },
+    showTooltip: true
+  },
+  radius: {
+    show: false,
+    dictionary: {
+      radius: 'Radius',
+    },
+    showTooltip: true
+  },
+  point: {
+    show: false,
+    dictionary: {
+      point: 'Point',
     },
     showTooltip: true
   },

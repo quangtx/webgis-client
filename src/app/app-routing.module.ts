@@ -18,46 +18,46 @@ const routes: Routes = [
   //   pathMatch: 'full',
   //   data: { animation: { page: 'homePage' } }
   // },
-  // {
-  //   path: 'demo-home',
-  //   component: DemoHomeComponent,
-  //   data: { animation: { page: 'demo-home' } }
-  // },
-  // {
-  //   path: 'demo-map',
-  //   component: DemoMapComponent,
-  //   data: { animation: { page: 'demo-map' } }
-  // },
-  // {
-  //   path: 'demo-controllers',
-  //   component: DemoControllersComponent,
-  //   data: { animation: { page: 'demo-controllers' } }
-  // },
-  // {
-  //   path: 'demo-sidebar',
-  //   component: DemoSidebarComponent,
-  //   data: { animation: { page: 'demo-sidebar' } }
-  // },
-  // {
-  //   path: 'demo-layertree',
-  //   component: DemoLayertreeComponent,
-  //   data: { animation: { page: 'demo-layertree' } }
-  // },
-  // {
-  //   path: 'demo-featureinfo',
-  //   component: DemoFeatureinfoComponent,
-  //   data: { animation: { page: 'demo-featureinfo' } }
-  // },
-  // {
-  //   path: 'demo-print',
-  //   component: DemoPrintComponent,
-  //   data: { animation: { page: 'demo-print' } }
-  // },
-  // {
-  //   path: 'demo-measure',
-  //   component: DemoMeasureComponent,
-  //   data: { animation: { page: 'demo-measure' } }
-  // },
+  {
+    path: 'demo-home',
+    component: DemoHomeComponent,
+    data: { animation: { page: 'demo-home' } }
+  },
+  {
+    path: 'demo-map',
+    component: DemoMapComponent,
+    data: { animation: { page: 'demo-map' } }
+  },
+  {
+    path: 'demo-controllers',
+    component: DemoControllersComponent,
+    data: { animation: { page: 'demo-controllers' } }
+  },
+  {
+    path: 'demo-sidebar',
+    component: DemoSidebarComponent,
+    data: { animation: { page: 'demo-sidebar' } }
+  },
+  {
+    path: 'demo-layertree',
+    component: DemoLayertreeComponent,
+    data: { animation: { page: 'demo-layertree' } }
+  },
+  {
+    path: 'demo-featureinfo',
+    component: DemoFeatureinfoComponent,
+    data: { animation: { page: 'demo-featureinfo' } }
+  },
+  {
+    path: 'demo-print',
+    component: DemoPrintComponent,
+    data: { animation: { page: 'demo-print' } }
+  },
+  {
+    path: 'demo-measure',
+    component: DemoMeasureComponent,
+    data: { animation: { page: 'demo-measure' } }
+  },
   {
     path: '',
     component: DemoFullComponent,

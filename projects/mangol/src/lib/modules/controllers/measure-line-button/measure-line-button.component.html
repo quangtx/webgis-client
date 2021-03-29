@@ -1,0 +1,10 @@
+<button mat-mini-fab
+  (click)="setLine('line', $event)"
+  [matTooltip]="(line$ | async).dictionary.line"
+  [matTooltipDisabled]="!(line$ | async).showTooltip"
+  matTooltipPosition="after"
+  color="primary"
+  >
+  <mat-icon fontSet="ms"
+  fontIcon="ms-measure-distance"></mat-icon>
+  </button>

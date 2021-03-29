@@ -17,6 +17,7 @@ export interface MeasureDictionary {
   line?: string;
   area?: string;
   radius?: string;
+  point?: string;
   distance?: string;
   angle?: string;
   drawStartText?: string;
@@ -53,6 +54,12 @@ const initialState: State = {
       fontSet: 'ms',
       fontIcon: 'ms-geolocation',
       geometryName: GeometryType.CIRCLE
+    },
+    {
+      type: 'point',
+      fontSet: 'ms',
+      fontIcon: 'gps_fixed',
+      geometryName: GeometryType.POINT
     }
   ],
   mode: null,
@@ -64,6 +71,7 @@ const initialState: State = {
     line: 'Line',
     area: 'Area',
     radius: 'Radius',
+    point: 'Point',
     distance: 'Distance',
     angle: 'angle',
     drawStartText:
@@ -84,7 +92,6 @@ export function measureReducer(
     case MeasureActions.SET_TITLE:
       return { ...state, title: action.payload };
     case MeasureActions.SET_DICTIONARY:
-      console.warn('state.dictionary', state.dictionary);
       const dict = { ...state.dictionary };
       for (const key in action.payload) {
         if (action.payload.hasOwnProperty(key)) {

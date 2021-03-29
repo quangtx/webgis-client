@@ -1,0 +1,10 @@
+<button mat-mini-fab
+  (click)="setArea('area')"
+  [matTooltip]="(area$ | async).dictionary.area"
+  [matTooltipDisabled]="!(area$ | async).showTooltip"
+  matTooltipPosition="after"
+  color="primary"
+  >
+  <mat-icon fontSet="ms"
+  fontIcon="ms-measure-area"></mat-icon>
+  </button>

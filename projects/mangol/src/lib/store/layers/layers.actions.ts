@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-
+import { createAction } from '@ngrx/store';
 import { MangolLayer } from './../../classes/Layer';
 import VectorLayer from 'ol/layer/Vector';
 
@@ -15,9 +15,10 @@ export class SetMeasureLayer implements Action {
   readonly type = SET_MEASURE_LAYER;
   constructor(public payload: VectorLayer) {}
 }
-// export class SetVisiable implements Action {
-//   readonly type = SET_VISIABLE;
-//   constructor(public payload: boolean) {}
-// }
+export class SetVisiable implements Action {
+  readonly type = SET_VISIABLE;
+  constructor(public payload: boolean) {}
+}
+export const onShowHide = createAction('[Layer Component] onShowHide')
 
-export type LayersActions = SetLayers | SetMeasureLayer;
+export type LayersActions = SetLayers | SetMeasureLayer | SetVisiable;

@@ -28,18 +28,19 @@
     "@angular/router": "^10.1.1",
     "@ngrx/effects": "^10.0.0",
     "@ngrx/store": "^10.0.0",
+    "@ngrx/store-devtools": "^11.0.1",
     "@types/geojson": "^7946.0.7",
+    "@types/mapbox-gl": "^2.1.1",
     "@types/ol": "^6.3.1",
     "core-js": "^3.6.5",
     "file-saver": "^2.0.2",
     "jspdf": "^1.5.3",
+    "mapbox-gl": "^2.1.1",
     "ngrx-store-logger": "^0.2.4",
     "ol": "^6.4.3",
     "proj4": "^2.6.2",
     "rxjs": "^6.6.3",
-    "zone.js": "^0.11.1",
-    "@types/mapbox-gl": "^2.1.1",
-    "mapbox-gl": "^2.1.1"
+    "zone.js": "^0.11.1"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.1001.0",

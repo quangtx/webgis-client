@@ -17,7 +17,12 @@ import { ScalebarComponent } from './scalebar/scalebar.component';
 import { SidebarButtonComponent } from './sidebar-button/sidebar-button.component';
 import { ZoomButtonsComponent } from './zoom-buttons/zoom-buttons.component';
 import { LayersButtonComponent } from './layers-button/layers-button.component';
+
 import { FullscreenButtonComponent } from './fullscreen-button/fullscreen-button.component';
+import { MeasureLineButtonComponent } from './measure-line-button/measure-line-button.component'
+import { MeasureAreaButtonComponent } from './measure-area-button/measure-area-button.component'
+import { MeasureRadiusButtonComponent } from './measure-radius-button/measure-radius-button.component'
+import { MeasurePointButtonComponent } from './measure-point-button/measure-point-button.component'
 
 @NgModule({
   imports: [
@@ -39,7 +44,12 @@ import { FullscreenButtonComponent } from './fullscreen-button/fullscreen-button
     PositionComponent,
     ScalebarComponent,
     RotationButtonComponent,
-    FullscreenButtonComponent
+    FullscreenButtonComponent,
+    LayersButtonComponent,
+    MeasureLineButtonComponent,
+    MeasureAreaButtonComponent,
+    MeasureRadiusButtonComponent,
+    MeasurePointButtonComponent
   ],
   exports: [ControllersComponent]
 })

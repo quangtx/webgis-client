@@ -14,6 +14,9 @@ import { MangolLayerGroup } from './../../../../projects/mangol/src/lib/classes/
 import { MangolConfig } from './../../../../projects/mangol/src/lib/interfaces/config.interface';
 import { MangolService } from './../../../../projects/mangol/src/lib/mangol.service';
 import { code } from './code';
+import VectorLayer from 'ol/layer/Vector';
+import VectorSource from 'ol/source/Vector';
+import GeoJSON from 'ol/format/GeoJSON';
 
 @Component({
   selector: 'app-demo-full',
@@ -49,14 +52,15 @@ export class DemoFullComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    const pseudoGeoJSONFormat = <any>GeoJSON;
     this.mangolConfig = {
       map: {
         target: 'mangol-demo-full',
         view: new View({
-          projection: 'EPSG:900913',
+          projection: 'EPSG:4326',
           center: fromLonLat(
             [108.083496, 15.919074],
-            'EPSG:900913'
+            'EPSG:4326'
           ),
           zoom: 6,
           minZoom: 6,
@@ -79,7 +83,7 @@ export class DemoFullComponent implements OnInit, OnDestroy {
           },
           position: {
             show: true,
-            precision: 2
+            precision: 6
           },
           fullScreen: {
             show: false,
@@ -126,20 +130,15 @@ export class DemoFullComponent implements OnInit, OnDestroy {
                     querySrs: 'EPSG:900913',
                     details:
                       'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
-                    layer: new TileLayer({
-                      source: new TileWMS({
-                        url:'',
-                          // 'http://188.166.116.137:8080/geoserver/gwc/service/wms',
-                        crossOrigin: 'anonymous',
-                        params: {
-                          LAYERS: ['naturalearth:countries'],
-                          format: 'image/png',
-                          SRS: 'EPSG:900913'
-                        }
-                      }),
-                      opacity: 0.5,
-                      visible: false
-                    })
+                      layer: new VectorLayer({
+                        source: new VectorSource({
+                          url: 'assets/geojson/countries.geojson',
+                          format: new pseudoGeoJSONFormat({
+                            dataProjection: 'EPSG:4326',
+                            featureProjection: 'EPSG:900913'
+                          })
+                        })
+                      })
                   }),
                   new MangolLayer({
                     name: 'Cities',
@@ -184,8 +183,8 @@ export class DemoFullComponent implements OnInit, OnDestroy {
           featureinfo: {
             title: 'Feature info'
           },
-          measure: { disabled: false },
-          print: { disabled: false }
+          // measure: { disabled: false },
+          // print: { disabled: false }
         }
       }
     };

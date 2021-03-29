@@ -1,4 +1,4 @@
-<mat-toolbar color="primary">
+<mat-toolbar>
     <mat-toolbar-row>
         <button mat-icon-button
             class="sidebar-button"
@@ -9,7 +9,7 @@
             <mat-icon>keyboard_arrow_left</mat-icon>
         </button>
         <button mat-icon-button
-            *ngIf="activeRouteData !== '/demo-home'"
+            *ngIf="activeRouteData !== '/'"
             class="sidebar-button"
             matTooltip="Go back to Start Page"
             matTooltipPosition="below"
@@ -20,14 +20,6 @@
         <div class="title">
         </div>
         <span class="fill-remaining-space"></span>
-        <a href="https://github.com/fegyi001/mangol"
-            target="_blank"
-            matTooltip="Fork me on GitHub"
-            matTooltipPosition="below">
-            <mat-icon fontSet="fa"
-                fontIcon="fa-github">
-            </mat-icon>
-        </a>
     </mat-toolbar-row>
 </mat-toolbar>
 <mat-drawer-container class="demo-drawer-container"
@@ -37,14 +29,44 @@
         class="demo-sidenav"
         mode="side"
         [opened]="sidebarOpened">
-        <h1>Demos</h1>
-        <mat-card *ngFor="let item of items"
-            [ngClass]="{'active': activeRouteData === item.link}"
+        <h1 style="text-align: center">Feature Info</h1>
+        <mat-grid-list cols="1" rowHeight="2:1">
+            <mat-grid-tile>
+                <mat-card>
+                    <mat-card-content>
+                        The infomation once
+                    </mat-card-content>
+                </mat-card>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-card >
+                    <mat-card-content>
+                        The infomation second
+                    </mat-card-content>
+                </mat-card>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-card>
+                    <mat-card-content>
+                        The infomation thirdth
+                    </mat-card-content>
+                </mat-card>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-card>
+                    <mat-card-content>
+                        The infomation fourth
+                    </mat-card-content>
+                </mat-card>
+            </mat-grid-tile>
+        </mat-grid-list>
+        <!-- <mat-card *ngFor="let item of items"
+            [ngClass]="{'active': activeRouteData === item.number}"
             (click)="navigate(item)">
             <span>
                 {{item.title}}
             </span>
-        </mat-card>
+        </mat-card> -->
     </mat-drawer>
     <div class="demo-sidenav-content"
         [@routeState]="getAnimationData(rOutlet)">

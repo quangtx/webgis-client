@@ -5,6 +5,18 @@ export interface MangolControllersOptions {
 export interface MangolControllersVisiableDictionary {
   showHideLayer?: string;
 }
+export interface MangolControllersLineDictionary {
+  line?: string;
+}
+export interface MangolControllersAreaDictionary {
+  area?: string;
+}
+export interface MangolControllersRadiusDictionary {
+  radius?: string;
+}
+export interface MangolControllersPointDictionary {
+  point?: string;
+}
 export interface MangolControllersZoomDictionary {
   zoomIn?: string;
   zoomOut?: string;
@@ -17,6 +29,22 @@ export interface MangolControllersZoomOptions extends MangolControllersOptions {
 
 export interface MangolControllersVisiableOptions extends MangolControllersOptions {
   dictionary?: MangolControllersVisiableDictionary;
+  showTooltip?: boolean;
+}
+export interface MangolControllersLineOptions extends MangolControllersOptions {
+  dictionary?: MangolControllersLineDictionary;
+  showTooltip?: boolean;
+}
+export interface MangolControllersAreaOptions extends MangolControllersOptions {
+  dictionary?: MangolControllersAreaDictionary;
+  showTooltip?: boolean;
+}
+export interface MangolControllersRadiusOptions extends MangolControllersOptions {
+  dictionary?: MangolControllersRadiusDictionary;
+  showTooltip?: boolean;
+}
+export interface MangolControllersPointOptions extends MangolControllersOptions {
+  dictionary?: MangolControllersPointDictionary;
   showTooltip?: boolean;
 }
 
@@ -62,6 +90,10 @@ export interface MangolControllersRotationOptions
 export interface MangolConfigMapControllers {
   zoom?: MangolControllersZoomOptions;
   visiable?: MangolControllersVisiableOptions;
+  line?: MangolControllersLineOptions;
+  area?: MangolControllersAreaOptions;
+  radius?: MangolControllersRadiusOptions;
+  point?: MangolControllersPointOptions;
   scalebar?: MangolControllersScalebarOptions;
   position?: MangolControllersPositionOptions;
   tileload?: MangolControllersTileloadOptions;
