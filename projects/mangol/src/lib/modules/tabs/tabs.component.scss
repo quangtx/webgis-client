@@ -29,3 +29,16 @@
 .tab-label-icon-container {
     width: 100%;
 }
+::ng-deep {
+    mat-tab-group {
+        .mat-tab-body-wrapper {
+            .mat-tab-body {
+                max-height: 650px;
+                .mat-tab-body-content {
+                    overflow-y: auto;
+                }
+            }
+        }
+
+    }
+}

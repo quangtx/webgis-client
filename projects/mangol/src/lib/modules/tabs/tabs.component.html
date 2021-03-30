@@ -44,7 +44,7 @@
         </div>
     </mat-tab>
     <!-- MEASURE -->
-    <mat-tab *ngIf="hasMeasure$ | async"
+    <!-- <mat-tab *ngIf="hasMeasure$ | async"
         [disabled]="measureDisabled$ | async">
         <ng-template mat-tab-label>
             <div class="tab-label-icon-container"
@@ -57,7 +57,7 @@
         <div class="tab-content">
             <mangol-measure *ngIf="(selectedModule$ | async) === 'measure'"></mangol-measure>
         </div>
-    </mat-tab>
+    </mat-tab> -->
     <!-- PRINT -->
     <mat-tab *ngIf="hasPrint$ | async"
         [disabled]="printDisabled$ | async">
@@ -74,7 +74,7 @@
         </div>
     </mat-tab>
     <!-- EDIT -->
-    <mat-tab *ngIf="false">
+    <!-- <mat-tab *ngIf="false">
         <ng-template mat-tab-label>
             <div class="tab-label-icon-container"
                 [matTooltip]="'Edit'"
@@ -85,5 +85,5 @@
         <div class="tab-content">
             <mangol-edit></mangol-edit>
         </div>
-    </mat-tab>
+    </mat-tab> -->
 </mat-tab-group>

@@ -1,0 +1,1209 @@
+{
+    "type": "FeatureCollection",
+    "name": "confirmed_cases_covid-19_pt",
+    "crs": {
+        "type": "name",
+        "properties": {
+            "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+        }
+    },
+    "features": [
+        {
+            "type": "Feature",
+            "properties": {
+                "Code": "89",
+                "Name": "An Giang",
+                "infected": 0,
+                "death": 0,
+                "recovered": 0,
+                "active": 0,
+                "Name_VN": "An Giang"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    105.18049048932033,
+                    10.513334294338192
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Code": "24",
+                "Name": "Bac Giang",
+                "infected": 22,
+                "death": 0,
+                "recovered": 20,
+                "active": 2,
+                "Name_VN": "Bắc Giang"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    106.47918237652084,
+                    21.35843247375006
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Code": "6",
+                "Name": "Bac Kan",
+                "infected": 0,
+                "death": 0,
+                "recovered": 0,
+                "active": 0,
+                "Name_VN": "Bắc Kạn"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    105.82501335109097,
+                    22.26256361334342
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Code": "95",
+                "Name": "Bac Lieu",
+                "infected": 52,
+                "death": 0,
+                "recovered": 52,
+                "active": 0,
+                "Name_VN": "Bạc Liêu"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    105.48710770450403,
+                    9.314922077566754
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Code": "27",
+                "Name": "Bac Ninh",
+                "infected": 13,
+                "death": 0,
+                "recovered": 8,
+                "active": 5,
+                "Name_VN": "Bắc Ninh"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    106.10461520499007,
+                    21.110104578843988
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Code": "83",
+                "Name": "Ben Tre",
+                "infected": 2,
+                "death": 0,
+                "recovered": 2,
+                "active": 0,
+                "Name_VN": "Bến Tre"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    106.46717766515336,
+                    10.120596156519738
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Code": "52",
+                "Name": "Binh Dinh",
+                "infected": 1,
+                "death": 0,
+                "recovered": 0,
+                "active": 1,
+                "Name_VN": "Bình Định"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    108.94653633662713,
+                    14.124843367515492
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Code": "74",
+                "Name": "Binh Duong",
+                "infected": 35,
+                "death": 0,
+                "recovered": 27,
+                "active": 8,
+                "Name_VN": "Bình Dương"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    106.65625087896248,
+                    11.21811489863141
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Code": "70",
+                "Name": "Binh Phuoc",
+                "infected": 0,
+                "death": 0,
+                "recovered": 0,
+                "active": 0,
+                "Name_VN": "Bình Phước"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    106.90661050367991,
+                    11.756772669576645
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Code": "60",
+                "Name": "Binh Thuan",
+                "infected": 10,
+                "death": 0,
+                "recovered": 10,
+                "active": 0,
+                "Name_VN": "Bình Thuận"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    108.04730321556615,
+                    11.118874957180934
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Code": "96",
+                "Name": "Ca Mau",
+                "infected": 1,
+                "death": 0,
+                "recovered": 1,
+                "active": 0,
+                "Name_VN": "Cà Mau"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    105.03894734734247,
+                    9.050704674872453
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Code": "92",
+                "Name": "Can Tho",
+                "infected": 10,
+                "death": 0,
+                "recovered": 10,
+                "active": 0,
+                "Name_VN": "Cần Thơ"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    105.52850118600679,
+                    10.115580263702082
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Code": "4",
+                "Name": "Cao Bang",
+                "infected": 0,
+                "death": 0,
+                "recovered": 0,
+                "active": 0,
+                "Name_VN": "Cao Bằng"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    106.08388658183183,
+                    22.746178329325
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Code": "66",
+                "Name": "Dak Lak",
+                "infected": 3,
+                "death": 0,
+                "recovered": 3,
+                "active": 0,
+                "Name_VN": "Đắk Lắk"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    108.20521754887342,
+                    12.825832958404051
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Code": "67",
+                "Name": "Dak Nong",
+                "infected": 0,
+                "death": 0,
+                "recovered": 0,
+                "active": 0,
+                "Name_VN": "Đắk Nông"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    107.68669124577256,
+                    12.22917315150664
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Code": "11",
+                "Name": "Dien Bien",
+                "infected": 3,
+                "death": 0,
+                "recovered": 0,
+                "active": 3,
+                "Name_VN": "Điện Biên"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    103.02114002582056,
+                    21.71122428123239
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Code": "75",
+                "Name": "Dong Nai",
+                "infected": 8,
+                "death": 0,
+                "recovered": 7,
+                "active": 1,
+                "Name_VN": "Đồng Nai"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    107.18228263707984,
+                    11.057353056546269
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Code": "87",
+                "Name": "Dong Thap",
+                "infected": 25,
+                "death": 0,
+                "recovered": 24,
+                "active": 1,
+                "Name_VN": "Đồng Tháp"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    105.6060234587902,
+                    10.56552976706683
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Code": "64",
+                "Name": "Gia Lai",
+                "infected": 27,
+                "death": 0,
+                "recovered": 0,
+                "active": 27,
+                "Name_VN": "Gia Lai"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    108.23931927691751,
+                    13.798942769692712
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Code": "2",
+                "Name": "Ha Giang",
+                "infected": 2,
+                "death": 0,
+                "recovered": 1,
+                "active": 1,
+                "Name_VN": "Hà Giang"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    104.97604622925408,
+                    22.766596858963606
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Code": "35",
+                "Name": "Ha Nam",
+                "infected": 8,
+                "death": 0,
+                "recovered": 8,
+                "active": 0,
+                "Name_VN": "Hà Nam"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    105.96511805588744,
+                    20.54138287414093
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Code": "1",
+                "Name": "Ha Noi",
+                "infected": 239,
+                "death": 0,
+                "recovered": 202,
+                "active": 36,
+                "Name_VN": "Hà Nội"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    105.69873861437573,
+                    20.99931916144736
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Code": "42",
+                "Name": "Ha Tinh",
+                "infected": 4,
+                "death": 0,
+                "recovered": 4,
+                "active": 0,
+                "Name_VN": "Hà Tĩnh"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    105.73337806697344,
+                    18.291428561131887
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Code": "30",
+                "Name": "Hai Duong",
+                "infected": 656,
+                "death": 0,
+                "recovered": 231,
+                "active": 425,
+                "Name_VN": "Hải Dương"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    106.35933347922918,
+                    20.9309758403999
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Code": "31",
+                "Name": "Hai Phong",
+                "infected": 7,
+                "death": 0,
+                "recovered": 3,
+                "active": 4,
+                "Name_VN": "Hải Phòng"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    106.67351391496385,
+                    20.800065611334887
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Code": "93",
+                "Name": "Hau Giang",
+                "infected": 0,
+                "death": 0,
+                "recovered": 0,
+                "active": 0,
+                "Name_VN": "Hậu Giang"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    105.62253256720881,
+                    9.785134412808288
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Code": "17",
+                "Name": "Hoa Binh",
+                "infected": 23,
+                "death": 0,
+                "recovered": 23,
+                "active": 0,
+                "Name_VN": "Hoà Bình"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    105.34147537953048,
+                    20.685380534630188
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Code": "33",
+                "Name": "Hung Yen",
+                "infected": 34,
+                "death": 0,
+                "recovered": 31,
+                "active": 3,
+                "Name_VN": "Hưng Yên"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    106.05841543881614,
+                    20.815693346665213
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Code": "62",
+                "Name": "Kon Tum",
+                "infected": 0,
+                "death": 0,
+                "recovered": 0,
+                "active": 0,
+                "Name_VN": "Kon Tum"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    107.87437660968727,
+                    14.649072573828581
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Code": "12",
+                "Name": "Lai Chau",
+                "infected": 1,
+                "death": 0,
+                "recovered": 1,
+                "active": 0,
+                "Name_VN": "Lai Châu"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    103.18521930803362,
+                    22.317881834696294
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Code": "68",
+                "Name": "Lam Dong",
+                "infected": 0,
+                "death": 0,
+                "recovered": 0,
+                "active": 0,
+                "Name_VN": "Lâm Đồng"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    108.09386624981494,
+                    11.751994409321691
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Code": "20",
+                "Name": "Lang Son",
+                "infected": 4,
+                "death": 0,
+                "recovered": 4,
+                "active": 0,
+                "Name_VN": "Lạng Sơn"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    106.61932415094593,
+                    21.839729471817535
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Code": "10",
+                "Name": "Lao Cai",
+                "infected": 2,
+                "death": 0,
+                "recovered": 2,
+                "active": 0,
+                "Name_VN": "Lào Cai"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    104.11015917709857,
+                    22.366212850441062
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Code": "80",
+                "Name": "Long An",
+                "infected": 4,
+                "death": 0,
+                "recovered": 2,
+                "active": 2,
+                "Name_VN": "Long An"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    106.16888082592364,
+                    10.731124892991525
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Code": "36",
+                "Name": "Nam Dinh",
+                "infected": 15,
+                "death": 0,
+                "recovered": 15,
+                "active": 0,
+                "Name_VN": "Nam Định"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    106.20912137805794,
+                    20.266204718525785
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Code": "40",
+                "Name": "Nghe An",
+                "infected": 0,
+                "death": 0,
+                "recovered": 0,
+                "active": 0,
+                "Name_VN": "Nghệ An"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    104.94393361631562,
+                    19.23729084138012
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Code": "37",
+                "Name": "Ninh Binh",
+                "infected": 32,
+                "death": 0,
+                "recovered": 32,
+                "active": 0,
+                "Name_VN": "Ninh Bình"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    105.90072158234791,
+                    20.222924376705635
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Code": "58",
+                "Name": "Ninh Thuan",
+                "infected": 3,
+                "death": 0,
+                "recovered": 3,
+                "active": 0,
+                "Name_VN": "Ninh Thuận"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    108.86697833423037,
+                    11.70654754657592
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Code": "25",
+                "Name": "Phu Tho",
+                "infected": 3,
+                "death": 0,
+                "recovered": 3,
+                "active": 0,
+                "Name_VN": "Phú Thọ"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    105.11474624723681,
+                    21.31985075218017
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Code": "54",
+                "Name": "Phu Yen",
+                "infected": 26,
+                "death": 0,
+                "recovered": 25,
+                "active": 1,
+                "Name_VN": "Phú Yên"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    109.05565706456716,
+                    13.170387840063633
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Code": "44",
+                "Name": "Quang Binh",
+                "infected": 0,
+                "death": 0,
+                "recovered": 0,
+                "active": 0,
+                "Name_VN": "Quảng Bình"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    106.29034517493764,
+                    17.533306560173266
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Code": "49",
+                "Name": "Quang Nam",
+                "infected": 108,
+                "death": 3,
+                "recovered": 104,
+                "active": 1,
+                "Name_VN": "Quảng Nam"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    107.95646855237565,
+                    15.591306325986292
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Code": "51",
+                "Name": "Quang Ngai",
+                "infected": 7,
+                "death": 0,
+                "recovered": 7,
+                "active": 0,
+                "Name_VN": "Quảng Ngãi"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    108.64800727133647,
+                    14.993394972818452
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Code": "22",
+                "Name": "Quang Ninh",
+                "infected": 82,
+                "death": 0,
+                "recovered": 36,
+                "active": 46,
+                "Name_VN": "Quảng Ninh"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    107.25340865891356,
+                    21.239202479201253
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Code": "45",
+                "Name": "Quang Tri",
+                "infected": 7,
+                "death": 1,
+                "recovered": 6,
+                "active": 0,
+                "Name_VN": "Quảng Trị"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    106.92757899903727,
+                    16.747948829020956
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Code": "94",
+                "Name": "Soc Trang",
+                "infected": 0,
+                "death": 0,
+                "recovered": 0,
+                "active": 0,
+                "Name_VN": "Sóc Trăng"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    105.92213735213015,
+                    9.560186895494343
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Code": "14",
+                "Name": "Son La",
+                "infected": 0,
+                "death": 0,
+                "recovered": 0,
+                "active": 0,
+                "Name_VN": "Sơn La"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    104.06886317480664,
+                    21.19455213061176
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Code": "72",
+                "Name": "Tay Ninh",
+                "infected": 11,
+                "death": 0,
+                "recovered": 7,
+                "active": 4,
+                "Name_VN": "Tây Ninh"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    106.15972011677542,
+                    11.405648332102382
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Code": "34",
+                "Name": "Thai Binh",
+                "infected": 38,
+                "death": 0,
+                "recovered": 38,
+                "active": 0,
+                "Name_VN": "Thái Bình"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    106.38732564970677,
+                    20.50629457676857
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Code": "19",
+                "Name": "Thai Nguyen",
+                "infected": 1,
+                "death": 0,
+                "recovered": 1,
+                "active": 0,
+                "Name_VN": "Thái Nguyên"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    105.82197259295523,
+                    21.693605328353282
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Code": "38",
+                "Name": "Thanh Hoa",
+                "infected": 24,
+                "death": 0,
+                "recovered": 24,
+                "active": 0,
+                "Name_VN": "Thanh Hóa"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    105.31651143599346,
+                    20.047357569018097
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Code": "46",
+                "Name": "Thua Thien Hue",
+                "infected": 2,
+                "death": 0,
+                "recovered": 2,
+                "active": 0,
+                "Name_VN": "Thừa Thiên Huế"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    107.50649953130507,
+                    16.332879323636053
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Code": "82",
+                "Name": "Tien Giang",
+                "infected": 4,
+                "death": 0,
+                "recovered": 1,
+                "active": 3,
+                "Name_VN": "Tiền Giang"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    106.31240776245124,
+                    10.397171691345951
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Code": "79",
+                "Name": "Ho Chi Minh",
+                "infected": 211,
+                "death": 0,
+                "recovered": 168,
+                "active": 43,
+                "Name_VN": "Hồ Chí Minh"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    106.69533776491399,
+                    10.740669874093488
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Code": "84",
+                "Name": "Tra Vinh",
+                "infected": 8,
+                "death": 0,
+                "recovered": 8,
+                "active": 0,
+                "Name_VN": "Trà Vinh"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    106.31487309409883,
+                    9.79801224794934
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Code": "8",
+                "Name": "Tuyen Quang",
+                "infected": 0,
+                "death": 0,
+                "recovered": 0,
+                "active": 0,
+                "Name_VN": "Tuyên Quang"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    105.26618586282734,
+                    22.11367633152109
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Code": "86",
+                "Name": "Vinh Long",
+                "infected": 7,
+                "death": 0,
+                "recovered": 7,
+                "active": 0,
+                "Name_VN": "Vĩnh Long"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    105.98897441814714,
+                    10.102720275281014
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Code": "26",
+                "Name": "Vinh Phuc",
+                "infected": 19,
+                "death": 0,
+                "recovered": 19,
+                "active": 0,
+                "Name_VN": "Vĩnh Phúc"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    105.557554220582,
+                    21.36234502550401
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Code": "15",
+                "Name": "Yen Bai",
+                "infected": 0,
+                "death": 0,
+                "recovered": 0,
+                "active": 0,
+                "Name_VN": "Yên Bái"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    104.5668516919588,
+                    21.777693289676595
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Code": "48",
+                "Name": "Da Nang",
+                "infected": 425,
+                "death": 31,
+                "recovered": 388,
+                "active": 3,
+                "Name_VN": "Đà Nẵng"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    108.05820376741667,
+                    16.069411596049648
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Code": "56",
+                "Name": "Khanh Hoa",
+                "infected": 84,
+                "death": 0,
+                "recovered": 71,
+                "active": 13,
+                "Name_VN": "Khánh Hòa"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    109.02543626818803,
+                    12.3350778380871
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Code": "91",
+                "Name": "Kien Giang",
+                "infected": 1,
+                "death": 0,
+                "recovered": 1,
+                "active": 0,
+                "Name_VN": "Kiên Giang"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    105.04177448542238,
+                    9.975051448860407
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Code": "77",
+                "Name": "Ba Ria - Vung Tau",
+                "infected": 79,
+                "death": 0,
+                "recovered": 73,
+                "active": 6,
+                "Name_VN": "Bà Rịa - Vũng Tàu"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    107.28122260240858,
+                    10.58643909690639
+                ]
+            }
+        }
+    ]
+}

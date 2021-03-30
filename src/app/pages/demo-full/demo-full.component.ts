@@ -100,34 +100,15 @@ export class DemoFullComponent implements OnInit, OnDestroy {
             })
           }),
           new MangolLayerGroup({
-            name: 'Overlays',
+            name: 'Layers',
             children: [
-              new MangolLayer({
-                name: 'Roads',
-                queryable: true,
-                querySrs: 'EPSG:900913',
-                layer: new TileLayer({
-                  source: new TileWMS({
-                    url:'',
-                      // 'http://188.166.116.137:8080/geoserver/gwc/service/wms',
-                    crossOrigin: 'anonymous',
-                    params: {
-                      LAYERS: ['naturalearth:roads'],
-                      format: 'image/png',
-                      SRS: 'EPSG:900913'
-                    }
-                  }),
-                  opacity: 0.5,
-                  visible: true
-                })
-              }),
               new MangolLayerGroup({
                 name: 'Coutries & Cities',
                 children: [
                   new MangolLayer({
                     name: 'Country borders',
                     queryable: true,
-                    querySrs: 'EPSG:900913',
+                    querySrs: 'EPSG:4326',
                     details:
                       'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
                       layer: new VectorLayer({
@@ -135,25 +116,43 @@ export class DemoFullComponent implements OnInit, OnDestroy {
                           url: 'assets/geojson/countries.geojson',
                           format: new pseudoGeoJSONFormat({
                             dataProjection: 'EPSG:4326',
-                            featureProjection: 'EPSG:900913'
+                            featureProjection: 'EPSG:4326'
                           })
                         })
                       })
                   }),
                   new MangolLayer({
-                    name: 'Cities',
+                    name: 'Province',
                     queryable: true,
-                    querySrs: 'EPSG:900913',
-                    layer: new TileLayer({
-                      source: new TileWMS({
-                        url:'',
+                    querySrs: 'EPSG:4326',
+                    layer: new VectorLayer({
+                      source: new VectorSource({
+                        url:'assets/geojson/province.geojson',
                           // 'http://188.166.116.137:8080/geoserver/gwc/service/wms',
-                        crossOrigin: 'anonymous',
-                        params: {
-                          LAYERS: ['naturalearth:populated_places'],
-                          format: 'image/png',
-                          SRS: 'EPSG:900913'
-                        }
+                        format: new pseudoGeoJSONFormat({
+                          dataProjection: 'EPSG:4326',
+                          featureProjection: 'EPSG:4326'
+                        })
+                      }),
+                      visible: true
+                    })
+                  })
+                ]
+              }),
+              new MangolLayerGroup({
+                name: 'Coronavirus (COVID-19)',
+                children: [
+                  new MangolLayer({
+                    name: 'Covid-19',
+                    queryable: true,
+                    querySrs: 'EPSG:4326',
+                    layer: new VectorLayer({
+                      source: new VectorSource({
+                        url:'assets/geojson/covid19.geojson',
+                        format: new pseudoGeoJSONFormat({
+                          dataProjection: 'EPSG:4326',
+                          featureProjection: 'EPSG:4326'
+                        })
                       }),
                       visible: true
                     })
@@ -184,7 +183,7 @@ export class DemoFullComponent implements OnInit, OnDestroy {
             title: 'Feature info'
           },
           // measure: { disabled: false },
-          // print: { disabled: false }
+          print: { disabled: false }
         }
       }
     };
