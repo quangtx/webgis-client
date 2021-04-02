@@ -1,0 +1,92 @@
+<div class="container">
+	<form [formGroup]="registerForm" (ngSubmit)="onSignUp()" id="signUp">
+		<h3>Create Your Account</h3>
+  <div class="display-flex">
+    <mat-form-field class="example-full-width" style="margin-right: 10px">
+      <mat-label>First Name</mat-label>
+      <input matInput formControlName="firstName" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" placeholder="Enter First Name" type="text" value="" reqired autocomplete='off'>
+        <mat-error *ngIf="f.firstName.errors && submitted && f.firstName.errors.required">
+          First Name is <strong>required</strong>
+        </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Last Name</mat-label>
+      <input matInput formControlName="lastName" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" placeholder="Enter Last Name" type="text" value="" reqired autocomplete='off'>
+        <mat-error *ngIf="f.lastName.errors && submitted && f.lastName.errors.required">
+          Last Name is <strong>required</strong>
+        </mat-error>
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field class="example-full-width">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" placeholder="Enter Email" type="email" value="" reqired autocomplete='off'>
+        <mat-error *ngIf="f.email.errors && submitted && f.email.errors.required">
+          Email is <strong>required</strong>
+        </mat-error>
+    </mat-form-field>
+  </div>
+    <div>
+      <mat-form-field class="example-full-width">
+        <mat-label>Username</mat-label>
+        <input matInput formControlName="username" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" placeholder="Enter Username" type="text" value="" reqired autocomplete='off'>
+          <mat-error *ngIf="f.username.errors && submitted && f.username.errors.required">
+            Username is <strong>required</strong>
+          </mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field class="example-full-width">
+        <mat-label>Password</mat-label>
+        <input matInput formControlName="password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" placeholder="Enter Password" type="password" value="" reqired autocomplete='off'>
+          <mat-error *ngIf="f.password.errors && submitted && f.password.errors.required">
+            Password is <strong>required</strong>
+          </mat-error>
+          <mat-error *ngIf="f.password.errors && submitted && f.password.errors.minLength">
+            password must be <strong>6 characters</strong> or more
+          </mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field class="example-full-width">
+        <mat-label>Confirm Password</mat-label>
+        <input formControlName="confirmPassword" [ngClass]="{ 'is-invalid': submitted && f.confirmPassword.errors }" matInput placeholder="Enter Confirm Password" type="password" value="" reqired autocomplete='off'>
+          <mat-error *ngIf="f.confirmPassword.errors && submitted && f.confirmPassword.errors.required">
+            Confirm password is <strong>required</strong>
+          </mat-error>
+          <mat-error *ngIf="f.confirmPassword.errors && submitted && f.confirmPassword.errors.mustMatch">
+            Password and Confirm Password <strong>must be match</strong>
+          </mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+        <mat-checkbox matInput formControlName="acceptTerms" [ngClass]="{ 'is-invalid': submitted && f.acceptTerms.errors }">I agree to the Terms and Conditions. </mat-checkbox>
+        <mat-checkbox matInput formControlName="acceptTerms" [ngClass]="{ 'is-invalid': submitted && f.acceptTerms.errors }" > I agree to the Privacy Policy.</mat-checkbox>
+    </div>
+    <button id="log-in" class="form-btn sx" type="button">Log In</button>
+		<button class="form-btn dx" type="submit">Sign Up</button>
+  </form>
+
+	<form [formGroup]="loginForm" (ngSubmit)="onSignIn()" id="signIn">
+		<h3>Welcome Back !</h3>
+		<button class="fb" type="button">Log In With Facebook</button>
+		<p>- or -</p>
+    <mat-form-field class="example-full-width">
+      <mat-label>Username</mat-label>
+      <input matInput formControlName="username" placeholder="Enter Username" type="text" value="" reqired autocomplete='off'>
+      <mat-error *ngIf="f.username.errors && submitted && f.username.errors.required">
+        Username is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <mat-label>Password</mat-label>
+      <input matInput formControlName="password" placeholder="Enter Password" type="password" value="" reqired autocomplete='off'>
+      <mat-error *ngIf="f.password.errors && submitted && f.password.errors.required">
+        Password is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+		<button id="btnBack" class="form-btn sx" type="button">Back</button>
+		<button class="form-btn dx" type="submit">Log In</button>
+	</form>
+</div>

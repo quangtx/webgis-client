@@ -10,20 +10,21 @@ import { filter, map } from 'rxjs/operators';
 
 import { MangolLayer } from '../../../../projects/mangol/src/lib/classes/Layer';
 import { AppService } from '../../app.service';
-import { MangolLayerGroup } from './../../../../projects/mangol/src/lib/classes/LayerGroup';
-import { MangolConfig } from './../../../../projects/mangol/src/lib/interfaces/config.interface';
-import { MangolService } from './../../../../projects/mangol/src/lib/mangol.service';
+import { MangolLayerGroup } from '../../../../projects/mangol/src/lib/classes/LayerGroup';
+import { MangolConfig } from '../../../../projects/mangol/src/lib/interfaces/config.interface';
+import { MangolService } from '../../../../projects/mangol/src/lib/mangol.service';
 import { code } from './code';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import GeoJSON from 'ol/format/GeoJSON';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
-  selector: 'app-demo-full',
-  templateUrl: './demo-full.component.html',
-  styleUrls: ['./demo-full.component.scss']
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.scss']
 })
-export class DemoFullComponent implements OnInit, OnDestroy {
+export class HomeComponent implements OnInit, OnDestroy {
   mangolConfig: MangolConfig;
   sidebarOpenedSubscription: Subscription;
 
@@ -31,7 +32,9 @@ export class DemoFullComponent implements OnInit, OnDestroy {
 
   constructor(
     private appService: AppService,
-    private mangolService: MangolService
+    private mangolService: MangolService,
+    private cookieService: CookieService
+
   ) {
     this.sidebarOpenedSubscription = this.appService.sidebarOpenedSubject.subscribe(
       opened => {
@@ -52,10 +55,11 @@ export class DemoFullComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    console.warn('cookie', this.cookieService.get('auth_token'));
     const pseudoGeoJSONFormat = <any>GeoJSON;
     this.mangolConfig = {
       map: {
-        target: 'mangol-demo-full',
+        target: 'mangol-home',
         view: new View({
           projection: 'EPSG:4326',
           center: fromLonLat(

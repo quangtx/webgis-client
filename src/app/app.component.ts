@@ -88,7 +88,7 @@ export class AppComponent implements OnInit, DoCheck, OnDestroy {
         title: 'Print'
       },
       {
-        number: '/demo-full',
+        number: '/home',
         title: 'Full functionality'
       }
     ];

@@ -3,8 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  SECRET_KEY: 'aGFzaHBhc3N3b3Jk', // hashpassword encode with base64
 };
+
 
 /*
  * In development mode, to ignore zone related error stack frames such as
