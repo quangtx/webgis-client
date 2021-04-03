@@ -5,7 +5,11 @@ import { EncrDecrService } from '../../EncrDecr/encr-decr.service';
 import { environment } from '../../../environments/environment';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+<<<<<<< HEAD
 import axios from 'axios';
+=======
+import axios from 'axios'
+>>>>>>> 875d0a9acd701e03af227202166c2221a2fa33f7
 import { CookieService } from 'ngx-cookie-service';
 
 
