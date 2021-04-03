@@ -34,7 +34,40 @@
             <mat-grid-tile>
                 <mat-card>
                     <mat-card-content>
-                        The infomation once
+                        abbcccc
+                        <!-- <form class="text-center border border-light p-5" method="POST" action="#">
+                            <p class="h4 mb-4">Nhập dữ liệu nguồn thải</p> -->
+                        <!-- kinh do -->
+                        <!-- <input type="number" id="x-lat" class="form-control mb-4" placeholder="lat"><br> -->
+                        <!-- vi do -->
+                        <!-- <input type="number" id="y-long" class="form-control mb-4" placeholder="long"><br>
+                        <hr  style="width:50%;text-align:left;margin-left:0; color:aqua;">
+                        <label aria-controls="active">Thông tin thuộc tính</label><br>
+                        <input type="text" id="intensity" name="intensity" class="form-control mb-4" placeholder="Ví trí x"><br>
+                        <input type="text" id="severity" name="severity" class="form-control mb-4" placeholder="vị trí y"><br>
+                        <input type="text" id="value" name="value" class="form-control mb-4" placeholder="Thuộc Huyện"><br>
+                        <input type="text" id="unit" name="unit" class="form-control mb-4" placeholder="Thuộc Tỉnh"><br> -->
+                        <!-- Sign in button -->
+                        <!-- <button mdbBtn color="info" block="true" class="my-4" type="submit">Cập Nhật</button>
+                      </form> -->
+
+
+                        <form [formGroup]="createPoint" (ngSubmit)="onSubmit()" id="createPoint" action="#" method="POST">
+                            <p class="h4 mb-4">Nhập dữ liệu nguồn thải</p>
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Lat</mat-label>
+                                <input matInput formControlName="lat" placeholder="Enter lat" type="text" value="" reqired autocomplete='off'>
+                            </mat-form-field>
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Long</mat-label>
+                                <input matInput formControlName="long" placeholder="Enter Long" type="text" value="" reqired autocomplete='off'>
+                            </mat-form-field>
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Tại Xã</mat-label>
+                                <input matInput formControlName="description" placeholder="Enter description" type="text" value="" autocomplete='off'>
+                            </mat-form-field>
+                            <button class="form-btn dx" type="submit">Cập Nhật</button>
+                        </form>
                     </mat-card-content>
                 </mat-card>
             </mat-grid-tile>

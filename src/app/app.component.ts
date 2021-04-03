@@ -15,6 +15,7 @@ import {
   sidebarButtonStateTrigger
 } from './app.animations';
 import { AppService } from './app.service';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 export interface MangolDemoItem {
   number: string;
@@ -40,11 +41,12 @@ export class AppComponent implements OnInit, DoCheck, OnDestroy {
   sidebarOpened: boolean;
   sidebarOpenedSubscription: Subscription;
   activeRouteData = '/demo-home';
-
+  createPoint: FormGroup;
   constructor(
     private cdr: ChangeDetectorRef,
     private appService: AppService,
-    private router: Router
+    private router: Router,
+    private formBuilder: FormBuilder,
   ) {
     this.sidebarOpenedSubscription = this.appService.sidebarOpenedSubject.subscribe(
       opened => {
@@ -58,6 +60,11 @@ export class AppComponent implements OnInit, DoCheck, OnDestroy {
 
   ngOnInit() {
     this.logo = 'assets/img/logo/mangol_logo.png';
+    this.createPoint = this.formBuilder.group({
+      lat: ['', [Validators.required]],
+      long: ['', [Validators.required]],
+      description: ['', [Validators.required]]
+    })
     this.items = [
       {
         number: '/demo-map',
