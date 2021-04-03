@@ -1,0 +1,73 @@
+@import "../../assets/scss/mangol";
+:host {
+    display: block;
+}
+
+.elements-left {
+    left: 20px;
+    top: 20px;
+    position: absolute;
+    z-index: 10;
+}
+
+.elements-right {
+    position: absolute;
+    z-index: 10;
+    bottom: 20px;
+    right: 20px;
+}
+
+.elements-top-right {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    z-index: 10;
+    top: 100px;
+    right: 20px;
+}
+
+.elements-bottom-right {
+    position: absolute;
+    z-index: 10;
+    bottom: 3rem;
+    right: 1rem;
+}
+.layer-tabs {
+    background-color: white;
+    opacity: 0.8;
+    border-radius: 20px;
+}
+mat-tab-group {
+    width: 300px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+}
+::ng-deep.mat-tab-label-container {
+    height: 50px;
+}
+::ng-deep.mat-tab-label, ::ng-deep.mat-tab-label-active{
+    min-width: 50px!important;
+    padding: 3px!important;
+    margin: 3px!important;
+    height: 50px!important;
+}
+.gird-row {
+    display: flex;
+}
+
+app-measure-line-button {
+    margin-top: 1rem;
+}
+
+app-measure-area-button {
+    margin-top: 1rem;
+}
+
+app-measure-radius-button {
+    margin-top: 1rem;
+}
+
+app-measure-point-button {
+    margin-top: 1rem;
+}

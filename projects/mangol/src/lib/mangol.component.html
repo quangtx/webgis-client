@@ -1,0 +1,5 @@
+<mat-drawer-container>
+    <mangol-tabs *ngIf="(visiable$ | async)"></mangol-tabs>
+    <mangol-controllers *ngIf="(map$ | async) !== null" ></mangol-controllers>
+    <mangol-map [config]="config"></mangol-map>
+</mat-drawer-container>

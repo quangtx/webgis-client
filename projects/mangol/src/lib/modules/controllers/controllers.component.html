@@ -1,0 +1,18 @@
+<div class="elements-bottom-right" >
+    <mangol-zoom-buttons *ngIf="(zoom$ | async).show"></mangol-zoom-buttons>
+</div>
+<div class="elements-top-right" >
+    <app-layers-button iconName="layers" [(visiable)]="visiable"></app-layers-button>
+    <app-measure-line-button></app-measure-line-button>
+    <app-measure-area-button></app-measure-area-button>
+    <app-measure-radius-button></app-measure-radius-button>
+    <app-measure-point-button></app-measure-point-button>
+</div>
+<div class="elements-left">
+    <mangol-rotation-button *ngIf="(rotation$ | async).show"></mangol-rotation-button>
+    <mangol-fullscreen-button *ngIf="(fullScreen$ | async).show"></mangol-fullscreen-button>
+</div>
+<div class="elements-right">
+    <mangol-position *ngIf="(position$ | async).show"></mangol-position>
+</div>
+<mangol-cursor></mangol-cursor>

@@ -1,0 +1,9 @@
+<button mat-mini-fab
+  (click)="setPoint('point')"
+  [matTooltip]="(point$ | async).dictionary.point"
+  [matTooltipDisabled]="!(point$ | async).showTooltip"
+  matTooltipPosition="after"
+  color="primary"
+>
+  <mat-icon>gps_fixed</mat-icon>
+  </button>

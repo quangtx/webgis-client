@@ -1,0 +1,9 @@
+<button mat-mini-fab
+  (click)="setRadius('radius')"
+  [matTooltip]="(radius$ | async).dictionary.radius"
+  [matTooltipDisabled]="!(radius$ | async).showTooltip"
+  matTooltipPosition="after"
+  color="primary"
+>
+  <mat-icon>panorama_fish_eye</mat-icon>
+  </button>

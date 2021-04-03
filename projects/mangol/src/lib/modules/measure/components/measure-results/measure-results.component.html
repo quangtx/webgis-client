@@ -1,0 +1,6 @@
+<div class="results"
+    *ngIf="displayValue !== null">
+    <mat-icon [fontSet]="(measureMode$ | async).fontSet"
+        [fontIcon]="(measureMode$ | async).fontIcon"></mat-icon>
+    {{displayValue}}
+</div>

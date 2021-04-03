@@ -1,0 +1,30 @@
+{
+  "users": [
+    {
+      "username": "truongdinh",
+      "password": "SoZzTnBcu0f4CQFmm7M4PA==",
+      "email": "truongdinh@gmail.com",
+      "token": "61YHBFQuywUvNazH+kfY5AxOWzNMfMS6P4W2ZVoRuVGXdom1azBAZj/Js7eNGzPaHHWAIf6+OL7PS2E6n0l8F9vaLAyZMmQIIBCCRLw6+go=",
+      "exprise_at": 3600,
+      "id": 1
+    },
+    {
+      "username": "baoyen56",
+      "password": "4ApSkCVpqTkmZfePhqmJjg==",
+      "email": "yenvu056@gmail.com",
+      "token": "nX7AaQIRS3x6eimsJtoLfCgnbR8LgL3InNKS/5WX0IJFsSNRrX60Xouh3FoD39f7MXgpu6AQWLu1WM02ptjnnpekPqs135gReHAwYuQTONE=",
+      "exprise_at": 3600,
+      "id": 2
+    },
+    {
+      "firt_name": "admin",
+      "last_name": "admin",
+      "username": "admin",
+      "password": "4ApSkCVpqTkmZfePhqmJjg==",
+      "email": "baoyen@gmail.com",
+      "token": "",
+      "exprise_at": 3600,
+      "id": 3
+    }
+  ]
+}
