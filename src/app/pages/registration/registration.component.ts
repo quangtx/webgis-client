@@ -6,7 +6,7 @@ import { environment } from '../../../environments/environment';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import axios from 'axios';
-import { CookieService } from 'ngx-cookie-service';
+import { AuthGuardService } from 'src/app/AuthGuard/auth-guard.service';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -23,16 +23,18 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 export class RegistrationComponent implements OnInit {
   registerForm: FormGroup;
   submitted = false;
+  apiUrl = environment.baseUrlApi
 
   constructor(
     private formBuilder: FormBuilder,
     private EncrDecr: EncrDecrService,
     private _snackBar: MatSnackBar,
     private router: Router,
-    private cookieService: CookieService
+    private authGuard: AuthGuardService
   ) { }
 
   ngOnInit() {
+    this.authGuard.canActivate();
     this.registerForm = this.formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
@@ -67,32 +69,49 @@ export class RegistrationComponent implements OnInit {
 
   get f() { return this.registerForm.controls; }
 
-  onSignUp() {
+  /**
+   * Sign up
+   */
+  async onSignUp() {
     this.submitted = true;
+    const form = this.registerForm.value;
+    let resExist = await axios.get(this.apiUrl + 'users?username=' + form.username.trim())
     // stop here if form is invalid
-    if (this.registerForm.invalid) {
+    if (this.registerForm.invalid || (resExist && resExist.data)) {
+        if(resExist && resExist.data) {
+          this.openSnackBar('Tài khoản đã tồn tại', 'Đóng')
+        }
+
         return;
     }
-    const form = this.registerForm.value;
+
     var passwordEncrypted = this.EncrDecr.set(environment.SECRET_KEY, form.password);
     const data = {
       firt_name: form.firstName,
       last_name: form.lastName,
-      username: form.username,
+      username: form.username.trim(),
       password: passwordEncrypted,
       email: form.email,
       token: '',
       exprise_at: 3600
     }
-    axios.post("http://localhost:3000/users", data )
+    axios.post(this.apiUrl + "users", data )
     .then((response) => {
       if(response && response.data) {
-        const res = response.data
+        this.openSnackBar('Đăng ký thành viên thành công', 'Đóng')
+        this.router.navigate(['/'])
       }
     })
     .catch((error) => {
         console.log(error);
     });
+  }
+
+  /**
+   * Cancel registration
+   */
+  cancel() {
+    this.router.navigate(['/'])
   }
 
   openSnackBar(message: string, action: string) {

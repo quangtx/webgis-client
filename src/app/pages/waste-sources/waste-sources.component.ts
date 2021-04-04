@@ -16,7 +16,6 @@ import { Constants } from '../../global/constants'
 import axios from 'axios'
 import { SnackBarService } from '../../SnackBar/snack-bar.service'
 import { environment } from '../../../environments/environment'
-import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import * as fromMangol from 'projects/mangol/src/lib/store/mangol.reducers';
 import { MangolControllersPositionStateModel } from 'projects/mangol/src/lib/store/controllers/controllers.reducers';
@@ -127,7 +126,6 @@ export class WasteSourcesComponent implements OnInit, DoCheck {
    * Watching select change option.
    */
   changeDistrict(districtId) {
-    console.warn('districtId', districtId);
   }
 
   /**

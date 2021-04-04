@@ -18,6 +18,7 @@ import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import GeoJSON from 'ol/format/GeoJSON';
 import { CookieService } from 'ngx-cookie-service';
+import { AuthGuardService } from '../../AuthGuard/auth-guard.service'
 
 @Component({
   selector: 'app-home',
@@ -33,8 +34,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   constructor(
     private appService: AppService,
     private mangolService: MangolService,
-    private cookieService: CookieService
-
+    private cookieService: CookieService,
+    private authGuard: AuthGuardService
   ) {
     this.sidebarOpenedSubscription = this.appService.sidebarOpenedSubject.subscribe(
       opened => {
@@ -55,6 +56,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.authGuard.canActivate();
     console.warn('cookie', this.cookieService.get('auth_token'));
     const pseudoGeoJSONFormat = <any>GeoJSON;
     this.mangolConfig = {

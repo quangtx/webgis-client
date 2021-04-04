@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { CookieService } from 'ngx-cookie-service';
 
 import {
   homeButtonStateTrigger,
@@ -48,6 +49,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private _snackBar: MatSnackBar,
     private router: Router,
     private formBuilder: FormBuilder,
+    private cookieService: CookieService,
   ) {
     this.sidebarOpenedSubscription = this.appService.sidebarOpenedSubject.subscribe(
       opened => {
@@ -104,7 +106,10 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   toggleSidebar() {
-    this.appService.sidebarOpenedSubject.next(!this.sidebarOpened);
+    let token = this.cookieService.get('auth_token');
+    if(token && this.router.url == '/') {
+      this.appService.sidebarOpenedSubject.next(!this.sidebarOpened);
+    }
   }
 
   getAnimationData(outlet: RouterOutlet) {
@@ -130,7 +135,7 @@ export class AppComponent implements OnInit, OnDestroy {
     if (window.innerWidth <= 1000) {
       this.appService.sidebarOpenedSubject.next(false);
     }
-    this.router.navigate(['/demo-home']);
+    this.router.navigate(['/']);
   }
 
   onSubmit() {
@@ -141,5 +146,20 @@ export class AppComponent implements OnInit, OnDestroy {
     this._snackBar.open(message, action, {
       duration: 2000,
     });
+  }
+
+  /**
+   * Logout
+   */
+  logout() {
+    this.cookieService.set('auth_token',  '', 0);
+    this.router.navigate(['/login']);
+  }
+
+  /**
+   * Registration member
+   */
+  registration() {
+    this.router.navigate(['/registration']);
   }
 }

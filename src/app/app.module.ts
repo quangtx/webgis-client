@@ -11,7 +11,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSelectModule } from '@angular/material/select';
 import { BrowserModule } from '@angular/platform-browser';
+import { MatMenuModule } from '@angular/material/menu';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 import { MangolService } from '../../projects/mangol/src/lib/mangol.service';
 import { MangolModule } from './../../projects/mangol/src/lib/mangol.module';
@@ -68,6 +70,7 @@ import { CookieService } from 'ngx-cookie-service';
     MatInputModule,
     MatCheckboxModule,
     MatSelectModule,
+    MatMenuModule,
     AppRoutingModule,
     MangolModule,
     MatTooltipModule,

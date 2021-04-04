@@ -1,17 +1,32 @@
 <mat-toolbar>
-    <mat-toolbar-row>
-        <button mat-icon-button class="sidebar-button" [matTooltip]="sidebarOpened ? 'Hide demos' : 'Show demos'"
-            matTooltipPosition="below" [@sidebarButtonState]="sidebarOpened ? 'opened' : 'closed'"
-            (click)="toggleSidebar()">
-            <mat-icon>keyboard_arrow_left</mat-icon>
-        </button>
-        <button mat-icon-button *ngIf="activeRouteData !== '/'" class="sidebar-button"
-            matTooltip="Go back to Start Page" matTooltipPosition="below" (click)="navigateHome()" @homeButtonState>
-            <mat-icon>home</mat-icon>
-        </button>
-        <div class="title">
+    <mat-toolbar-row class="display-flex space-between">
+        <div>
+            <button mat-icon-button class="sidebar-button" [matTooltip]="sidebarOpened ? 'Hide demos' : 'Show demos'"
+                matTooltipPosition="below" [@sidebarButtonState]="sidebarOpened ? 'opened' : 'closed'"
+                (click)="toggleSidebar()">
+                <mat-icon>keyboard_arrow_left</mat-icon>
+            </button>
+            <button mat-icon-button *ngIf="activeRouteData !== '/'" class="sidebar-button"
+                matTooltip="Go back to Start Page" matTooltipPosition="below" (click)="navigateHome()" @homeButtonState>
+                <mat-icon>home</mat-icon>
+            </button>
+            <div class="title">
+            </div>
+            <span class="fill-remaining-space"></span>
         </div>
-        <span class="fill-remaining-space"></span>
+        <div>
+            <button mat-mini-fab color="primary" [matMenuTriggerFor]="menu" aria-label="">
+                <mat-icon>person</mat-icon>
+              </button>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item  (click)="registration()" >
+                    <mat-icon>person_add</mat-icon>
+                    Tạo mới thành viên
+                </button>
+                <button mat-menu-item> <mat-icon>info</mat-icon> Thông tin tài khoản</button>
+                <button mat-menu-item (click)="logout()"> <mat-icon>logout</mat-icon> Đăng xuất</button>
+            </mat-menu>
+        </div>
     </mat-toolbar-row>
 </mat-toolbar>
 <mat-drawer-container class="demo-drawer-container" autosize>

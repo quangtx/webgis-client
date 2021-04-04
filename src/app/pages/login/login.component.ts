@@ -24,6 +24,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   submitted = false;
+  apiUrl = environment.baseUrlApi;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -65,18 +66,18 @@ export class LoginComponent implements OnInit {
     let username = this.loginForm.value.username
     let password = this.loginForm.value.password
 
-    axios.get("http://localhost:3000/users?username=" +username)
+    axios.get(this.apiUrl + "users?username=" +username)
     .then((response) => {
       if(response && response.data) {
         const res = response.data
         if(Array.isArray(res) && res.length) {
           var passwordDecrypted = this.EncrDecr.get(environment.SECRET_KEY, res[0].password);
           if(password === passwordDecrypted) {
-            this.openSnackBar('Login completed!', 'Login')
+            this.openSnackBar('Đăng nhập thành công!', 'Đóng')
             this.generateToken(res[0])
             this.router.navigate(['/']);
           }else {
-            this.openSnackBar('Login faile! Username or password incorrect!', 'Login')
+            this.openSnackBar('Đăng nhập lỗi! Tài khoản hoặc mật khẩu không chính xác!', 'Đóng')
           }
         }
       }
@@ -89,7 +90,7 @@ export class LoginComponent implements OnInit {
   generateToken(userInfo) {
     let token = userInfo.username + ':'+ userInfo.password + ':' + userInfo.first_name + ':'+ userInfo.last_name + ':'+ userInfo.email;
     var tokenEncrypted = this.EncrDecr.set(environment.SECRET_KEY, token);
-    axios.put('http://localhost:3000/users/' + userInfo.id, {
+    axios.put(this.apiUrl + 'users/' + userInfo.id, {
       firt_name: userInfo.firstName,
       last_name: userInfo.lastName,
       username: userInfo.username,
@@ -98,9 +99,8 @@ export class LoginComponent implements OnInit {
       token: tokenEncrypted,
       exprise_at: 3600
     }).then(res => {
-      this.cookieService.set('auth_token',  tokenEncrypted);
       let time  = parseInt((new Date('2012.08.10').getTime() / 1000).toFixed(0)) + 3600;
-      this.cookieService.set('exprise_at',  time.toString());
+      this.cookieService.set('auth_token',  tokenEncrypted, time);
     })
   }
 

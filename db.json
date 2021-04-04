@@ -17,17 +17,15 @@
       "id": 2
     },
     {
-      "firt_name": "admin",
-      "last_name": "admin",
       "username": "admin",
       "password": "4ApSkCVpqTkmZfePhqmJjg==",
       "email": "baoyen@gmail.com",
-      "token": "",
+      "token": "CvIl4gOBbLK+HoSr5P58Q2QrxwFMcXbI0SRcskkDlH09JSh8S0dzOdqyz4Jkh2tx7/xA+my7ky8BtfnAHZSrpA==",
       "exprise_at": 3600,
       "id": 3
     }
   ],
-  "dischargeWastewaterMethods" : [
+  "dischargeWastewaterMethods": [
     {
       "id": 1,
       "name": "Bơm",
