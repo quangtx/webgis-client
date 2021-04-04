@@ -198,6 +198,14 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
+  private meters2degress (x,y) {
+    var lon = (x *  180 / 20037508.34).toFixed(this.position.precision) ;
+    //thanks magichim @ github for the correction
+    var lat = (Math.atan(Math.exp(y * Math.PI / 20037508.34)) * 360 / Math.PI - 90).toFixed(this.position.precision);
+
+    return [+lon, +lat]
+  }
+
   /**
    * Formats a pair of coordinates bz a given precision
    * @param coords
@@ -208,7 +216,8 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       coord = parseFloat(coord).toFixed(this.position.precision);
       formattedCoords.push(coord);
     });
-    return formattedCoords;
+
+    return this.meters2degress(formattedCoords[0], formattedCoords[1]);
   }
 
   /**

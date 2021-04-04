@@ -9,6 +9,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSelectModule } from '@angular/material/select';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -23,6 +24,8 @@ import { DemoControllersComponent } from './pages/demo-controllers/demo-controll
 import { DemoFeatureinfoComponent } from './pages/demo-featureinfo/demo-featureinfo.component';
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
+import { RegistrationComponent } from './pages/registration/registration.component';
+import { WasteSourcesComponent } from './pages/waste-sources/waste-sources.component';
 import { DemoHomeComponent } from './pages/demo-home/demo-home.component';
 import { DemoLayertreeComponent } from './pages/demo-layertree/demo-layertree.component';
 import { DemoMapComponent } from './pages/demo-map/demo-map.component';
@@ -44,6 +47,8 @@ import { CookieService } from 'ngx-cookie-service';
     PrettyPrintComponent,
     HomeComponent,
     LoginComponent,
+    RegistrationComponent,
+    WasteSourcesComponent,
     ApiComponent,
     DemoFeatureinfoComponent,
     DemoSidebarComponent,
@@ -62,6 +67,7 @@ import { CookieService } from 'ngx-cookie-service';
     MatToolbarModule,
     MatInputModule,
     MatCheckboxModule,
+    MatSelectModule,
     AppRoutingModule,
     MangolModule,
     MatTooltipModule,

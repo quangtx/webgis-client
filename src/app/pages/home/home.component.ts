@@ -61,10 +61,10 @@ export class HomeComponent implements OnInit, OnDestroy {
       map: {
         target: 'mangol-home',
         view: new View({
-          projection: 'EPSG:4326',
+          projection: 'EPSG:900913',
           center: fromLonLat(
             [108.083496, 15.919074],
-            'EPSG:4326'
+            'EPSG:900913'
           ),
           zoom: 6,
           minZoom: 6,
@@ -112,15 +112,15 @@ export class HomeComponent implements OnInit, OnDestroy {
                   new MangolLayer({
                     name: 'Country borders',
                     queryable: true,
-                    querySrs: 'EPSG:4326',
+                    querySrs: 'EPSG:900913',
                     details:
                       'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
                       layer: new VectorLayer({
                         source: new VectorSource({
                           url: 'assets/geojson/countries.geojson',
                           format: new pseudoGeoJSONFormat({
-                            dataProjection: 'EPSG:4326',
-                            featureProjection: 'EPSG:4326'
+                            dataProjection: 'EPSG:900913',
+                            featureProjection: 'EPSG:900913'
                           })
                         })
                       })
@@ -128,14 +128,14 @@ export class HomeComponent implements OnInit, OnDestroy {
                   new MangolLayer({
                     name: 'Province',
                     queryable: true,
-                    querySrs: 'EPSG:4326',
+                    querySrs: 'EPSG:900913',
                     layer: new VectorLayer({
                       source: new VectorSource({
                         url:'assets/geojson/province.geojson',
                           // 'http://188.166.116.137:8080/geoserver/gwc/service/wms',
                         format: new pseudoGeoJSONFormat({
-                          dataProjection: 'EPSG:4326',
-                          featureProjection: 'EPSG:4326'
+                          dataProjection: 'EPSG:900913',
+                          featureProjection: 'EPSG:900913'
                         })
                       }),
                       visible: true
@@ -149,13 +149,13 @@ export class HomeComponent implements OnInit, OnDestroy {
                   new MangolLayer({
                     name: 'Covid-19',
                     queryable: true,
-                    querySrs: 'EPSG:4326',
+                    querySrs: 'EPSG:900913',
                     layer: new VectorLayer({
                       source: new VectorSource({
                         url:'assets/geojson/covid19.geojson',
                         format: new pseudoGeoJSONFormat({
-                          dataProjection: 'EPSG:4326',
-                          featureProjection: 'EPSG:4326'
+                          dataProjection: 'EPSG:900913',
+                          featureProjection: 'EPSG:900913'
                         })
                       }),
                       visible: true

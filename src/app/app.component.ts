@@ -16,6 +16,7 @@ import {
 } from './app.animations';
 import { AppService } from './app.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 export interface MangolDemoItem {
   number: string;
@@ -35,7 +36,7 @@ declare var window: any;
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AppComponent implements OnInit, DoCheck, OnDestroy {
+export class AppComponent implements OnInit, OnDestroy {
   items: MangolDemoItem[];
   logo: string;
   sidebarOpened: boolean;
@@ -43,8 +44,8 @@ export class AppComponent implements OnInit, DoCheck, OnDestroy {
   activeRouteData = '/demo-home';
   createPoint: FormGroup;
   constructor(
-    private cdr: ChangeDetectorRef,
     private appService: AppService,
+    private _snackBar: MatSnackBar,
     private router: Router,
     private formBuilder: FormBuilder,
   ) {
@@ -60,11 +61,6 @@ export class AppComponent implements OnInit, DoCheck, OnDestroy {
 
   ngOnInit() {
     this.logo = 'assets/img/logo/mangol_logo.png';
-    this.createPoint = this.formBuilder.group({
-      lat: ['', [Validators.required]],
-      long: ['', [Validators.required]],
-      description: ['', [Validators.required]]
-    })
     this.items = [
       {
         number: '/demo-map',
@@ -101,10 +97,6 @@ export class AppComponent implements OnInit, DoCheck, OnDestroy {
     ];
   }
 
-  ngDoCheck() {
-    this.cdr.detectChanges();
-  }
-
   ngOnDestroy() {
     if (this.sidebarOpenedSubscription) {
       this.sidebarOpenedSubscription.unsubscribe();
@@ -139,5 +131,15 @@ export class AppComponent implements OnInit, DoCheck, OnDestroy {
       this.appService.sidebarOpenedSubject.next(false);
     }
     this.router.navigate(['/demo-home']);
+  }
+
+  onSubmit() {
+    this.openSnackBar('Submit form', 'Submit')
+  }
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 2000,
+    });
   }
 }

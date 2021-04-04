@@ -32,10 +32,19 @@ export class MeasureService {
         })
       }),
       new Style({
+        image: new CircleStyle({
+          radius: 2,
+          fill: new Fill({
+            color: [255, 0, 0, 0]
+          }),
+          stroke: new Stroke({color: 'red', width: 2}),
+        }),
+      }),
+      new Style({
         stroke: new Stroke({
           color: [28, 28, 28, 1],
           width: 2,
-          lineDash: [5, 5]
+          // lineDash: [5, 5]
         }),
         text: new Text({
           textAlign: 'center',
@@ -52,7 +61,7 @@ export class MeasureService {
           }),
           overflow: true,
           offsetX: 0,
-          offsetY: 0,
+          offsetY: 15,
           rotation: 0,
           padding: [5, 8, 5, 8]
         })

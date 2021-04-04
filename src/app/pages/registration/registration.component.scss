@@ -20,8 +20,8 @@ form {
 	position: absolute;
 	text-align: center;
 	background: #fff;
-	width: 380px;
-    height: 460px;
+	width: 411px;
+	height: 550px;
 	border-radius: 5px;
 	padding: 30px 20px 0 20px;
 	box-shadow: 0 10px 50px 0 rgba(0, 0, 0, 0.25);
@@ -251,8 +251,4 @@ button.form-btn.dx {
 		transform: perspective(100px) translate3d(0px, 0px, 0px);
 		opacity: 1;
 	}
-}
-
-.display-flex {
-    display: flex;
 }

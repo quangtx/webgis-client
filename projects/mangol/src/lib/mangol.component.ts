@@ -6,6 +6,7 @@ import Circle from 'ol/geom/Circle';
 import Geometry from 'ol/geom/Geometry';
 import LineString from 'ol/geom/LineString';
 import Polygon from 'ol/geom/Polygon';
+import Point from 'ol/geom/Point';
 import BaseEvent from 'ol/events/Event';
 import VectorSource from 'ol/source/Vector';
 import { unByKey } from 'ol/Observable';
@@ -49,6 +50,7 @@ export class MangolComponent implements OnInit {
   layer$: Observable<VectorLayer>;
   measureMode$: Observable<MeasureMode>;
   cursorText$: Observable<string>;
+  position: number[];
   combinedSubscription: Subscription;
 
   draw: Draw = null;
@@ -236,6 +238,17 @@ export class MangolComponent implements OnInit {
 
     this.draw.on('drawend', (e: DrawEvent) => {
       unByKey(listener);
+      if(mode.type == 'point') {
+        const geom: Geometry = e.target;
+        const point = geom as Point;
+            const position = this.store
+              .select((state) => state.controllers.position.coordinates)
+              .pipe(take(1))
+              .subscribe((position) => {
+                this.position = position
+              })
+        this.displayValue = `${this.dictionary.point}: ${this.position[0]}, ${this.position[1]}.`
+      }
       e.feature.setProperties({ text: this.displayValue });
       this.store.dispatch(
         new CursorActions.SetMode({

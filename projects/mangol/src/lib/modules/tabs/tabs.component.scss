@@ -35,10 +35,23 @@
             .mat-tab-body {
                 max-height: 650px;
                 .mat-tab-body-content {
-                    overflow-y: auto;
+                    overflow-y: hidden;
                 }
             }
         }
 
+    }
+}
+::ng-deep {
+    #tabs-layer {
+        .mat-tab-label-container {
+            height: 50px;
+        }
+        .mat-tab-label, .mat-tab-label-active{
+            min-width: 50px!important;
+            padding: 3px!important;
+            margin: 3px!important;
+            height: 50px!important;
+        }
     }
 }

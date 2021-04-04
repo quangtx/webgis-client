@@ -35,7 +35,7 @@ export class MeasureRadiusButtonComponent implements OnInit {
       const mode: MeasureMode = {
         fontIcon: "ms-geolocation",
         fontSet: "ms",
-        geometryName: GeometryType.POLYGON,
+        geometryName: GeometryType.CIRCLE,
         type: "radius",
       }
       const cursorMode: CursorMode = {

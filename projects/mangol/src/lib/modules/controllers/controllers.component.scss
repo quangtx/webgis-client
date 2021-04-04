@@ -43,15 +43,15 @@ mat-tab-group {
     padding-right: 10px;
     padding-bottom: 10px;
 }
-::ng-deep.mat-tab-label-container {
-    height: 50px;
-}
-::ng-deep.mat-tab-label, ::ng-deep.mat-tab-label-active{
-    min-width: 50px!important;
-    padding: 3px!important;
-    margin: 3px!important;
-    height: 50px!important;
-}
+// ::ng-deep.mat-tab-label-container {
+//     height: 50px;
+// }
+// ::ng-deep.mat-tab-label, ::ng-deep.mat-tab-label-active{
+//     min-width: 50px!important;
+//     padding: 3px!important;
+//     margin: 3px!important;
+//     height: 50px!important;
+// }
 .gird-row {
     display: flex;
 }

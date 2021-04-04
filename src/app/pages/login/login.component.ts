@@ -22,7 +22,6 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  registerForm: FormGroup;
   loginForm: FormGroup;
   submitted = false;
 
@@ -36,87 +35,26 @@ export class LoginComponent implements OnInit {
 
 
   ngOnInit() {
-    this.registerForm = this.formBuilder.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      username: ['', [Validators.required]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-      confirmPassword: ['', Validators.required],
-      acceptTerms: [false, Validators.requiredTrue]
-    }, {
-        validator: this.MustMatch('password', 'confirmPassword')
-    });
-
     this.loginForm = this.formBuilder.group({
       username: ['', [Validators.required]],
       password: ['', [Validators.required, Validators.minLength(6)]],
     })
 
-    document.getElementById("log-in").addEventListener('click', function() {
-      document.getElementById("signIn").classList.add("active-dx");
-      document.getElementById("signUp").classList.add("inactive-sx");
-      document.getElementById("signUp").classList.remove("active-sx");
-      document.getElementById("signIn").classList.remove("inactive-dx");
-    });
+    // document.getElementById("log-in").addEventListener('click', function() {
+    //   document.getElementById("signIn").classList.add("active-dx");
+    //   document.getElementById("signUp").classList.add("inactive-sx");
+    //   document.getElementById("signUp").classList.remove("active-sx");
+    //   document.getElementById("signIn").classList.remove("inactive-dx");
+    // });
 
-    document.getElementById("btnBack").addEventListener('click', function(){
-      document.getElementById("signUp").classList.add("active-sx");
-      document.getElementById("signIn").classList.add("inactive-dx");
-      document.getElementById("signIn").classList.remove("active-dx");
-      document.getElementById("signUp").classList.remove("inactive-sx");
-    });
+    // document.getElementById("btnBack").addEventListener('click', function(){
+    //   document.getElementById("signUp").classList.add("active-sx");
+    //   document.getElementById("signIn").classList.add("inactive-dx");
+    //   document.getElementById("signIn").classList.remove("active-dx");
+    //   document.getElementById("signUp").classList.remove("inactive-sx");
+    // });
   }
-
-  MustMatch(controlName: string, matchingControlName: string) {
-    return (formGroup: FormGroup) => {
-        const control = formGroup.controls[controlName];
-        const matchingControl = formGroup.controls[matchingControlName];
-
-        if (matchingControl.errors && !matchingControl.errors.mustMatch) {
-            // return if another validator has already found an error on the matchingControl
-            return;
-        }
-
-        // set error on matchingControl if validation fails
-        if (control.value !== matchingControl.value) {
-            matchingControl.setErrors({ mustMatch: true });
-        } else {
-            matchingControl.setErrors(null);
-        }
-    }
-}
-
-  get f() { return this.registerForm.controls; }
-
-  onSignUp() {
-    this.submitted = true;
-    // stop here if form is invalid
-    if (this.registerForm.invalid) {
-        return;
-    }
-    const form = this.registerForm.value;
-    var passwordEncrypted = this.EncrDecr.set(environment.SECRET_KEY, form.password);
-    const data = {
-      firt_name: form.firstName,
-      last_name: form.lastName,
-      username: form.username,
-      password: passwordEncrypted,
-      email: form.email,
-      token: '',
-      exprise_at: 3600
-    }
-    axios.post("http://localhost:3000/users", data )
-    .then((response) => {
-      if(response && response.data) {
-        const res = response.data
-        console.warn('response::::::::::::',res);
-      }
-    })
-    .catch((error) => {
-        console.log(error);
-    });
-  }
+  get f() { return this.loginForm.controls; }
 
   onSignIn() {
     this.submitted = true;

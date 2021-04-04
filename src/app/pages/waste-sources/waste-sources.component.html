@@ -1,0 +1,189 @@
+<mat-card class="w-100">
+    <mat-card-content>
+        <mat-tab-group>
+            <mat-tab label="Điểm Xả Nước Thải">
+                <form [formGroup]="wasteWaterForm" (ngSubmit)="onSubmit()" id="wasteWaterForm" action="#" method="POST">
+                    <div>
+                        <div class="display-flex">
+                            <mat-form-field class="mr-3 w-100">
+                                <mat-label>Vĩ độ</mat-label>
+                                <input matInput formControlName="lat" placeholder="Nhập Vĩ Độ" type="text" value="" reqired
+                                    autocomplete='off'>
+                            </mat-form-field>
+                            <mat-form-field class="w-100">
+                                <mat-label>Kinh độ</mat-label>
+                                <input matInput formControlName="long" placeholder="Nhập Kinh Độ" type="text" value="" reqired
+                                    autocomplete='off'>
+                            </mat-form-field>
+                            <button mat-icon-button type="button" color="accent" (click)="chooseLatLongMode('point')" aria-label="Lấy Tọa Độ">
+                                <mat-icon>
+                                    location_on
+                                </mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <mat-form-field class="w-100">
+                        <mat-label>Chủ nguồn thải</mat-label>
+                        <input matInput formControlName="wasteSourceOwner" placeholder="Nhập chủ nguồn thải" type="text" value="" autocomplete='off'>
+                    </mat-form-field>
+                    <mat-form-field class="w-100">
+                        <mat-label>Nguồn thải</mat-label>
+                        <input matInput formControlName="wasteSource" placeholder="Nhập nguồn thải" type="text" value="" autocomplete='off'>
+                    </mat-form-field>
+                    <div>Vị trí điểm xả</div>
+                    <div class="display-flex f-direction-col">
+                        <div class="display-flex">
+                            <mat-form-field class="w-50 mr-1">
+                                <mat-label>Thôn</mat-label>
+                                <input matInput formControlName="village" placeholder="Nhập thôn/xóm" type="text" value="" autocomplete='off'>
+                            </mat-form-field>
+                            <mat-form-field class="w-50 mr-1">
+                                <mat-label>Xã/Phường</mat-label>
+                                <input matInput formControlName="ward" placeholder="Nhập xã/phường" type="text" value="" autocomplete='off'>
+                            </mat-form-field>
+                        </div>
+                        <div class="display-flex">
+                            <mat-form-field class="w-50 mr-1">
+                                <mat-label>Quận/Huyện</mat-label>
+                                <!-- <input matInput formControlName="district" placeholder="Nhập quận/huyện" type="text" value="" autocomplete='off'> -->
+                                <mat-select formControlName="district" placeholder="Nhập quận/huyện">
+                                    <mat-option (onSelectionChange)="changeDistrict(distr.id)" *ngFor="let distr of districts" [value]="distr.id" >{{ distr.district_name }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-form-field class="w-50">
+                                <mat-label>Tỉnh/Thành phố</mat-label>
+                                <!-- <input matInput formControlName="province" placeholder="Nhập tỉnh/thành phố" type="text" value="" autocomplete='off'> -->
+                                <mat-select formControlName="province" placeholder="Nhập loại hình nước thải">
+                                    <mat-option *ngFor="let provin of provinces" [value]="provin.id" (onSelectionChange)="changeProvince(provin.id)">{{ provin.abbreviation }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <mat-form-field class="w-100">
+                        <mat-label>Loại hình nước thải</mat-label>
+                        <!-- <input matInput formControlName="wasteWaterType" placeholder="Nhập loại hình nước thải" type="text" value="" autocomplete='off'> -->
+                        <mat-select formControlName="wasteWaterType" placeholder="Nhập loại hình nước thải">
+                            <mat-option *ngFor="let type of wasteWaterTypeList" [value]="type.value">{{ type.label }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field class="w-100">
+                        <mat-label>Lưu lượng nước thải tối đa</mat-label>
+                        <input matInput formControlName="maximumWastewaterTraffic" placeholder="Nhập lưu lượng nước thải tối đa" type="text" value="" autocomplete='off'>
+                        <mat-hint class="font-z-10" matSuffix>m<sup>3</sup>/ngày đêm</mat-hint>
+                    </mat-form-field>
+                    <mat-form-field class="w-100">
+                        <mat-label>Lưu lượng nước thải trung bình</mat-label>
+                        <input matInput formControlName="averageWastewaterTraffic" placeholder="Nhập lưu lượng nước thải trung bình" type="text" value="" autocomplete='off'>
+                        <mat-hint class="font-z-10" matSuffix>m<sup>3</sup>/ngày đêm</mat-hint>
+                    </mat-form-field>
+                    <div class="display-flex">
+                        <mat-form-field class="w-100 mr-2">
+                            <mat-label>Phương thức xả nước thải</mat-label>
+                            <!-- <input matInput formControlName="dischargeWastewaterMethods" placeholder="Nhập phương thức xả nước thải" type="text" value="" autocomplete='off'> -->
+                            <mat-select formControlName="dischargeWastewaterMethods" placeholder="Nhập loại hình nước thải">
+                                <mat-option *ngFor="let type of dischargeWastewaterMethodsList " [value]="type.value">{{ type.name }}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <mat-form-field class="w-100">
+                            <mat-label>Chế độ xả nước thải</mat-label>
+                            <!-- <input matInput formControlName="dischargeWasteWaterRegime" placeholder="Nhập chế độ xả nước thải" type="text" value="" autocomplete='off'> -->
+                            <mat-select formControlName="dischargeWasteWaterRegime" placeholder="Nhập chế độ xả nước thải">
+                                <mat-option *ngFor="let regime of dischargeWasteWaterRegimeList" [value]="regime.value">{{ regime.label }}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <mat-form-field class="w-100">
+                        <mat-label>Kết quả quan trắc nước thải</mat-label>
+                        <input matInput formControlName="wastewaterMonitoringResults" placeholder="Nhập kết quả quan trắc nước thải" type="text" value="" autocomplete='off'>
+                    </mat-form-field>
+                    <mat-form-field class="w-100">
+                        <mat-label>Nguồn tiếp nhận</mat-label>
+                        <input matInput formControlName="theSources" placeholder="Nhập nguồn tiếp nhận" type="text" value="" autocomplete='off'>
+                    </mat-form-field>
+                    <button class="float-right" mat-raised-button color="primary">
+                        Lưu lại <mat-icon>update</mat-icon>
+                    </button>
+                </form>
+            </mat-tab>
+            <mat-tab label="Điểm xả khí thải">
+                <form [formGroup]="emissionsForm" (ngSubmit)="onSubmit()" id="emissionsForm" action="#" method="POST">
+                    <div>
+                        <div class="display-flex">
+                            <mat-form-field class="mr-3 w-100">
+                                <mat-label>Vĩ độ</mat-label>
+                                <input matInput formControlName="lat" placeholder="Nhập Vĩ Độ" type="text" value="" reqired
+                                    autocomplete='off'>
+                            </mat-form-field>
+                            <mat-form-field class="w-100">
+                                <mat-label>Kinh độ</mat-label>
+                                <input matInput formControlName="long" placeholder="Nhập Kinh Độ" type="text" value="" reqired
+                                    autocomplete='off'>
+                            </mat-form-field>
+                            <button mat-icon-button type="button" color="accent" aria-label="Lấy Tọa Độ">
+                                <mat-icon>
+                                    location_on
+                                </mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <mat-form-field class="w-100">
+                        <mat-label>Chủ nguồn thải</mat-label>
+                        <input matInput formControlName="wasteSourceOwner" placeholder="Nhập chủ nguồn thải" type="text" value="" autocomplete='off'>
+                    </mat-form-field>
+                    <mat-form-field class="w-100">
+                        <mat-label>Nguồn thải</mat-label>
+                        <input matInput formControlName="wasteSource" placeholder="Nhập nguồn thải" type="text" value="" autocomplete='off'>
+                    </mat-form-field>
+                    <div>Vị trí điểm xả</div>
+                    <div class="display-flex f-direction-col">
+                        <div class="display-flex">
+                            <mat-form-field class="w-50 mr-1">
+                                <mat-label>Thôn</mat-label>
+                                <input matInput formControlName="village" placeholder="Nhập thôn/xóm" type="text" value="" autocomplete='off'>
+                            </mat-form-field>
+                            <mat-form-field class="w-50 mr-1">
+                                <mat-label>Xã/Phường</mat-label>
+                                <input matInput formControlName="ward" placeholder="Nhập xã/phường" type="text" value="" autocomplete='off'>
+                            </mat-form-field>
+                        </div>
+                        <div class="display-flex">
+                            <mat-form-field class="w-50 mr-1">
+                                <mat-label>Quận/Huyện</mat-label>
+                                <input matInput formControlName="district" placeholder="Nhập quận/huyện" type="text" value="" autocomplete='off'>
+                            </mat-form-field>
+                            <mat-form-field class="w-50">
+                                <mat-label>Tỉnh/Thành phố</mat-label>
+                                <input matInput formControlName="province" placeholder="Nhập tỉnh/thành phố" type="text" value="" autocomplete='off'>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <mat-form-field class="w-100">
+                        <mat-label>Chiều cao ống khói</mat-label>
+                        <input matInput formControlName="chimneyHeight" placeholder="Nhập nguồn thải" type="text" value="" autocomplete='off'>
+                        <mat-hint class="font-z-10" matSuffix>meter( m )</mat-hint>
+                    </mat-form-field>
+                    <mat-form-field class="w-100">
+                        <mat-label>Loại hình khí thải</mat-label>
+                        <!-- <input matInput formControlName="exhaustGasType" placeholder="Nhập nguồn thải" type="text" value="" autocomplete='off'> -->
+                        <mat-select formControlName="exhaustGasType" placeholder="Loại hình khí thải">
+                            <mat-option *ngFor="let type of exhaustGasTypeList" [value]="type.value" [innerHTML]="type.label"></mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field class="w-100">
+                        <mat-label>Lưu lượng khí thải</mat-label>
+                        <input matInput formControlName="exhaustGasTraffic" placeholder="Nhập nguồn thải" type="text" value="" autocomplete='off'>
+                        <mat-hint class="font-z-10" matSuffix>m<sup>3</sup>/h</mat-hint>
+                    </mat-form-field>
+                    <mat-form-field class="w-100">
+                        <mat-label>Kết quả quan trắc khí thải</mat-label>
+                        <input matInput formControlName="emissionMonitoringResults" placeholder="Nhập nguồn thải" type="text" value="" autocomplete='off'>
+                    </mat-form-field>
+
+                    <button class="float-right" mat-raised-button color="primary">Lưu lại
+                        <mat-icon>update</mat-icon>
+                    </button>
+                </form>
+            </mat-tab>
+        </mat-tab-group>
+    </mat-card-content>
+</mat-card>
