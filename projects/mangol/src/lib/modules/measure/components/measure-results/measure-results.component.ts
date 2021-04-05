@@ -56,6 +56,7 @@ export class MeasureResultsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    console.warn('vao day');
     this.combinedSubscription = combineLatest([
       this.map$,
       this.layer$,

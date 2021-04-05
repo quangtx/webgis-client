@@ -1,4 +1,4 @@
-import { Component, HostBinding, Input, OnInit } from '@angular/core';
+import { Component, HostBinding, Input, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import Map from 'ol/Map';
 import Feature from 'ol/Feature';
@@ -31,13 +31,14 @@ import proj4 from 'proj4';
 import { MeasureService } from './modules/measure/measure.service';
 import VectorLayer from 'ol/layer/Vector';
 import { MeasureMode, MeasureDictionary } from './store/measure/measure.reducers';
+import { RemoveLayer } from './classes/RemoveLayer';
 
 @Component({
   selector: 'mangol',
   templateUrl: './mangol.component.html',
   styleUrls: ['./mangol.component.scss']
 })
-export class MangolComponent implements OnInit {
+export class MangolComponent implements OnInit, OnDestroy{
   @HostBinding('class') class = 'mangol';
   @Input() config: MangolConfig;
   dictionary: MeasureDictionary;
@@ -48,6 +49,7 @@ export class MangolComponent implements OnInit {
   sidebarMode$: Observable<string>;
   map$: Observable<Map>;
   layer$: Observable<VectorLayer>;
+  rmLayer$: Observable<RemoveLayer[]>;
   measureMode$: Observable<MeasureMode>;
   cursorText$: Observable<string>;
   position: number[];
@@ -66,6 +68,7 @@ export class MangolComponent implements OnInit {
     this.sidebarMode$ = this.store.select(state => state.sidebar.mode);
     this.map$ = this.store.select(state => state.map.map).pipe(filter((m) => m !== null));;
     this.layer$ = this.store.select((state) => state.layers.measureLayer).pipe(filter((l) => l !== null));
+    this.rmLayer$ = this.store.select((state) => state.layers.rmLayer).pipe(filter((l) => l !== null));
     this.measureMode$ = this.store.select((state) => state.measure.mode).pipe(filter((mode) => mode !== null));
     this.cursorText$ = this.store.select((state) => state.cursor.mode.text);
   }
@@ -128,7 +131,8 @@ export class MangolComponent implements OnInit {
       this.map$,
       this.layer$,
       this.measureMode$,
-    ]).subscribe(([m, layer, mode]) => {
+      this.rmLayer$
+    ]).subscribe(([m, layer, mode, rmlayer]) => {
       const mapLayers = m.getLayers().getArray();
       let maxZIndex = mapLayers.length - 1;
       m.getLayers()
@@ -141,6 +145,7 @@ export class MangolComponent implements OnInit {
       layer.setZIndex(maxZIndex + 1);
       layer.getSource().clear();
       this._activateDraw(m, layer, mode);
+      console.warn('rmlayer', rmlayer);
     });
   }
 
@@ -165,7 +170,7 @@ export class MangolComponent implements OnInit {
     this.displayValue = this.initialText;
     let listener = null;
     this.draw.on('drawstart', (e: DrawEvent) => {
-      layer.getSource().clear();
+      // layer.getSource().clear();
       this.store.dispatch(
         new CursorActions.SetMode({
           text: this.initialText,
@@ -234,10 +239,7 @@ export class MangolComponent implements OnInit {
         );
         this.displayValue = displayValue;
       });
-    });
 
-    this.draw.on('drawend', (e: DrawEvent) => {
-      unByKey(listener);
       if(mode.type == 'point') {
         const geom: Geometry = e.target;
         const point = geom as Point;
@@ -249,6 +251,10 @@ export class MangolComponent implements OnInit {
               })
         this.displayValue = `${this.dictionary.point}: ${this.position[0]}, ${this.position[1]}.`
       }
+    });
+
+    this.draw.on('drawend', (e: DrawEvent) => {
+      unByKey(listener);
       e.feature.setProperties({ text: this.displayValue });
       this.store.dispatch(
         new CursorActions.SetMode({
@@ -269,11 +275,24 @@ export class MangolComponent implements OnInit {
     this.displayValue = this.dictionary.clickOnMap;
   }
 
+  ngOnDestroy() {
+    combineLatest([this.map$, this.layer$])
+      .pipe(take(1))
+      .subscribe(([m, layer]) => {
+        this._deactivateDraw(m, layer);
+      });
+    this.store.dispatch(new CursorActions.ResetMode());
+    if (this.combinedSubscription) {
+      this.combinedSubscription.unsubscribe();
+    }
+  }
+
   private _deactivateDraw(map: Map, layer: VectorLayer) {
     this.displayValue = null;
     try {
       map.removeLayer(layer);
       map.removeInteraction(this.draw);
+      this.store.dispatch(new CursorActions.SetVisible(true));
     } catch (error) {}
   }
 

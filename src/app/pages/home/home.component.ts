@@ -57,7 +57,6 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.authGuard.canActivate();
-    console.warn('cookie', this.cookieService.get('auth_token'));
     const pseudoGeoJSONFormat = <any>GeoJSON;
     this.mangolConfig = {
       map: {

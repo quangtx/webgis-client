@@ -137,6 +137,8 @@ export class WasteSourcesComponent implements OnInit, DoCheck {
 
   chooseLatLongMode(type) {
     this.store.select(state => state.cursor.mode).subscribe(mode => (this.cursorMode = mode));
+    console.warn('type:::::',type);
+    console.warn('this.cursorMode:::::', this.cursorMode);
     if(type === 'point' && this.cursorMode.cursor =='default') {
       const mode: MeasureMode = {
         fontIcon: "gps_fixed",
@@ -148,11 +150,12 @@ export class WasteSourcesComponent implements OnInit, DoCheck {
         cursor: "crosshair",
         text: "Click on Map to start measurement"
       }
-      this.store.dispatch(new MeasureActions.HasMeasure(true));
+      // this.store.dispatch(new MeasureActions.HasMeasure(true));
       this.store.dispatch(new SidebarActions.SetSelectedModule('measure'));
       this.store.dispatch(new MeasureActions.SetMode(mode));
       this.store.dispatch(new CursorActions.SetMode(cursorMode));
     } else {
+      this.store.dispatch(new MeasureActions.SetMode(null));
       this.store.dispatch(new CursorActions.ResetMode());
     }
   }

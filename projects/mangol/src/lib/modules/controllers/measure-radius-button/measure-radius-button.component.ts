@@ -42,11 +42,12 @@ export class MeasureRadiusButtonComponent implements OnInit {
         cursor: "crosshair",
         text: "Click on Map to start measurement"
       }
-      this.store.dispatch(new MeasureActions.HasMeasure(true));
+      // this.store.dispatch(new MeasureActions.HasMeasure(true));
       this.store.dispatch(new SidebarActions.SetSelectedModule('measure'));
       this.store.dispatch(new MeasureActions.SetMode(mode));
       this.store.dispatch(new CursorActions.SetMode(cursorMode));
     } else {
+      this.store.dispatch(new MeasureActions.SetMode(null));
       this.store.dispatch(new CursorActions.ResetMode());
     }
   }

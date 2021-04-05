@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { MangolControllersLineOptions } from '../../../interfaces/config-map-controllers.interface';
+import { RemoveLayer }  from '../../../classes/RemoveLayer'
 import * as fromMangol from './../../../store/mangol.reducers';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
@@ -8,6 +9,7 @@ import GeometryType from 'ol/geom/GeometryType';
 import * as MeasureActions from '../../../store/measure/measure.actions';
 import * as SidebarActions from '../../../store/sidebar/sidebar.actions';
 import * as CursorActions from '../../../store/cursor/cursor.actions';
+import * as LayerActions from '../../../store/layers/layers.actions';
 import { CursorMode } from '../../../interfaces/cursor-mode';
 
 @Component({
@@ -48,12 +50,20 @@ export class MeasureLineButtonComponent implements OnInit {
         cursor: "crosshair",
         text: "Click on Map to start measurement"
       }
-      this.store.dispatch(new MeasureActions.HasMeasure(true));
+
+      // this.store.dispatch(new MeasureActions.HasMeasure(true));
       this.store.dispatch(new SidebarActions.SetSelectedModule('measure'));
       this.store.dispatch(new MeasureActions.SetMode(mode));
       this.store.dispatch(new CursorActions.SetMode(cursorMode));
     } else {
+      const rm: RemoveLayer[] = [
+        {
+          removeAll: true, layer:null
+        }
+      ]
+      this.store.dispatch(new MeasureActions.SetMode(null));
       this.store.dispatch(new CursorActions.ResetMode());
+      this.store.dispatch(new LayerActions.RmLayer(rm));
     }
   }
 }
