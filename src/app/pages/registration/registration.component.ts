@@ -78,11 +78,10 @@ export class RegistrationComponent implements OnInit {
     let resExist = await axios.get(this.apiUrl + 'users?username=' + form.username.trim())
     // stop here if form is invalid
     if (this.registerForm.invalid || (resExist && resExist.data)) {
-        if(resExist && resExist.data) {
+        if(resExist && resExist.data.length > 0) {
           this.openSnackBar('Tài khoản đã tồn tại', 'Đóng')
+          return;
         }
-
-        return;
     }
 
     var passwordEncrypted = this.EncrDecr.set(environment.SECRET_KEY, form.password);

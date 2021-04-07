@@ -1,20 +1,14 @@
 {
   "users": [
     {
-      "username": "baoyen56",
-      "password": "4ApSkCVpqTkmZfePhqmJjg==",
-      "email": "yenvu056@gmail.com",
-      "token": "nX7AaQIRS3x6eimsJtoLfCgnbR8LgL3InNKS/5WX0IJFsSNRrX60Xouh3FoD39f7MXgpu6AQWLu1WM02ptjnnpekPqs135gReHAwYuQTONE=",
-      "exprise_at": 3600,
-      "id": 2
-    },
-    {
+      "firt_name": "admin",
+      "last_name": "admin",
       "username": "admin",
-      "password": "4ApSkCVpqTkmZfePhqmJjg==",
+      "password": "SoZzTnBcu0f4CQFmm7M4PA==",
       "email": "admin@admin.com",
-      "token": "CvIl4gOBbLK+HoSr5P58Q2QrxwFMcXbI0SRcskkDlH09JSh8S0dzOdqyz4Jkh2tx7/xA+my7ky8BtfnAHZSrpA==",
+      "token": "",
       "exprise_at": 3600,
-      "id": 3
+      "id": 1
     }
   ],
   "dischargeWastewaterMethods": [
