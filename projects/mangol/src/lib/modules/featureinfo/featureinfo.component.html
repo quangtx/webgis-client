@@ -3,7 +3,7 @@
     <ng-template #hasLayers>
         <mangol-featureinfo-select [layers]="layers$ | async"
             [dictionary]="dictionary$ | async"></mangol-featureinfo-select>
-        <mangol-featureinfo-results *ngIf="(selectedLayer$ | async) !== null"
+            <mangol-featureinfo-results *ngIf="(selectedLayer$ | async) !== null"
             [dictionary]="dictionary$ | async"></mangol-featureinfo-results>
     </ng-template>
 </div>

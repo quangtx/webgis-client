@@ -1,7 +1,7 @@
-import { Component, HostBinding, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, HostBinding, Input, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import Map from 'ol/Map';
-import Feature from 'ol/Feature';
+import Feature, { FeatureLike } from 'ol/Feature';
 import Circle from 'ol/geom/Circle';
 import Geometry from 'ol/geom/Geometry';
 import LineString from 'ol/geom/LineString';
@@ -32,6 +32,13 @@ import { MeasureService } from './modules/measure/measure.service';
 import VectorLayer from 'ol/layer/Vector';
 import { MeasureMode, MeasureDictionary } from './store/measure/measure.reducers';
 import { RemoveLayer } from './classes/RemoveLayer';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import Select from 'ol/interaction/Select';
+import {altKeyOnly, click, pointerMove} from 'ol/events/condition';
+import Style from 'ol/style/Style';
+import Fill from 'ol/style/Fill';
+import Stroke from 'ol/style/Stroke';
+
 
 @Component({
   selector: 'mangol',
@@ -41,6 +48,11 @@ import { RemoveLayer } from './classes/RemoveLayer';
 export class MangolComponent implements OnInit, OnDestroy{
   @HostBinding('class') class = 'mangol';
   @Input() config: MangolConfig;
+
+  select:FeatureLike = null;
+  selectPointerMove = new Select({
+    condition: pointerMove,
+  });
   dictionary: MeasureDictionary;
   visiable$: Observable<boolean>;
   absoluteTop = '15%';
@@ -58,9 +70,19 @@ export class MangolComponent implements OnInit, OnDestroy{
   draw: Draw = null;
   initialText: string = null;
   displayValue: string = null;
+  highlightStyle:Style = new Style({
+    fill: new Fill({
+      color: 'rgba(255,255,255,0.7)',
+    }),
+    stroke: new Stroke({
+      color: '#3399CC',
+      width: 3,
+    }),
+  });
 
 
-  constructor(private store: Store<fromMangol.MangolState>,   private measureService: MeasureService) {
+
+  constructor(private store: Store<fromMangol.MangolState>, private measureService: MeasureService, public dialog: MatDialog) {
     this.store.select((state) => state.measure.dictionary).subscribe(dictionary => (this.dictionary = dictionary));
     this.visiable$ = this.store.select(state => state.layers.visiable)
     this.hasSidebar$ = this.store.select(state => state.sidebar.hasSidebar);
@@ -71,6 +93,7 @@ export class MangolComponent implements OnInit, OnDestroy{
     this.rmLayer$ = this.store.select((state) => state.layers.rmLayer).pipe(filter((l) => l !== null));
     this.measureMode$ = this.store.select((state) => state.measure.mode).pipe(filter((mode) => mode !== null));
     this.cursorText$ = this.store.select((state) => state.cursor.mode.text);
+    // this.select = this.selectPointerMove;
   }
 
   ngOnInit() {
@@ -145,7 +168,6 @@ export class MangolComponent implements OnInit, OnDestroy{
       layer.setZIndex(maxZIndex + 1);
       layer.getSource().clear();
       this._activateDraw(m, layer, mode);
-      console.warn('rmlayer', rmlayer);
     });
   }
 

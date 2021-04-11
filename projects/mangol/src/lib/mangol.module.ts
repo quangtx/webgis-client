@@ -5,8 +5,11 @@ import { NgModule } from '@angular/core';
 import { MatTabsModule } from '@angular/material/tabs'
 import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import {MatDialogModule} from '@angular/material/dialog';
 import { Action, ActionReducer, MetaReducer, StoreModule } from '@ngrx/store';
 import { storeLogger } from 'ngrx-store-logger';
+import { MdePopoverModule } from '@material-extended/mde';
+import { MatCardModule } from '@angular/material/card';
 
 import { MangolComponent } from './mangol.component';
 import { ControllersModule } from './modules/controllers/controllers.module';
@@ -51,9 +54,12 @@ export const metaReducers = [
     TabsModule,
     MapModule,
     MatIconModule,
+    MatDialogModule,
     MatTooltipModule,
+    MdePopoverModule,
     MatTabsModule,
     ControllersModule,
+    MatCardModule,
     StoreModule.forRoot(mangolReducers, {
       metaReducers,
       runtimeChecks: {

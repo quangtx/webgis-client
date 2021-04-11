@@ -3,7 +3,8 @@
         <mat-expansion-panel *ngFor="let feature of (resultsFeatures$ | async); let i=index"
             class="mat-elevation-z1"
             (mouseenter)="showFeatureOnMap(feature)"
-            (mouseleave)="hideFeatureOnMap(feature)">
+            (mouseleave)="hideFeatureOnMap(feature)"
+            >
             <mat-expansion-panel-header>
                 <mat-panel-title> {{getExpansionPanelTitle$(feature) | async}} </mat-panel-title>
                 <mat-panel-description>{{i+1}}/{{(resultsFeatures$ | async).length}}</mat-panel-description>

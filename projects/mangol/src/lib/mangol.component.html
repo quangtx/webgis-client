@@ -1,5 +1,6 @@
 <mat-drawer-container>
     <mangol-tabs *ngIf="(visiable$ | async)"></mangol-tabs>
     <mangol-controllers *ngIf="(map$ | async) !== null" ></mangol-controllers>
-    <mangol-map [config]="config"></mangol-map>
+    <mangol-map [config]="config" ></mangol-map>
+    <!-- <button mat-raised-button (click)="openDialog()">Pick one</button> -->
 </mat-drawer-container>
