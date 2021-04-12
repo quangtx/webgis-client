@@ -66,6 +66,8 @@ export class MangolComponent implements OnInit, OnDestroy{
   cursorText$: Observable<string>;
   position: number[];
   combinedSubscription: Subscription;
+  map: Map;
+  layer: VectorLayer;
 
   draw: Draw = null;
   initialText: string = null;
@@ -172,6 +174,8 @@ export class MangolComponent implements OnInit, OnDestroy{
   }
 
   private _activateDraw(map: Map, layer: VectorLayer, mode: MeasureMode) {
+    this.map = map;
+    this.layer = layer;
     this._deactivateDraw(map, layer);
     map.addLayer(layer);
     this.draw = new Draw({
@@ -309,12 +313,14 @@ export class MangolComponent implements OnInit, OnDestroy{
     }
   }
 
-  private _deactivateDraw(map: Map, layer: VectorLayer) {
+  public _deactivateDraw(map: Map = null, layer: VectorLayer = null) {
     this.displayValue = null;
     try {
-      map.removeLayer(layer);
-      map.removeInteraction(this.draw);
+      this.map.removeLayer(layer? layer : this.layer);
+      this.map.removeInteraction(this.draw);
       this.store.dispatch(new CursorActions.SetVisible(true));
+      this.store.dispatch(new MeasureActions.SetMode(null));
+      this.store.dispatch(new CursorActions.ResetMode());
     } catch (error) {}
   }
 

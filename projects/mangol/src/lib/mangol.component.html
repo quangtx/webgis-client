@@ -1,6 +1,6 @@
 <mat-drawer-container>
     <mangol-tabs *ngIf="(visiable$ | async)"></mangol-tabs>
     <mangol-controllers *ngIf="(map$ | async) !== null" ></mangol-controllers>
+    <button mat-raised-button class="btn-close-measure" color="accent" (click)="_deactivateDraw()"><mat-icon>close</mat-icon></button>
     <mangol-map [config]="config" ></mangol-map>
-    <!-- <button mat-raised-button (click)="openDialog()">Pick one</button> -->
 </mat-drawer-container>
