@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { MangolControllersAreaOptions } from '../../../interfaces/config-map-controllers.interface';
 import * as fromMangol from './../../../store/mangol.reducers';
 import { Observable } from 'rxjs';
@@ -9,6 +9,7 @@ import GeometryType from 'ol/geom/GeometryType';
 import * as MeasureActions from '../../../store/measure/measure.actions';
 import * as SidebarActions from '../../../store/sidebar/sidebar.actions';
 import * as CursorActions from '../../../store/cursor/cursor.actions';
+import * as ControllersActions from '../../../store/controllers/controllers.actions';
 
 @Component({
   selector: 'app-measure-area-button',
@@ -16,6 +17,7 @@ import * as CursorActions from '../../../store/cursor/cursor.actions';
   styleUrls: ['./measure-area-button.component.scss']
 })
 export class MeasureAreaButtonComponent implements OnInit {
+  @Input() disableButton: boolean;
   animationDuration = 500;
   area$: Observable<MangolControllersAreaOptions>;
   cursorMode: CursorMode;
@@ -45,6 +47,7 @@ export class MeasureAreaButtonComponent implements OnInit {
       this.store.dispatch(new SidebarActions.SetSelectedModule('measure'));
       this.store.dispatch(new MeasureActions.SetMode(mode));
       this.store.dispatch(new CursorActions.SetMode(cursorMode));
+      this.store.dispatch(new ControllersActions.SetDisableButtonDictionary(true));
     } else {
       this.store.dispatch(new MeasureActions.SetMode(null));
       this.store.dispatch(new CursorActions.ResetMode());

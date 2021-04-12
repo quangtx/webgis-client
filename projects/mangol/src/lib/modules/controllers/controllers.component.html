@@ -3,10 +3,10 @@
 </div>
 <div class="elements-top-right" >
     <app-layers-button iconName="layers" [(visiable)]="visiable"></app-layers-button>
-    <app-measure-line-button></app-measure-line-button>
-    <app-measure-area-button></app-measure-area-button>
-    <app-measure-radius-button></app-measure-radius-button>
-    <app-measure-point-button></app-measure-point-button>
+    <app-measure-line-button [disableButton]="(disableButton$ | async)"></app-measure-line-button>
+    <app-measure-area-button [disableButton]="(disableButton$ | async)"></app-measure-area-button>
+    <app-measure-radius-button [disableButton]="(disableButton$ | async)"></app-measure-radius-button>
+    <app-measure-point-button [disableButton]="(disableButton$ | async)"></app-measure-point-button>
 </div>
 <div class="elements-left">
     <mangol-rotation-button *ngIf="(rotation$ | async).show"></mangol-rotation-button>

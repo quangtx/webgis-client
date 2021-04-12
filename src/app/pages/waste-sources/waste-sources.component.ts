@@ -11,6 +11,7 @@ import {
   routeStateTrigger,
   sidebarButtonStateTrigger
 } from '../../app.animations';
+import Map from 'ol/Map';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Constants } from '../../global/constants'
 import axios from 'axios'
@@ -19,12 +20,28 @@ import { environment } from '../../../environments/environment'
 import { Store } from '@ngrx/store';
 import * as fromMangol from 'projects/mangol/src/lib/store/mangol.reducers';
 import { MangolControllersPositionStateModel } from 'projects/mangol/src/lib/store/controllers/controllers.reducers';
-import { MeasureMode } from 'projects/mangol/src/lib/store/measure/measure.reducers';
+import { MeasureMode, MeasureDictionary } from 'projects/mangol/src/lib/store/measure/measure.reducers';
 import * as MeasureActions from '../../../../projects/mangol/src/lib/store/measure/measure.actions';
 import * as CursorActions from 'projects/mangol/src/lib/store/cursor/cursor.actions';
 import * as SidebarActions from 'projects/mangol/src/lib/store/sidebar/sidebar.actions';
+import * as ControllersActions from 'projects/mangol/src/lib/store/controllers/controllers.actions';
 import { CursorMode } from 'projects/mangol/src/lib/interfaces/cursor-mode';
 import GeometryType from 'ol/geom/GeometryType';
+import { Subscription } from 'rxjs/internal/Subscription';
+import { MangolLayer } from 'projects/mangol/src/lib/classes/Layer';
+import { take, filter } from 'rxjs/operators';
+import Draw, { DrawEvent } from 'ol/interaction/Draw';
+import Feature from 'ol/Feature';
+import VectorLayer from 'ol/layer/Vector';
+import { MeasureService } from '../../../../projects/mangol/src/lib/modules/measure/measure.service';
+import Style from 'ol/style/Style';
+import Fill from 'ol/style/Fill';
+import Stroke from 'ol/style/Stroke';
+import BaseEvent from 'ol/events/Event';
+import Geometry from 'ol/geom/Geometry';
+import Point from 'ol/geom/Point';
+import { unByKey } from 'ol/Observable';
+import { combineLatest, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-waste-sources',
@@ -51,13 +68,43 @@ export class WasteSourcesComponent implements OnInit, DoCheck {
   position: MangolControllersPositionStateModel = null;
   selectedPostionMode: boolean = false;
   cursorMode: CursorMode;
+  layersSubscription: Subscription;
+  coordinate: number[];
+  draw: Draw = null;
+  initialText: string = null;
+  displayValue: string = null;
+  highlightStyle:Style = new Style({
+    fill: new Fill({
+      color: 'rgba(255,255,255,0.7)',
+    }),
+    stroke: new Stroke({
+      color: '#3399CC',
+      width: 3,
+    }),
+  });
+  dictionary: MeasureDictionary;
+  positionCood: number[];
+  combinedSubscription: Subscription;
+  map$: Observable<Map>;
+  layer$: Observable<VectorLayer>;
+  measureMode$: Observable<MeasureMode>;
+  cursorText$: Observable<string>;
+  map: Map;
+  layer: VectorLayer;
+  mode: MeasureMode;
 
   constructor(
     private cdr: ChangeDetectorRef,
     private formBuilder: FormBuilder,
     private snackBarService: SnackBarService,
     private store: Store<fromMangol.MangolState>,
-  ) { }
+    private measureService: MeasureService
+  ) {
+    this.store.select((state) => state.measure.dictionary).subscribe(dictionary => (this.dictionary = dictionary));
+    this.map$ = this.store.select(state => state.map.map).pipe(filter((m) => m !== null));
+    this.layer$ = this.store.select((state) => state.layers.measureLayer).pipe(filter((l) => l !== null));
+    this.measureMode$ = this.store.select((state) => state.measure.mode).pipe(filter((mode) => mode !== null));
+  }
 
   ngOnInit() {
     this.initDefault()
@@ -96,8 +143,8 @@ export class WasteSourcesComponent implements OnInit, DoCheck {
       exhaustGasTraffic: ['', [Validators.required]], // Lưu lượng khí thải
       emissionMonitoringResults: ['', [Validators.required]], // Kết quả quan trắc khí thải
     })
+    this.store.select(state => state.map.map).subscribe(map => this.map = map);
   }
-
 
   ngDoCheck() {
     this.cdr.detectChanges();
@@ -107,12 +154,24 @@ export class WasteSourcesComponent implements OnInit, DoCheck {
     this.wasteWaterTypeList = Constants.WASTE_WATER_TYPE
     this.exhaustGasTypeList = Constants.EXHAUST_GAS_TYPE
     this.dischargeWasteWaterRegimeList = Constants.DISCHARGE_WASTE_WATER_REGIME
-
     const resdWwaterMethodsList  = await axios.get(this.apiUrl + 'dischargeWastewaterMethods')
     this.dischargeWastewaterMethodsList = resdWwaterMethodsList.data;
 
     const res = await axios.get(this.apiUrl + 'provinces')
-    this.provinces = res.data
+    this.provinces = res.data;
+
+    this.store
+    .select((state) => state.map.map)
+    .pipe(take(1))
+    .subscribe((map) => {
+      if(map) {
+        const self = this;
+        map.on('singleclick', function (evt) {
+          console.warn('evt.coordinateP::::',evt.coordinate);
+          self.coordinate = evt.coordinate;
+        });
+      }
+  });
   }
   /**
    * Watching select change option.
@@ -135,26 +194,80 @@ export class WasteSourcesComponent implements OnInit, DoCheck {
 
   }
 
-  chooseLatLongMode(type) {
-    this.store.select(state => state.cursor.mode).subscribe(mode => (this.cursorMode = mode));
-    if(type === 'point' && this.cursorMode.cursor =='default') {
-      const mode: MeasureMode = {
-        fontIcon: "gps_fixed",
-        fontSet: "ms",
-        geometryName: GeometryType.POINT,
-        type: "point",
+  public _activateDraw() {
+    // this.map = map;
+    // this.layer = layer;
+    this.map.addLayer(this.layer);
+    this.draw = new Draw({
+      source: this.layer.getSource(),
+      style: (feature: Feature) => this.measureService.getStyle(feature),
+      type: this.mode.geometryName,
+    });
+    this.initialText =
+      (this.mode.type === 'radius'
+        ? this.dictionary.drawStartTextRadius
+        : this.dictionary.drawStartText) + '.';
+    this.store.dispatch(
+      new CursorActions.SetMode({
+        text: this.initialText,
+        cursor: 'crosshair',
+      })
+    );
+    this.displayValue = this.initialText;
+    let listener = null;
+    this.draw.on('drawstart', (e: DrawEvent) => {
+      this.store.dispatch(
+        new CursorActions.SetMode({
+          text: this.initialText,
+          cursor: 'crosshair',
+        })
+      );
+      this.displayValue = null;
+      const feature = e.feature;
+      listener = feature.getGeometry().on('change', (evt: BaseEvent) => {
+        const geom: Geometry = evt.target;
+        let displayValue: string = null;
+        this.store.dispatch(
+          new CursorActions.SetMode({
+            text: `${displayValue}\n${this.initialText}`,
+            cursor: 'crosshair',
+          })
+        );
+        this.displayValue = displayValue;
+      });
+
+      if(this.mode.type == 'point') {
+        const geom: Geometry = e.target;
+        const point = geom as Point;
+            const position = this.store
+              .select((state) => state.controllers.position.coordinates)
+              .pipe(take(1))
+              .subscribe((position) => {
+                this.positionCood = position
+              })
+        this.displayValue = `${this.dictionary.point}: ${this.position[0]}, ${this.position[1]}.`
       }
-      const cursorMode: CursorMode = {
-        cursor: "crosshair",
-        text: "Click on Map to start measurement"
-      }
-      // this.store.dispatch(new MeasureActions.HasMeasure(true));
-      this.store.dispatch(new SidebarActions.SetSelectedModule('measure'));
-      this.store.dispatch(new MeasureActions.SetMode(mode));
-      this.store.dispatch(new CursorActions.SetMode(cursorMode));
-    } else {
-      this.store.dispatch(new MeasureActions.SetMode(null));
-      this.store.dispatch(new CursorActions.ResetMode());
-    }
+    });
+
+    this.draw.on('drawend', (e: DrawEvent) => {
+      unByKey(listener);
+      e.feature.setProperties({ text: this.displayValue });
+      this.store.dispatch(
+        new CursorActions.SetMode({
+          text: this.dictionary.clickOnMap,
+          cursor: 'crosshair',
+        })
+      );
+    });
+
+    this.draw.setActive(true);
+    this.map.addInteraction(this.draw);
+    this.store.dispatch(
+      new CursorActions.SetMode({
+        text: this.dictionary.clickOnMap,
+        cursor: 'crosshair',
+      })
+    );
+    this.displayValue = this.dictionary.clickOnMap;
   }
 }

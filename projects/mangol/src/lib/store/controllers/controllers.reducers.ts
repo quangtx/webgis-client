@@ -31,6 +31,7 @@ export interface ControllersStateModel {
   scalebar: MangolControllersScalebarOptions;
   position: MangolControllersPositionStateModel;
   rotation: MangolControllersRotationStateModel;
+  disableButton: boolean;
 }
 
 export interface State {
@@ -44,6 +45,7 @@ export interface State {
   position: MangolControllersPositionStateModel;
   rotation: MangolControllersRotationStateModel;
   fullScreen: MangolControllersFullScreenOptions;
+  disableButton: boolean;
 }
 
 const initialState: State = {
@@ -114,7 +116,8 @@ const initialState: State = {
       maximize: 'Maximize',
       minimize: 'Minimize'
     }
-  }
+  },
+  disableButton: false
 };
 
 export function controllersReducer(
@@ -130,7 +133,8 @@ export function controllersReducer(
         scalebar: initialState.scalebar,
         position: initialState.position,
         rotation: initialState.rotation,
-        fullScreen: initialState.fullScreen
+        fullScreen: initialState.fullScreen,
+        disableButton: initialState.disableButton
       };
     case ControllersActions.SET_SHOW_ZOOM:
       return { ...state, zoom: { ...state.zoom, show: action.payload } };
@@ -142,6 +146,8 @@ export function controllersReducer(
       return { ...state, zoom: { ...state.zoom, showTooltip: action.payload } };
     case ControllersActions.SET_SCALEBAR:
       return { ...state, scalebar: action.payload };
+    case ControllersActions.DISABLE_BUTTON_CONTROL:
+      return { ...state, disableButton: action.payload };
     case ControllersActions.SET_SHOW_POSITION:
       return {
         ...state,

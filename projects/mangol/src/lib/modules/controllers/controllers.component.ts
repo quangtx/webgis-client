@@ -37,6 +37,7 @@ export class ControllersComponent implements OnInit, OnDestroy {
   position$: Observable<MangolControllersPositionStateModel>;
   rotation$: Observable<MangolControllersRotationStateModel>;
   fullScreen$: Observable<MangolControllersFullScreenOptions>;
+  disableButton$: Observable<boolean>;
 
   configSubscription: Subscription;
 
@@ -47,6 +48,7 @@ export class ControllersComponent implements OnInit, OnDestroy {
       state => state.sidebar.collapsible
     );
     this.zoom$ = this.store.select(state => state.controllers.zoom);
+    this.disableButton$ = this.store.select(state => state.controllers.disableButton);
     this.position$ = this.store.select(state => state.controllers.position);
     this.rotation$ = this.store.select(state => state.controllers.rotation);
     this.fullScreen$ = this.store.select(state => state.controllers.fullScreen);

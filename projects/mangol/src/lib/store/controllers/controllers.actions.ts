@@ -16,6 +16,7 @@ export const SET_SHOW_TOOLTIP = '[Controllers] Set Zoom Show Tooltip';
 export const SET_SCALEBAR = '[Controllers] Set Scalebar';
 export const SET_SHOW_POSITION = '[Controllers] Set Show Position';
 export const SET_POSITION_PRECISION = '[Controllers] Set Position Precision';
+export const DISABLE_BUTTON_CONTROL = '[Controllers] Disable Button Control';
 export const SET_POSITION_COORDINATES =
   '[Controllers] Set Position Coordinates';
 export const SET_POSITION_DICTIONARY = '[Controllers] Set Position Dictionary';
@@ -98,6 +99,10 @@ export class SetFullscreenDictionary implements Action {
   readonly type = SET_FULLSCREEN_DICTIONARY;
   constructor(public payload: MangolControllersFullScreenDictionary) {}
 }
+export class SetDisableButtonDictionary implements Action {
+  readonly type = DISABLE_BUTTON_CONTROL;
+  constructor(public payload: boolean) {}
+}
 
 export type ControllersActions =
   | Reset
@@ -116,4 +121,5 @@ export type ControllersActions =
   | SetRotationValue
   | SetShowFullscreen
   | SetShowFullscreenTooltip
-  | SetFullscreenDictionary;
+  | SetFullscreenDictionary
+  | SetDisableButtonDictionary;
