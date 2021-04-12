@@ -164,6 +164,13 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
               const pixel = evt.pixel;
               self.dataSource = new MatTableDataSource(null);
               map.forEachFeatureAtPixel(pixel, function (feature, layer) {
+                if(layer) {
+                  let FeatureLayer = layer.getFeatures(pixel).then((feats) =>{
+                    var feature = feats.length ? feats[0] : undefined;
+                    console.warn('feature', feature);
+
+                  })
+                }
                 const props = feature.getProperties();
                 for (const key in props) {
                   if (props.hasOwnProperty(key)) {

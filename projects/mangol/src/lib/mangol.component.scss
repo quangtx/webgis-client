@@ -48,3 +48,15 @@ app-layers-button {
     z-index: 2;
     top: 10%;
 }
+.btn-close-measure {
+    padding: 0;
+    border-radius: 50%;
+    position: absolute;
+    min-width: 40px;
+    height: 40px;
+    z-index: 99;
+    top: 385px;
+    right: 20px;
+    background: #292828db;
+    color: red;
+}
