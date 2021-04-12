@@ -137,8 +137,6 @@ export class WasteSourcesComponent implements OnInit, DoCheck {
 
   chooseLatLongMode(type) {
     this.store.select(state => state.cursor.mode).subscribe(mode => (this.cursorMode = mode));
-    console.warn('type:::::',type);
-    console.warn('this.cursorMode:::::', this.cursorMode);
     if(type === 'point' && this.cursorMode.cursor =='default') {
       const mode: MeasureMode = {
         fontIcon: "gps_fixed",

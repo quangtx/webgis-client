@@ -1,3 +1,4 @@
+import 'ol/ol.css';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -16,7 +17,11 @@ import * as FeatureinfoActions from './../../../../store/featureinfo/featureinfo
 import { FeatureinfoDictionary } from './../../../../store/featureinfo/featureinfo.reducers';
 import * as fromMangol from './../../../../store/mangol.reducers';
 import { FeatureinfoService } from './../../featureinfo.service';
-
+import Overlay from 'ol/Overlay';
+import { toStringHDMS } from 'ol/coordinate';
+import { toLonLat } from 'ol/proj';
+declare const $: any;
+console.log(`jQuery version: ${$.fn.jquery}`);
 @Component({
   selector: 'mangol-featureinfo-results',
   templateUrl: './featureinfo-results.component.html',
@@ -35,12 +40,24 @@ export class FeatureinfoResultsComponent implements OnInit, OnDestroy {
 
   clickFunction: any = null;
 
+  popup = new Overlay({
+    element: document.getElementById('popup'),
+    autoPanAnimation: {
+      duration: 250
+    }
+  });
+
   constructor(
     private store: Store<fromMangol.MangolState>,
     private featureinfoService: FeatureinfoService,
     public snackBar: MatSnackBar,
     public dialog: MatDialog
-  ) {}
+  ) {
+    this.store.select((state) => state.map.map).subscribe((m) => {
+      m.addOverlay(this.popup);
+      this.popup.setPosition(undefined);
+     });
+  }
 
   ngOnInit() {
     this.resultsLayer$ = this.store.select(
@@ -74,10 +91,12 @@ export class FeatureinfoResultsComponent implements OnInit, OnDestroy {
               );
               this.store.dispatch(new CursorActions.SetVisible(true));
               if (this.clickFunction !== null) {
+                // m.un('pointermove', this.clickFunction);
                 m.un('singleclick', this.clickFunction);
               }
               this.clickFunction = (evt: any) =>
                 this._createClickFunction(evt, layer, m);
+              // m.on('pointermove', this.clickFunction);
               m.on('singleclick', this.clickFunction);
             });
         } else {
@@ -114,6 +133,7 @@ export class FeatureinfoResultsComponent implements OnInit, OnDestroy {
         .select((state) => state.map.map)
         .pipe(take(1))
         .subscribe((m) => {
+          // m.un('pointermove', this.clickFunction);
           m.un('singleclick', this.clickFunction);
           this.clickFunction = null;
         });
@@ -155,6 +175,7 @@ export class FeatureinfoResultsComponent implements OnInit, OnDestroy {
                     this.store.dispatch(
                       new FeatureinfoActions.SetResultsItems(features)
                     );
+                    // this.openTableDialog()
                     this._openSnackBar(features.length);
                   },
                   (error) => {
@@ -173,6 +194,7 @@ export class FeatureinfoResultsComponent implements OnInit, OnDestroy {
           this.store.dispatch(
             new FeatureinfoActions.SetResultsItems(vectorFeatures)
           );
+          // this.openTableDialog()
           this._openSnackBar(vectorFeatures.length);
         } else {
           alert(`Feature info for layer is not yet supported`);

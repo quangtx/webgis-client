@@ -7,11 +7,11 @@ import {
 } from '@angular/core';
 import { Store } from '@ngrx/store';
 import Map from 'ol/Map';
-import { addCommon as addCommonProjections } from 'ol/proj.js';
+import { addCommon as addCommonProjections, toLonLat, fromLonLat } from 'ol/proj.js';
 import { register } from 'ol/proj/proj4.js';
 import View from 'ol/View';
 import proj4 from 'proj4';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable, combineLatest } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
 
 import { MangolLayer } from '../../classes/Layer';
@@ -25,6 +25,12 @@ import * as LayersActions from './../../store/layers/layers.actions';
 import * as fromMangol from './../../store/mangol.reducers';
 import * as MapActions from './../../store/map/map.actions';
 import { MapService } from './map.service';
+import { toStringHDMS } from 'ol/coordinate';
+import Overlay from 'ol/Overlay';
+import OverlayPositioning from 'ol/OverlayPositioning';
+import Feature from 'ol/Feature';
+import { MatTableDataSource } from '@angular/material/table';
+
 
 @Component({
   selector: 'mangol-map',
@@ -53,6 +59,15 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     view: View;
   } = null;
 
+  resultsFeatures$: Observable<Feature[]>;
+
+  container = document.getElementById('popup');
+  content = document.getElementById('popup-content');
+  closer = document.getElementById('popup-closer');
+  overlay:Overlay = null;
+
+  dataSource: MatTableDataSource<any>;
+  columns: string[] = [];
   /**
    *
    * @param store Ngrx store
@@ -63,6 +78,9 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     private mapService: MapService
   ) {
     this.defaultMap = this.mapService.getDefaultMap();
+    this.resultsFeatures$ = this.store.select(
+      (state) => state.featureinfo.resultsItems
+    );
   }
 
   ngOnInit() {
@@ -96,6 +114,16 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
         } else {
           layers = this.processLayersAndLayerGroups(this.defaultMap.layers);
         }
+        this.container = document.getElementById('popup');
+        this.content = document.getElementById('popup-content');
+        this.closer = document.getElementById('popup-closer');
+        this.overlay = new Overlay({
+          element: this.container,
+          autoPan: true,
+          autoPanAnimation: {
+            duration: 250,
+          },
+        })
         // Create the map
         this.store.dispatch(
           new MapActions.SetMap(
@@ -103,6 +131,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
               target: this.target,
               view: view !== null ? view : this.defaultMap.view,
               layers: [],
+              overlays: [this.overlay],
             })
           )
         );
@@ -126,6 +155,81 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
             layers.forEach((l) => {
               map.addLayer(l.layer);
             });
+            const self = this;
+            map.on('pointermove', function (evt) {
+              // map.on('singleclick', function (evt) {
+              var coordinate = null;
+              const source: any[] = [];
+              coordinate = evt.coordinate;
+              const pixel = evt.pixel;
+              self.dataSource = new MatTableDataSource(null);
+              map.forEachFeatureAtPixel(pixel, function (feature, layer) {
+                const props = feature.getProperties();
+                for (const key in props) {
+                  if (props.hasOwnProperty(key)) {
+                    // Don't show objects or functions in the table or the property is not in the layers' queryColumns attribute
+                    if (
+                      typeof props[key] === 'object' ||
+                      typeof props[key] === 'function'
+                    ) {
+                      delete props[key];
+                    } else {
+                      // Add the property name to the columns if not already added
+                      if (self.columns.indexOf(key) === -1) {
+                        self.columns.push(key);
+                      }
+                    }
+                  }
+                }
+                let exist = source.find(item => item.id === props.id)
+                if(!exist) {
+                  source.push(props);
+                }
+                self.dataSource = new MatTableDataSource(source);
+              });
+
+              if(Array.isArray(source) && source.length > 0) {
+                self.overlay.setPosition(coordinate);
+              }else {
+                self.overlay.setPosition(undefined);
+                self.closer.blur();
+              }
+
+              // const layersQuery = layers.filter(layerF => layerF.name !== 'OpenStreetMap Layer')
+              // self.resultsFeatures$.subscribe((resultsFeatures) => {
+              //   resultsFeatures.forEach((feature) => {
+              //     // console.warn('feature.getProperties()',{ ...feature.getProperties() });
+              //     const props = { ...feature.getProperties() };
+              //     for (const key in props) {
+              //       if (props.hasOwnProperty(key)) {
+              //         // Don't show objects or functions in the table or the property is not in the layers' queryColumns attribute
+              //         if (
+              //           typeof props[key] === 'object' ||
+              //           typeof props[key] === 'function'
+              //         ) {
+              //           delete props[key];
+              //         } else {
+              //           // Add the property name to the columns if not already added
+              //           if (self.columns.indexOf(key) === -1) {
+              //             self.columns.push(key);
+              //           }
+              //         }
+              //       }
+              //     }
+              //     let exist = source.find(item => item.id === props.id)
+              //     if(!exist) {
+              //       source.push(props);
+              //     }
+              //   });
+              //   console.warn('sourcesource:::', source);
+              //   self.dataSource = new MatTableDataSource(source);
+              // });
+            });
+            this.closer.onclick = function () {
+              self.overlay.setPosition(undefined);
+              self.closer.blur();
+              return false;
+            };
           });
       });
 

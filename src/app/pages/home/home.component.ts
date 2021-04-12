@@ -19,6 +19,8 @@ import VectorSource from 'ol/source/Vector';
 import GeoJSON from 'ol/format/GeoJSON';
 import { CookieService } from 'ngx-cookie-service';
 import { AuthGuardService } from '../../AuthGuard/auth-guard.service'
+import { StyleService } from 'projects/mangol/src/lib/modules/_shared/shared/services/style.service';
+import { Feature } from 'ol';
 
 @Component({
   selector: 'app-home',
@@ -31,11 +33,13 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   code = code;
 
+
   constructor(
     private appService: AppService,
     private mangolService: MangolService,
     private cookieService: CookieService,
-    private authGuard: AuthGuardService
+    private authGuard: AuthGuardService,
+    private styleService: StyleService
   ) {
     this.sidebarOpenedSubscription = this.appService.sidebarOpenedSubject.subscribe(
       opened => {
@@ -107,63 +111,67 @@ export class HomeComponent implements OnInit, OnDestroy {
           new MangolLayerGroup({
             name: 'Layers',
             children: [
-              new MangolLayerGroup({
-                name: 'Coutries & Cities',
-                children: [
-                  new MangolLayer({
-                    name: 'Country borders',
-                    queryable: true,
-                    querySrs: 'EPSG:900913',
-                    details:
-                      'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
-                      layer: new VectorLayer({
-                        source: new VectorSource({
-                          url: 'assets/geojson/countries.geojson',
-                          format: new pseudoGeoJSONFormat({
-                            dataProjection: 'EPSG:900913',
-                            featureProjection: 'EPSG:900913'
-                          })
-                        })
-                      })
+              new MangolLayer({
+                name: 'Nguồn thải',
+                queryable: true,
+                querySrs: 'EPSG:900913',
+                layer: new VectorLayer({
+                  source: new VectorSource({
+                    url:'http://localhost:3000/nguonthai',
+                    // url:'assets/geojson/province.geojson',
+                      // 'http://188.166.116.137:8080/geoserver/gwc/service/wms',
+                    format: new pseudoGeoJSONFormat({
+                      dataProjection: 'EPSG:900913',
+                      featureProjection: 'EPSG:900913'
+                    })
                   }),
-                  new MangolLayer({
-                    name: 'Province',
-                    queryable: true,
-                    querySrs: 'EPSG:900913',
-                    layer: new VectorLayer({
-                      source: new VectorSource({
-                        url:'assets/geojson/province.geojson',
-                          // 'http://188.166.116.137:8080/geoserver/gwc/service/wms',
-                        format: new pseudoGeoJSONFormat({
-                          dataProjection: 'EPSG:900913',
-                          featureProjection: 'EPSG:900913'
-                        })
-                      }),
-                      visible: true
-                    })
-                  })
-                ]
-              }),
-              new MangolLayerGroup({
-                name: 'Coronavirus (COVID-19)',
-                children: [
-                  new MangolLayer({
-                    name: 'Covid-19',
-                    queryable: true,
-                    querySrs: 'EPSG:900913',
-                    layer: new VectorLayer({
-                      source: new VectorSource({
-                        url:'assets/geojson/covid19.geojson',
-                        format: new pseudoGeoJSONFormat({
-                          dataProjection: 'EPSG:900913',
-                          featureProjection: 'EPSG:900913'
-                        })
-                      }),
-                      visible: true
-                    })
-                  })
-                ]
+                  style: (feat) => {
+                    return this.styleService.hoverStyle(<Feature>feat)
+                  },
+                  visible: true
+                })
               })
+              // new MangolLayerGroup({
+              //   name: 'Coutries & Cities',
+              //   children: [
+                  // new MangolLayer({
+                  //   name: 'Country borders',
+                  //   queryable: true,
+                  //   querySrs: 'EPSG:900913',
+                  //   details:
+                  //     'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
+                  //     layer: new VectorLayer({
+                  //       source: new VectorSource({
+                  //         url: 'assets/geojson/countries.geojson',
+                  //         format: new pseudoGeoJSONFormat({
+                  //           dataProjection: 'EPSG:900913',
+                  //           featureProjection: 'EPSG:900913'
+                  //         })
+                  //       })
+                  //     })
+                  // }),
+              //   ]
+              // }),
+              // new MangolLayerGroup({
+              //   name: 'Coronavirus (COVID-19)',
+              //   children: [
+              //     new MangolLayer({
+              //       name: 'Covid-19',
+              //       queryable: true,
+              //       querySrs: 'EPSG:900913',
+              //       layer: new VectorLayer({
+              //         source: new VectorSource({
+              //           url:'assets/geojson/covid19.geojson',
+              //           format: new pseudoGeoJSONFormat({
+              //             dataProjection: 'EPSG:900913',
+              //             featureProjection: 'EPSG:900913'
+              //           })
+              //         }),
+              //         visible: true
+              //       })
+              //     })
+              //   ]
+              // })
             ]
           })
         ]
