@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CursorMode } from '../../../interfaces/cursor-mode';
 import { Store } from '@ngrx/store';
@@ -8,6 +8,8 @@ import * as fromMangol from './../../../store/mangol.reducers';
 import * as MeasureActions from '../../../store/measure/measure.actions';
 import * as SidebarActions from '../../../store/sidebar/sidebar.actions';
 import * as CursorActions from '../../../store/cursor/cursor.actions';
+import * as ControllersActions from '../../../store/controllers/controllers.actions';
+
 import { MangolControllersPointOptions } from '../../../interfaces/config-map-controllers.interface';
 
 
@@ -17,6 +19,8 @@ import { MangolControllersPointOptions } from '../../../interfaces/config-map-co
   styleUrls: ['./measure-point-button.component.scss']
 })
 export class MeasurePointButtonComponent implements OnInit {
+  @Input() disableButton: boolean;
+
   animationDuration = 500;
   point$: Observable<MangolControllersPointOptions>;
   cursorMode: CursorMode;
@@ -47,6 +51,7 @@ export class MeasurePointButtonComponent implements OnInit {
       this.store.dispatch(new SidebarActions.SetSelectedModule('measure'));
       this.store.dispatch(new MeasureActions.SetMode(mode));
       this.store.dispatch(new CursorActions.SetMode(cursorMode));
+      this.store.dispatch(new ControllersActions.SetDisableButtonDictionary(true));
     } else {
       this.store.dispatch(new MeasureActions.SetMode(null));
       this.store.dispatch(new CursorActions.ResetMode());

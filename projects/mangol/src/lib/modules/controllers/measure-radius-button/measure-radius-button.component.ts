@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import * as fromMangol from './../../../store/mangol.reducers';
 import { Store } from '@ngrx/store';
 import { MangolControllersRadiusOptions } from '../../../interfaces/config-map-controllers.interface';
@@ -7,6 +7,7 @@ import { CursorMode } from '../../../interfaces/cursor-mode';
 import * as MeasureActions from '../../../store/measure/measure.actions';
 import * as SidebarActions from '../../../store/sidebar/sidebar.actions';
 import * as CursorActions from '../../../store/cursor/cursor.actions';
+import * as ControllersActions from '../../../store/controllers/controllers.actions';
 import { MeasureMode } from '../../../store/measure/measure.reducers';
 import GeometryType from 'ol/geom/GeometryType';
 
@@ -17,6 +18,8 @@ import GeometryType from 'ol/geom/GeometryType';
   styleUrls: ['./measure-radius-button.component.scss']
 })
 export class MeasureRadiusButtonComponent implements OnInit {
+  @Input() disableButton: boolean;
+
   animationDuration = 500;
   radius$: Observable<MangolControllersRadiusOptions>;
   cursorMode: CursorMode;
@@ -46,6 +49,7 @@ export class MeasureRadiusButtonComponent implements OnInit {
       this.store.dispatch(new SidebarActions.SetSelectedModule('measure'));
       this.store.dispatch(new MeasureActions.SetMode(mode));
       this.store.dispatch(new CursorActions.SetMode(cursorMode));
+      this.store.dispatch(new ControllersActions.SetDisableButtonDictionary(true));
     } else {
       this.store.dispatch(new MeasureActions.SetMode(null));
       this.store.dispatch(new CursorActions.ResetMode());

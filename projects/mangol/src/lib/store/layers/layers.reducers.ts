@@ -8,7 +8,7 @@ export interface State {
   layers: MangolLayer[];
   visiable: boolean;
   measureLayer: VectorLayer;
-  rmLayer: RemoveLayer[];
+  rmLayer: RemoveLayer[]
 }
 
 const initialState: State = {

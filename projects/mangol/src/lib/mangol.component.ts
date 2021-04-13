@@ -24,6 +24,7 @@ import * as SidebarActions from './store/sidebar/sidebar.actions';
 import * as CursorActions from './store/cursor/cursor.actions';
 import * as MeasureActions from './store/measure/measure.actions';
 import * as LayerActions from './store/layers/layers.actions';
+import * as ControllersActions from './store/controllers/controllers.actions';
 
 import { addCommon as addCommonProjections } from 'ol/proj.js';
 import { register } from 'ol/proj/proj4.js';
@@ -66,8 +67,10 @@ export class MangolComponent implements OnInit, OnDestroy{
   cursorText$: Observable<string>;
   position: number[];
   combinedSubscription: Subscription;
-  map:Map;
-  layer:VectorLayer;
+  map: Map;
+  layer: VectorLayer;
+
+  disableButton$: Observable<boolean>;
 
   draw: Draw = null;
   initialText: string = null;
@@ -95,6 +98,7 @@ export class MangolComponent implements OnInit, OnDestroy{
     this.rmLayer$ = this.store.select((state) => state.layers.rmLayer).pipe(filter((l) => l !== null));
     this.measureMode$ = this.store.select((state) => state.measure.mode).pipe(filter((mode) => mode !== null));
     this.cursorText$ = this.store.select((state) => state.cursor.mode.text);
+    this.disableButton$ = this.store.select(state => state.controllers.disableButton);
     // this.select = this.selectPointerMove;
   }
 
@@ -316,11 +320,12 @@ export class MangolComponent implements OnInit, OnDestroy{
   public _deactivateDraw(map: Map = null, layer: VectorLayer = null) {
     this.displayValue = null;
     try {
-      this.map.removeLayer(layer ? layer :this.layer );
+      this.store.dispatch(new ControllersActions.SetDisableButtonDictionary(false));
+      this.map.removeLayer(layer? layer : this.layer);
       this.map.removeInteraction(this.draw);
+      this.store.dispatch(new CursorActions.SetVisible(true));
       this.store.dispatch(new MeasureActions.SetMode(null));
       this.store.dispatch(new CursorActions.ResetMode());
-      this.store.dispatch(new CursorActions.SetVisible(true));
     } catch (error) {}
   }
 

@@ -30,6 +30,7 @@ import Overlay from 'ol/Overlay';
 import OverlayPositioning from 'ol/OverlayPositioning';
 import Feature from 'ol/Feature';
 import { MatTableDataSource } from '@angular/material/table';
+import { CursorMode } from '../../interfaces/cursor-mode';
 
 
 @Component({
@@ -49,6 +50,8 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   cursorModeSubscription: Subscription;
   mapSubscription: Subscription;
   positionSubscription: Subscription;
+  cursorMode$: Subscription;
+  cursorMode: CursorMode;
 
   pointerMoveFunction: any = null;
   position: MangolControllersPositionStateModel = null;
@@ -156,81 +159,47 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
               map.addLayer(l.layer);
             });
             const self = this;
+            this.cursorMode$ = this.store.select(state => state.cursor.mode).subscribe( (mode) =>  this.cursorMode = mode);
             map.on('pointermove', function (evt) {
               // map.on('singleclick', function (evt) {
-              var coordinate = null;
-              const source: any[] = [];
-              coordinate = evt.coordinate;
-              const pixel = evt.pixel;
-              self.dataSource = new MatTableDataSource(null);
-              map.forEachFeatureAtPixel(pixel, function (feature, layer) {
-                if(layer) {
-                  let FeatureLayer = layer.getFeatures(pixel).then((feats) =>{
-                    var feature = feats.length ? feats[0] : undefined;
-                    console.warn('feature', feature);
-
-                  })
-                }
-                const props = feature.getProperties();
-                for (const key in props) {
-                  if (props.hasOwnProperty(key)) {
-                    // Don't show objects or functions in the table or the property is not in the layers' queryColumns attribute
-                    if (
-                      typeof props[key] === 'object' ||
-                      typeof props[key] === 'function'
-                    ) {
-                      delete props[key];
-                    } else {
-                      // Add the property name to the columns if not already added
-                      if (self.columns.indexOf(key) === -1) {
-                        self.columns.push(key);
+              if(self.cursorMode.cursor == "default") {
+                var coordinate = null;
+                const source: any[] = [];
+                coordinate = evt.coordinate;
+                const pixel = evt.pixel;
+                self.dataSource = new MatTableDataSource(null);
+                map.forEachFeatureAtPixel(pixel, function (feature, layer) {
+                  const props = feature.getProperties();
+                  for (const key in props) {
+                    if (props.hasOwnProperty(key)) {
+                      // Don't show objects or functions in the table or the property is not in the layers' queryColumns attribute
+                      if (
+                        typeof props[key] === 'object' ||
+                        typeof props[key] === 'function'
+                      ) {
+                        delete props[key];
+                      } else {
+                        // Add the property name to the columns if not already added
+                        if (self.columns.indexOf(key) === -1) {
+                          self.columns.push(key);
+                        }
                       }
                     }
                   }
-                }
-                let exist = source.find(item => item.id === props.id)
-                if(!exist) {
-                  source.push(props);
-                }
-                self.dataSource = new MatTableDataSource(source);
-              });
+                  let exist = source.find(item => item.id === props.id)
+                  if(!exist) {
+                    source.push(props);
+                  }
+                  self.dataSource = new MatTableDataSource(source);
+                });
 
-              if(Array.isArray(source) && source.length > 0) {
-                self.overlay.setPosition(coordinate);
-              }else {
-                self.overlay.setPosition(undefined);
-                self.closer.blur();
+                if(Array.isArray(source) && source.length > 0) {
+                  self.overlay.setPosition(coordinate);
+                }else {
+                  self.overlay.setPosition(undefined);
+                  self.closer.blur();
+                }
               }
-
-              // const layersQuery = layers.filter(layerF => layerF.name !== 'OpenStreetMap Layer')
-              // self.resultsFeatures$.subscribe((resultsFeatures) => {
-              //   resultsFeatures.forEach((feature) => {
-              //     // console.warn('feature.getProperties()',{ ...feature.getProperties() });
-              //     const props = { ...feature.getProperties() };
-              //     for (const key in props) {
-              //       if (props.hasOwnProperty(key)) {
-              //         // Don't show objects or functions in the table or the property is not in the layers' queryColumns attribute
-              //         if (
-              //           typeof props[key] === 'object' ||
-              //           typeof props[key] === 'function'
-              //         ) {
-              //           delete props[key];
-              //         } else {
-              //           // Add the property name to the columns if not already added
-              //           if (self.columns.indexOf(key) === -1) {
-              //             self.columns.push(key);
-              //           }
-              //         }
-              //       }
-              //     }
-              //     let exist = source.find(item => item.id === props.id)
-              //     if(!exist) {
-              //       source.push(props);
-              //     }
-              //   });
-              //   console.warn('sourcesource:::', source);
-              //   self.dataSource = new MatTableDataSource(source);
-              // });
             });
             this.closer.onclick = function () {
               self.overlay.setPosition(undefined);

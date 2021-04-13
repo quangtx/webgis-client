@@ -1,8 +1,6 @@
 <mat-drawer-container>
     <mangol-tabs *ngIf="(visiable$ | async)"></mangol-tabs>
     <mangol-controllers *ngIf="(map$ | async) !== null" ></mangol-controllers>
-    <button mat-raised-button color="accent" class="btn-close-measure" (click)="_deactivateDraw()">
-        <mat-icon>close</mat-icon>
-    </button>
+    <button mat-raised-button class="btn-close-measure" color="accent" [disabled]="!(disableButton$ | async)" (click)="_deactivateDraw()"><mat-icon>close</mat-icon></button>
     <mangol-map [config]="config" ></mangol-map>
 </mat-drawer-container>

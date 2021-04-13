@@ -9,6 +9,7 @@ import GeometryType from 'ol/geom/GeometryType';
 import * as MeasureActions from '../../../store/measure/measure.actions';
 import * as SidebarActions from '../../../store/sidebar/sidebar.actions';
 import * as CursorActions from '../../../store/cursor/cursor.actions';
+import * as ControllersActions from '../../../store/controllers/controllers.actions';
 import * as LayerActions from '../../../store/layers/layers.actions';
 import { CursorMode } from '../../../interfaces/cursor-mode';
 
@@ -18,6 +19,8 @@ import { CursorMode } from '../../../interfaces/cursor-mode';
   styleUrls: ['./measure-line-button.component.scss']
 })
 export class MeasureLineButtonComponent implements OnInit {
+  @Input() disableButton: boolean;
+
   animationDuration = 500;
   line$: Observable<MangolControllersLineOptions>;
   cursorMode: CursorMode;
@@ -55,6 +58,7 @@ export class MeasureLineButtonComponent implements OnInit {
       this.store.dispatch(new SidebarActions.SetSelectedModule('measure'));
       this.store.dispatch(new MeasureActions.SetMode(mode));
       this.store.dispatch(new CursorActions.SetMode(cursorMode));
+      this.store.dispatch(new ControllersActions.SetDisableButtonDictionary(true));
     } else {
       const rm: RemoveLayer[] = [
         {
@@ -63,7 +67,6 @@ export class MeasureLineButtonComponent implements OnInit {
       ]
       this.store.dispatch(new MeasureActions.SetMode(null));
       this.store.dispatch(new CursorActions.ResetMode());
-      this.store.dispatch(new LayerActions.RmLayer(rm));
     }
   }
 }
