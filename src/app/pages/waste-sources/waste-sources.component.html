@@ -5,17 +5,22 @@
                 <form [formGroup]="wasteWaterForm" (ngSubmit)="onSubmit()" id="wasteWaterForm" action="#" method="POST">
                     <div>
                         <div class="display-flex">
-                            <mat-form-field class="mr-3 w-100">
+                            <mat-form-field class="mt-1 mr-3 w-100">
                                 <mat-label>Vĩ độ</mat-label>
                                 <input matInput formControlName="lat" placeholder="Nhập Vĩ Độ" type="text" value="" reqired
                                     autocomplete='off'>
                             </mat-form-field>
-                            <mat-form-field class="w-100">
+                            <mat-form-field class="mt-1 w-100">
                                 <mat-label>Kinh độ</mat-label>
                                 <input matInput formControlName="long" placeholder="Nhập Kinh Độ" type="text" value="" reqired
                                     autocomplete='off'>
                             </mat-form-field>
-                            <button mat-icon-button type="button" color="accent" (click)="_activateDraw()" aria-label="Lấy Tọa Độ">
+                            <button *ngIf="closeChoose" mat-icon-button type="button" color="accent" (click)="deactivateDraw()" aria-label="Lấy Tọa Độ">
+                                <mat-icon>
+                                    close
+                                </mat-icon>
+                            </button>
+                            <button  *ngIf="!closeChoose" mat-icon-button type="button" color="accent" (click)="choosePoint()" aria-label="Lấy Tọa Độ">
                                 <mat-icon>
                                     location_on
                                 </mat-icon>
@@ -119,7 +124,12 @@
                                 <input matInput formControlName="long" placeholder="Nhập Kinh Độ" type="text" value="" reqired
                                     autocomplete='off'>
                             </mat-form-field>
-                            <button mat-icon-button type="button" color="accent" aria-label="Lấy Tọa Độ">
+                            <button *ngIf="closeChoose" mat-icon-button type="button" color="accent" (click)="deactivateDraw()" aria-label="Lấy Tọa Độ">
+                                <mat-icon>
+                                    close
+                                </mat-icon>
+                            </button>
+                            <button  *ngIf="!closeChoose" mat-icon-button type="button" color="accent" (click)="choosePoint()" aria-label="Lấy Tọa Độ">
                                 <mat-icon>
                                     location_on
                                 </mat-icon>

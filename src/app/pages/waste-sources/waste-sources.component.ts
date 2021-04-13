@@ -92,6 +92,7 @@ export class WasteSourcesComponent implements OnInit, DoCheck {
   map: Map;
   layer: VectorLayer;
   mode: MeasureMode;
+  closeChoose: boolean = false;
 
   constructor(
     private cdr: ChangeDetectorRef,
@@ -144,6 +145,7 @@ export class WasteSourcesComponent implements OnInit, DoCheck {
       emissionMonitoringResults: ['', [Validators.required]], // Kết quả quan trắc khí thải
     })
     this.store.select(state => state.map.map).subscribe(map => this.map = map);
+    this.store.select((state) => state.layers.measureLayer).subscribe(layer => this.layer = layer);
   }
 
   ngDoCheck() {
@@ -159,19 +161,6 @@ export class WasteSourcesComponent implements OnInit, DoCheck {
 
     const res = await axios.get(this.apiUrl + 'provinces')
     this.provinces = res.data;
-
-    this.store
-    .select((state) => state.map.map)
-    .pipe(take(1))
-    .subscribe((map) => {
-      if(map) {
-        const self = this;
-        map.on('singleclick', function (evt) {
-          console.warn('evt.coordinateP::::',evt.coordinate);
-          self.coordinate = evt.coordinate;
-        });
-      }
-  });
   }
   /**
    * Watching select change option.
@@ -194,17 +183,55 @@ export class WasteSourcesComponent implements OnInit, DoCheck {
 
   }
 
-  public _activateDraw() {
-    // this.map = map;
-    // this.layer = layer;
+  /**
+   * Choose point in map for form.
+   */
+  choosePoint() {
+    this.closeChoose = true;
+     const mode = {
+      fontIcon: "gps_fixed",
+      fontSet: "ms",
+      geometryName: GeometryType.POINT,
+      type: "point",
+    }
+    const cursorMode: CursorMode = {
+      cursor: "crosshair",
+      text: "Click on Map to start measurement"
+    }
+    this.activateDraw(mode)
+  }
+
+  /**
+   * Deactive measure on map.
+   * @param map
+   * @param layer
+   */
+  public deactivateDraw(map: Map = null, layer: VectorLayer = null) {
+    this.displayValue = null;
+    try {
+      this.closeChoose = false;
+      this.map.removeLayer(this.layer);
+      this.layer.getSource().clear();
+      this.map.removeInteraction(this.draw);
+      this.store.dispatch(new MeasureActions.SetMode(null));
+      this.store.dispatch(new CursorActions.ResetMode());
+    } catch (error) {}
+  }
+
+  /**
+   * Active Draw on map
+   * @param mode
+   */
+  public activateDraw(mode: MeasureMode) {
+    this.mode = mode;
     this.map.addLayer(this.layer);
     this.draw = new Draw({
       source: this.layer.getSource(),
       style: (feature: Feature) => this.measureService.getStyle(feature),
-      type: this.mode.geometryName,
+      type: mode.geometryName,
     });
     this.initialText =
-      (this.mode.type === 'radius'
+      (mode.type === 'radius'
         ? this.dictionary.drawStartTextRadius
         : this.dictionary.drawStartText) + '.';
     this.store.dispatch(
@@ -216,6 +243,7 @@ export class WasteSourcesComponent implements OnInit, DoCheck {
     this.displayValue = this.initialText;
     let listener = null;
     this.draw.on('drawstart', (e: DrawEvent) => {
+      this.layer.getSource().clear();
       this.store.dispatch(
         new CursorActions.SetMode({
           text: this.initialText,
@@ -236,16 +264,16 @@ export class WasteSourcesComponent implements OnInit, DoCheck {
         this.displayValue = displayValue;
       });
 
-      if(this.mode.type == 'point') {
-        const geom: Geometry = e.target;
-        const point = geom as Point;
-            const position = this.store
-              .select((state) => state.controllers.position.coordinates)
-              .pipe(take(1))
-              .subscribe((position) => {
-                this.positionCood = position
-              })
-        this.displayValue = `${this.dictionary.point}: ${this.position[0]}, ${this.position[1]}.`
+      if(mode.type == 'point') {
+        this.store
+          .select((state) => state.controllers.position.coordinates)
+          .pipe(take(1))
+          .subscribe((position) => {
+            this.positionCood = position
+          })
+        this.wasteWaterForm.patchValue({lat: this.positionCood[0], long: this.positionCood[1]});
+        this.emissionsForm.patchValue({lat: this.positionCood[0], long: this.positionCood[1]});
+        this.displayValue = `${this.dictionary.point}: ${this.positionCood[0]}, ${this.positionCood[1]}.`
       }
     });
 
