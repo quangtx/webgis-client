@@ -190,6 +190,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
                   if(!exist) {
                     source.push(props);
                   }
+
                   self.dataSource = new MatTableDataSource(source);
                 });
 

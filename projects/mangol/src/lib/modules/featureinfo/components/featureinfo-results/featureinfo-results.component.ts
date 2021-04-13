@@ -40,24 +40,12 @@ export class FeatureinfoResultsComponent implements OnInit, OnDestroy {
 
   clickFunction: any = null;
 
-  popup = new Overlay({
-    element: document.getElementById('popup'),
-    autoPanAnimation: {
-      duration: 250
-    }
-  });
-
   constructor(
     private store: Store<fromMangol.MangolState>,
     private featureinfoService: FeatureinfoService,
     public snackBar: MatSnackBar,
     public dialog: MatDialog
-  ) {
-    this.store.select((state) => state.map.map).subscribe((m) => {
-      m.addOverlay(this.popup);
-      this.popup.setPosition(undefined);
-     });
-  }
+  ) {}
 
   ngOnInit() {
     this.resultsLayer$ = this.store.select(
@@ -300,7 +288,7 @@ export class FeatureinfoResultsComponent implements OnInit, OnDestroy {
       .pipe(take(1))
       .subscribe((m) => {
         m.getView().fit(feature.getGeometry().getExtent(), {
-          duration: 500,
+          duration: 300,
         });
       });
   }
