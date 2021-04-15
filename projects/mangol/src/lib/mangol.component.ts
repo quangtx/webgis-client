@@ -25,6 +25,7 @@ import * as CursorActions from './store/cursor/cursor.actions';
 import * as MeasureActions from './store/measure/measure.actions';
 import * as LayerActions from './store/layers/layers.actions';
 import * as ControllersActions from './store/controllers/controllers.actions';
+import { AddEditLayerDialogComponent } from './modules/add-edit-layer-dialog/add-edit-layer-dialog.component'
 
 import { addCommon as addCommonProjections } from 'ol/proj.js';
 import { register } from 'ol/proj/proj4.js';
@@ -74,6 +75,7 @@ export class MangolComponent implements OnInit, OnDestroy{
 
   draw: Draw = null;
   initialText: string = null;
+  dialogRef=null;
   displayValue: string = null;
   highlightStyle:Style = new Style({
     fill: new Fill({
@@ -172,7 +174,7 @@ export class MangolComponent implements OnInit, OnDestroy{
           }
         });
       layer.setZIndex(maxZIndex + 1);
-      layer.getSource().clear();
+      // layer.getSource().clear();
       this._activateDraw(m, layer, mode);
     });
   }
@@ -215,17 +217,13 @@ export class MangolComponent implements OnInit, OnDestroy{
         switch (mode.type) {
           case 'line':
             const lineString = geom as LineString;
-            displayValue = `${
-              this.dictionary.distance
-            }: ${this.measureService.exchangeMetersAndKilometers(
+            displayValue = `${this.measureService.exchangeMetersAndKilometers(
               getLength(lineString)
             )}.`;
             break;
           case 'area':
             const polygon = geom as Polygon;
-            displayValue = `${
-              this.dictionary.area
-            }: ${this.measureService.exchangeSqmetersAndSqkilometers(
+            displayValue = `${this.measureService.exchangeSqmetersAndSqkilometers(
               getArea(polygon)
             )}.`;
             break;
@@ -251,9 +249,7 @@ export class MangolComponent implements OnInit, OnDestroy{
                 angle = angle < 0 ? angle + 360 : angle;
                 const displayAngle =
                   parseFloat(angle.toString()).toFixed(2) + '°';
-                displayValue = `${
-                  this.dictionary.radius
-                }: ${this.measureService.exchangeMetersAndKilometers(
+                displayValue = `${this.measureService.exchangeMetersAndKilometers(
                   getLength(line)
                 )}, ${this.dictionary.angle}: ${displayAngle}.`;
               });
@@ -273,19 +269,26 @@ export class MangolComponent implements OnInit, OnDestroy{
       if(mode.type == 'point') {
         const geom: Geometry = e.target;
         const point = geom as Point;
-            const position = this.store
-              .select((state) => state.controllers.position.coordinates)
-              .pipe(take(1))
-              .subscribe((position) => {
-                this.position = position
-              })
-        this.displayValue = `${this.dictionary.point}: ${this.position[0]}, ${this.position[1]}.`
+        const position = this.store
+          .select((state) => state.controllers.position.coordinates)
+          .pipe(take(1))
+          .subscribe((position) => {
+            this.position = position;
+            this.displayValue = `${position[0]},${position[1]}`;
+          })
       }
     });
 
     this.draw.on('drawend', (e: DrawEvent) => {
+      this.dialogRef = this.dialog.open(AddEditLayerDialogComponent,
+        {
+            data: {},
+        });
       unByKey(listener);
-      e.feature.setProperties({ text: this.displayValue });
+      this.dialogRef.afterClosed().subscribe(result => {
+        this.displayValue = result + ':' +this.displayValue
+        e.feature.setProperties({ text: this.displayValue });
+      });
       this.store.dispatch(
         new CursorActions.SetMode({
           text: this.dictionary.clickOnMap,
@@ -322,6 +325,7 @@ export class MangolComponent implements OnInit, OnDestroy{
     try {
       this.store.dispatch(new ControllersActions.SetDisableButtonDictionary(false));
       this.map.removeLayer(layer? layer : this.layer);
+      this.layer.getSource().clear();
       this.map.removeInteraction(this.draw);
       this.store.dispatch(new CursorActions.SetVisible(true));
       this.store.dispatch(new MeasureActions.SetMode(null));

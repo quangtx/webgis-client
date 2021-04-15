@@ -4,10 +4,10 @@
 		<button class="fb" type="button">Log In With Facebook</button>
 		<p>- or -</p>
     <mat-form-field class="example-full-width">
-      <mat-label>Username</mat-label>
-      <input matInput formControlName="username" placeholder="Enter Username" type="text" value="" reqired autocomplete='off'>
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="username" placeholder="Enter Email" type="text" value="" reqired autocomplete='off'>
       <mat-error *ngIf="f.username.errors && submitted && f.username.errors.required">
-        Username is <strong>required</strong>
+        Email is <strong>required</strong>
       </mat-error>
     </mat-form-field>
     <mat-form-field class="example-full-width">

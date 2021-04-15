@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   SECRET_KEY: 'aGFzaHBhc3N3b3Jk', // hashpassword encode with base64
-  baseUrlApi: 'http://localhost:3000/'
+  baseUrlApi: 'http://localhost:8000/api/'
 };
 
 

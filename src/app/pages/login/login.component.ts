@@ -65,45 +65,20 @@ export class LoginComponent implements OnInit {
     }
     let username = this.loginForm.value.username
     let password = this.loginForm.value.password
-
-    axios.get(this.apiUrl + "users?username=" +username)
-    .then((response) => {
-      if(response && response.data) {
-        const res = response.data
-        if(Array.isArray(res) && res.length) {
-          var passwordDecrypted = this.EncrDecr.get(environment.SECRET_KEY, res[0].password);
-          if(password === passwordDecrypted) {
-            this.openSnackBar('Đăng nhập thành công!', 'Đóng')
-            this.generateToken(res[0])
-            this.router.navigate(['/']);
-          }else {
-            this.openSnackBar('Đăng nhập lỗi! Tài khoản hoặc mật khẩu không chính xác!', 'Đóng')
-          }
-        }
+    axios.post(this.apiUrl + 'login', {email: username, password: password}).then(res => {
+      if(res && res.data) {
+        this.openSnackBar('Đăng nhập thành công!', 'Đóng')
+        let time  = parseInt((new Date().getTime() / 1000).toFixed(0)) + 3600;
+        this.cookieService.set('auth_token', res.data.token , time);
+        this.router.navigate(['/']);
+      }else {
+        this.openSnackBar('Đăng nhập lỗi! Tài khoản hoặc mật khẩu không chính xác!', 'Đóng')
       }
-    })
-    .catch((error) => {
-        console.log(error);
-    });
-  }
-
-  generateToken(userInfo) {
-    let token = userInfo.username + ':'+ userInfo.password + ':' + userInfo.first_name + ':'+ userInfo.last_name + ':'+ userInfo.email;
-    var tokenEncrypted = this.EncrDecr.set(environment.SECRET_KEY, token);
-    axios.put(this.apiUrl + 'users/' + userInfo.id, {
-      firt_name: userInfo.firstName,
-      last_name: userInfo.lastName,
-      username: userInfo.username,
-      password: userInfo.password,
-      email: userInfo.email,
-      token: tokenEncrypted,
-      exprise_at: 3600
-    }).then(res => {
-      let time  = parseInt((new Date('2012.08.10').getTime() / 1000).toFixed(0)) + 3600;
-      this.cookieService.set('auth_token',  tokenEncrypted, time);
+    }).catch(e => {
+      console.error('ERROR:', e);
+      this.openSnackBar('Đăng nhập lỗi! Tài khoản hoặc mật khẩu không chính xác!', 'Đóng')
     })
   }
-
   openSnackBar(message: string, action: string) {
     this._snackBar.open(message, action, {
       duration: 2000,
