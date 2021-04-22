@@ -69,32 +69,41 @@ export class RegistrationComponent implements OnInit {
 
   get f() { return this.registerForm.controls; }
 
-  /**
+  /** 
    * Sign up
    */
   async onSignUp() {
+    var config = {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        "Access-Control-Allow-Origin" : "*",
+        "Access-Control-Allow-Methods" : "GET,POST,PUT,DELETE,OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
+      }
+  }
     this.submitted = true;
     const form = this.registerForm.value;
-    let resExist = await axios.get(this.apiUrl + 'users?username=' + form.username.trim())
+    let resExist = await axios.get(this.apiUrl + 'check-user?username=' + form.username.trim(),config)
     // stop here if form is invalid
+    console.warn('ress', resExist);
+
     if (this.registerForm.invalid || (resExist && resExist.data)) {
-        if(resExist && resExist.data.length > 0) {
+        if(resExist && resExist.data && resExist.data.exist) {
           this.openSnackBar('Tài khoản đã tồn tại', 'Đóng')
           return;
         }
     }
 
-    var passwordEncrypted = this.EncrDecr.set(environment.SECRET_KEY, form.password);
     const data = {
       firt_name: form.firstName,
       last_name: form.lastName,
-      username: form.username.trim(),
-      password: passwordEncrypted,
-      email: form.email,
-      token: '',
-      exprise_at: 3600
+      name: form.username.trim(),
+      password: form.password,
+      confirm_password: form.confirmPassword,
+      email: form.email
     }
-    axios.post(this.apiUrl + "users", data )
+    axios.post(this.apiUrl + "register", data)
     .then((response) => {
       if(response && response.data) {
         this.openSnackBar('Đăng ký thành viên thành công', 'Đóng')

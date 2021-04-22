@@ -42,6 +42,8 @@ import Geometry from 'ol/geom/Geometry';
 import Point from 'ol/geom/Point';
 import { unByKey } from 'ol/Observable';
 import { combineLatest, Observable } from 'rxjs';
+import { CookieService } from 'ngx-cookie-service';
+const LIMIT = 10000;
 
 @Component({
   selector: 'app-waste-sources',
@@ -60,10 +62,11 @@ export class WasteSourcesComponent implements OnInit, DoCheck {
   emissionsForm: FormGroup;
   wasteWaterTypeList: any[];
   exhaustGasTypeList: any[];
-  dischargeWastewaterMethodsList:any[] = []
+  // dischargeWastewaterMethodsList:any[] = []
   dischargeWasteWaterRegimeList:any[] = [];
   provinces:any[] = [];
   districts: any[];
+  wards: any[];
   apiUrl = environment.baseUrlApi;
   position: MangolControllersPositionStateModel = null;
   selectedPostionMode: boolean = false;
@@ -93,13 +96,16 @@ export class WasteSourcesComponent implements OnInit, DoCheck {
   layer: VectorLayer;
   mode: MeasureMode;
   closeChoose: boolean = false;
+  token: String;
+
 
   constructor(
     private cdr: ChangeDetectorRef,
     private formBuilder: FormBuilder,
     private snackBarService: SnackBarService,
     private store: Store<fromMangol.MangolState>,
-    private measureService: MeasureService
+    private measureService: MeasureService,
+    private cookieService: CookieService,
   ) {
     this.store.select((state) => state.measure.dictionary).subscribe(dictionary => (this.dictionary = dictionary));
     this.map$ = this.store.select(state => state.map.map).pipe(filter((m) => m !== null));
@@ -108,10 +114,17 @@ export class WasteSourcesComponent implements OnInit, DoCheck {
   }
 
   ngOnInit() {
+    this.token = this.cookieService.get('auth_token');
     this.initDefault()
+    this.getDistricts()
+    // this.getWards()
+
     this.wasteWaterForm = this.formBuilder.group({
-      lat: ['', [Validators.required]],
-      long: ['', [Validators.required]],
+      lat: ['', [Validators.required, Validators.pattern(new RegExp("([0-9].)"))]],
+      long: ['', [Validators.required, Validators.pattern(new RegExp("([0-9].)"))]],
+      leftBank: ['', [Validators.required, Validators.pattern(new RegExp("([0-9].)"))]],
+      rightBank: ['', [Validators.required, Validators.pattern(new RegExp("([0-9].)"))]],
+      outletSize: ['', [Validators.required, Validators.pattern(new RegExp("([0-9].)"))]],
       description: ['', [Validators.required]],
       wasteSourceOwner: ['', [Validators.required]], // Chủ nguồn thải
       wasteSource: ['', [Validators.required]], // Nguồn thải
@@ -123,14 +136,17 @@ export class WasteSourcesComponent implements OnInit, DoCheck {
       wasteWaterType: ['', [Validators.required]], // Loại hình nước thải
       maximumWastewaterTraffic: ['', [Validators.required]], // Lưu lượng nước thải tối đa
       averageWastewaterTraffic: ['', [Validators.required]], // Lưu lượng nước thải trung bình
-      dischargeWastewaterMethods: ['', [Validators.required]], // Phương thức xả nước thải
-      dischargeWasteWaterRegime: ['', [Validators.required]], // Chế độ xả nước thải
+      // dischargeWastewaterMethods: ['', [Validators.required]], // Phương thức xả nước thải
+      // dischargeWasteWaterRegime: ['', [Validators.required]], // Chế độ xả nước thải
       wastewaterMonitoringResults: ['', [Validators.required]], // Kết quả quan trắc nước thải
       theSources: ['', [Validators.required]], // Nguồn tiếp nhận
     })
     this.emissionsForm = this.formBuilder.group({
       lat: ['', [Validators.required]],
       long: ['', [Validators.required]],
+      leftBank: ['', [Validators.required]],
+      rightBank: ['', [Validators.required]],
+      outletSize: ['', [Validators.required]],
       description: ['', [Validators.required]],
       wasteSourceOwner: ['', [Validators.required]], // Chủ nguồn thải
       wasteSource: ['', [Validators.required]], // Nguồn thải
@@ -147,6 +163,7 @@ export class WasteSourcesComponent implements OnInit, DoCheck {
     this.store.select(state => state.map.map).subscribe(map => this.map = map);
     this.store.select((state) => state.layers.measureLayer).subscribe(layer => this.layer = layer);
   }
+  get f() { return this.wasteWaterForm.controls; }
 
   ngDoCheck() {
     this.cdr.detectChanges();
@@ -156,24 +173,53 @@ export class WasteSourcesComponent implements OnInit, DoCheck {
     this.wasteWaterTypeList = Constants.WASTE_WATER_TYPE
     this.exhaustGasTypeList = Constants.EXHAUST_GAS_TYPE
     this.dischargeWasteWaterRegimeList = Constants.DISCHARGE_WASTE_WATER_REGIME
-    const resdWwaterMethodsList  = await axios.get(this.apiUrl + 'dischargeWastewaterMethods')
-    this.dischargeWastewaterMethodsList = resdWwaterMethodsList.data;
+    // const resdWwaterMethodsList  = await axios.get(this.apiUrl + 'dischargeWastewaterMethods')
+    // this.dischargeWastewaterMethodsList = resdWwaterMethodsList.data;
 
-    const res = await axios.get(this.apiUrl + 'provinces')
-    this.provinces = res.data;
+    // const res = await axios.get(this.apiUrl + 'provinces')
+    // this.provinces = res.data;
   }
   /**
    * Watching select change option.
    */
-  async changeProvince(provinceId) {
-    const res = await axios.get(this.apiUrl + 'districts?province_id='+ provinceId)
-    this.districts = res.data
+  // async changeProvince(provinceId) {
+  //   const res = await axios.get(this.apiUrl + 'districts?province_id='+ provinceId)
+  //   this.districts = res.data
+  // }
+
+  async getDistricts() {
+    const res = await axios.get(this.apiUrl + `districts?limit=${LIMIT}`, {
+      headers: {
+        'Authorization': 'Bearer ' + this.token
+      }
+    })
+
+    this.districts = res.data.data
+  }
+
+
+  async getWards() {
+    const res = await axios.get(this.apiUrl + `wards?limit=${0}`, {
+      headers: {
+        'Authorization': 'Bearer ' + this.token
+      }
+    })
+
+    this.wards = res.data.data
   }
 
   /**
    * Watching select change option.
    */
-  changeDistrict(districtId) {
+  async changeDistrict(districtId) {
+    const res = await axios.get(this.apiUrl + `wards?district_id=${districtId}&limit=${0}`, {
+      headers: {
+        'Authorization': 'Bearer ' + this.token
+      }
+    })
+
+    this.wards = res.data.data
+
   }
 
   /**

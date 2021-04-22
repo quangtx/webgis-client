@@ -1,30 +1,37 @@
 <mat-toolbar>
     <mat-toolbar-row class="display-flex space-between">
-        <div>
+        <div >
             <button mat-icon-button class="sidebar-button" [matTooltip]="sidebarOpened ? 'Hide demos' : 'Show demos'"
                 matTooltipPosition="below" [@sidebarButtonState]="sidebarOpened ? 'opened' : 'closed'"
                 (click)="toggleSidebar()">
                 <mat-icon>keyboard_arrow_left</mat-icon>
             </button>
             <button mat-icon-button *ngIf="activeRouteData !== '/'" class="sidebar-button"
-                matTooltip="Go back to Start Page" matTooltipPosition="below" (click)="navigateHome()" @homeButtonState>
+                matTooltip="Go home page" matTooltipPosition="below" (click)="navigateAbout()" @homeButtonState>
                 <mat-icon>home</mat-icon>
             </button>
             <div class="title">
             </div>
             <span class="fill-remaining-space"></span>
         </div>
-        <div>
+        <!-- <div *ngIf="!auth && activeRouteData == '/login'">
+            <button mat-icon-button  class="sidebar-button"
+                matTooltip="Go back to Start Page" matTooltipPosition="below" (click)="navigateHome()" @homeButtonState>
+                <mat-icon>home</mat-icon>
+            </button>
+        </div> -->
+        <div >
             <button mat-mini-fab color="primary" [matMenuTriggerFor]="menu" aria-label="">
                 <mat-icon>person</mat-icon>
               </button>
             <mat-menu #menu="matMenu">
-                <button mat-menu-item  (click)="registration()" >
+                <button  mat-menu-item  (click)="registration()" >
                     <mat-icon>person_add</mat-icon>
                     Tạo mới thành viên
                 </button>
-                <button mat-menu-item> <mat-icon>info</mat-icon> Thông tin tài khoản</button>
-                <button mat-menu-item (click)="logout()"> <mat-icon>logout</mat-icon> Đăng xuất</button>
+                <button  mat-menu-item (click)="goToInfo()"> <mat-icon>info</mat-icon> Thông tin tài khoản</button>
+                <button mat-menu-item (click)="login()"> <mat-icon>login</mat-icon>Đăng nhập</button>
+                <button  mat-menu-item (click)="logout()"> <mat-icon>logout</mat-icon> Đăng xuất</button>
             </mat-menu>
         </div>
     </mat-toolbar-row>

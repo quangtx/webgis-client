@@ -2,6 +2,7 @@
 
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { MatTabsModule } from '@angular/material/tabs'
 import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -10,12 +11,14 @@ import { Action, ActionReducer, MetaReducer, StoreModule } from '@ngrx/store';
 import { storeLogger } from 'ngrx-store-logger';
 import { MdePopoverModule } from '@material-extended/mde';
 import { MatCardModule } from '@angular/material/card';
+import { MatInputModule } from '@angular/material/input';
 
 import { MangolComponent } from './mangol.component';
 import { ControllersModule } from './modules/controllers/controllers.module';
 import { MapModule } from './modules/map/map.module';
 import { MeasureService } from './modules/measure/measure.service';
 import { TabsModule } from './modules/tabs/tabs.module';
+import { AddEditLayerDialogComponent } from './modules/add-edit-layer-dialog/add-edit-layer-dialog.component'
 import {
   clearState,
   mangolReducers,
@@ -60,6 +63,8 @@ export const metaReducers = [
     MatTabsModule,
     ControllersModule,
     MatCardModule,
+    MatInputModule,
+    FormsModule,
     StoreModule.forRoot(mangolReducers, {
       metaReducers,
       runtimeChecks: {
@@ -72,6 +77,7 @@ export const metaReducers = [
   ],
   declarations: [
     MangolComponent,
+    AddEditLayerDialogComponent,
   ],
   providers: [MeasureService],
   exports: [MangolComponent],

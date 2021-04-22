@@ -8,6 +8,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTabsModule } from '@angular/material/tabs'
 import { MatCardModule } from '@angular/material/card'
 import { MatGridListModule } from '@angular/material/grid-list'
+import { MatInputModule } from '@angular/material/input';
 
 import { ControllersComponent } from './controllers.component';
 import { CursorComponent } from './cursor/cursor.component';
@@ -36,6 +37,7 @@ import { MeasurePointButtonComponent } from './measure-point-button/measure-poin
     MatTabsModule,
     MatCardModule,
     MatGridListModule,
+    MatInputModule,
   ],
   declarations: [
     ControllersComponent,
