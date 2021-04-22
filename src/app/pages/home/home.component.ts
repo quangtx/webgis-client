@@ -60,7 +60,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.authGuard.canActivate();
+    // this.authGuard.canActivate();
     const pseudoGeoJSONFormat = <any>GeoJSON;
     this.mangolConfig = {
       map: {

@@ -22,41 +22,27 @@ import { AppComponent } from './app.component';
 import { ApiComponent } from './etc/api/api.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { PrettyPrintComponent } from './etc/pretty-print/pretty-print.component';
-import { DemoControllersComponent } from './pages/demo-controllers/demo-controllers.component';
-import { DemoFeatureinfoComponent } from './pages/demo-featureinfo/demo-featureinfo.component';
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegistrationComponent } from './pages/registration/registration.component';
 import { WasteSourcesComponent } from './pages/waste-sources/waste-sources.component';
-import { DemoHomeComponent } from './pages/demo-home/demo-home.component';
-import { DemoLayertreeComponent } from './pages/demo-layertree/demo-layertree.component';
-import { DemoMapComponent } from './pages/demo-map/demo-map.component';
-import { DemoMeasureComponent } from './pages/demo-measure/demo-measure.component';
-import { DemoPrintComponent } from './pages/demo-print/demo-print.component';
-import { DemoSidebarComponent } from './pages/demo-sidebar/demo-sidebar.component';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EncrDecrService } from '../app/EncrDecr/encr-decr.service';
 import { CookieService } from 'ngx-cookie-service';
+import { AboutComponent } from './pages/about/about.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    DemoHomeComponent,
-    DemoMapComponent,
-    DemoLayertreeComponent,
     PrettyPrintComponent,
     HomeComponent,
     LoginComponent,
+    AboutComponent,
     RegistrationComponent,
     WasteSourcesComponent,
     ApiComponent,
-    DemoFeatureinfoComponent,
-    DemoSidebarComponent,
-    DemoControllersComponent,
-    DemoMeasureComponent,
-    DemoPrintComponent
   ],
   imports: [
     BrowserModule,

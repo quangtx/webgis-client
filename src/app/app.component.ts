@@ -7,7 +7,7 @@ import {
   OnInit
 } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 
 import {
@@ -18,6 +18,9 @@ import {
 import { AppService } from './app.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import axios from 'axios';
+
+import { environment } from '../../src/environments/environment';
 
 export interface MangolDemoItem {
   number: string;
@@ -41,10 +44,13 @@ export class AppComponent implements OnInit, OnDestroy {
   items: MangolDemoItem[];
   logo: string;
   sidebarOpened: boolean;
+  auth:  String;
+  apiUrl = environment.baseUrlApi;
   sidebarOpenedSubscription: Subscription;
   activeRouteData = '/demo-home';
   createPoint: FormGroup;
   constructor(
+    private cdr: ChangeDetectorRef,
     private appService: AppService,
     private _snackBar: MatSnackBar,
     private router: Router,
@@ -62,36 +68,9 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.auth = this.cookieService.get('auth_token');
     this.logo = 'assets/img/logo/mangol_logo.png';
     this.items = [
-      {
-        number: '/demo-map',
-        title: 'Map'
-      },
-      {
-        number: '/demo-controllers',
-        title: 'Map controllers'
-      },
-      {
-        number: '/demo-sidebar',
-        title: 'Sidebar'
-      },
-      {
-        number: '/demo-layertree',
-        title: 'Layertree'
-      },
-      {
-        number: '/demo-featureinfo',
-        title: 'Feature info'
-      },
-      {
-        number: '/demo-measure',
-        title: 'Measure'
-      },
-      {
-        number: '/demo-print',
-        title: 'Print'
-      },
       {
         number: '/home',
         title: 'Full functionality'
@@ -107,7 +86,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   toggleSidebar() {
     let token = this.cookieService.get('auth_token');
-    if(token && this.router.url == '/') {
+    if(token && this.router.url !== '/login' && this.router.url !== '/about') {
       this.appService.sidebarOpenedSubject.next(!this.sidebarOpened);
     }
   }
@@ -124,18 +103,20 @@ export class AppComponent implements OnInit, OnDestroy {
     return this.activeRouteData;
   }
 
-  navigate(item: MangolDemoItem) {
+  navigateAbout() {
     if (window.innerWidth <= 1000) {
       this.appService.sidebarOpenedSubject.next(false);
     }
-    this.router.navigate([item.number]);
+    this.router.navigate(['/about']);
   }
 
   navigateHome() {
-    if (window.innerWidth <= 1000) {
-      this.appService.sidebarOpenedSubject.next(false);
-    }
+    this.cdr.detectChanges();
     this.router.navigate(['/']);
+  }
+
+  goToInfo() {
+    this.router.navigate(['/user-info']);
   }
 
   onSubmit() {
@@ -152,6 +133,15 @@ export class AppComponent implements OnInit, OnDestroy {
    * Logout
    */
   logout() {
+    axios.post(this.apiUrl + 'logout')
+    this.cookieService.set('auth_token',  '', 0);
+    this.router.navigate(['/login']);
+  }
+
+  /**
+   * Logout
+   */
+  login() {
     this.cookieService.set('auth_token',  '', 0);
     this.router.navigate(['/login']);
   }
