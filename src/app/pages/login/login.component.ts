@@ -61,6 +61,8 @@ export class LoginComponent implements OnInit {
         this.openSnackBar('Đăng nhập thành công!', 'Đóng')
         let time  = parseInt((new Date().getTime() / 1000).toFixed(0)) + 3600;
         this.cookieService.set('auth_token', res.data.token , time);
+        console.log(22222222222);
+        console.log(this.cookieService.get('auth_token'))
         self.cdr.detectChanges();
         self.router.navigate(['/']);
       }else {

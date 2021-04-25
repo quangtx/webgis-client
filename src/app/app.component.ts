@@ -64,11 +64,14 @@ export class AppComponent implements OnInit, OnDestroy {
         }
       }
     );
+    this.auth = this.cookieService.get('auth_token');
+    console.log(this.auth);
     // this.appService.sidebarOpenedSubject.next(window.innerWidth > 500);
   }
 
   ngOnInit() {
-    this.auth = this.cookieService.get('auth_token');
+    // this.auth = this.cookieService.get('auth_token');
+    console.log(this.auth);
     this.logo = 'assets/img/logo/mangol_logo.png';
     this.items = [
       {
@@ -85,10 +88,10 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   toggleSidebar() {
-    let token = this.cookieService.get('auth_token');
-    if(token && this.router.url !== '/login' && this.router.url !== '/about') {
+    // let token = this.cookieService.get('auth_token');
+    // if(token && this.router.url !== '/login' && this.router.url !== '/about') {
       this.appService.sidebarOpenedSubject.next(!this.sidebarOpened);
-    }
+    // }
   }
 
   getAnimationData(outlet: RouterOutlet) {
