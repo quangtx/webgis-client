@@ -26,6 +26,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegistrationComponent } from './pages/registration/registration.component';
 import { WasteSourcesComponent } from './pages/waste-sources/waste-sources.component';
+import { LegendComponent } from './pages/legend/legend.component';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -42,6 +43,7 @@ import { AboutComponent } from './pages/about/about.component';
     AboutComponent,
     RegistrationComponent,
     WasteSourcesComponent,
+    LegendComponent,
     ApiComponent,
   ],
   imports: [

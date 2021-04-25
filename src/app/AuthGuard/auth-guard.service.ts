@@ -24,5 +24,17 @@ export class AuthGuardService implements CanActivate{
     // not logged in so redirect to login page with the return url
     this.router.navigate(['/login'], { queryParams: { returnUrl: '/' }});
     return false;
-}
+  }
+
+  /**
+   * Is login
+   */
+  isLogined() {
+    let token = this.cookieService.get('auth_token');
+    if(token) {
+      return true;
+    }else {
+      return false;
+    }
+  }
 }

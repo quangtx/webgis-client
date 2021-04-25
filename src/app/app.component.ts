@@ -21,6 +21,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import axios from 'axios';
 
 import { environment } from '../../src/environments/environment';
+import { AuthGuardService } from './AuthGuard/auth-guard.service';
 
 export interface MangolDemoItem {
   number: string;
@@ -44,7 +45,6 @@ export class AppComponent implements OnInit, OnDestroy {
   items: MangolDemoItem[];
   logo: string;
   sidebarOpened: boolean;
-  auth:  String;
   apiUrl = environment.baseUrlApi;
   sidebarOpenedSubscription: Subscription;
   activeRouteData = '/demo-home';
@@ -56,6 +56,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private router: Router,
     private formBuilder: FormBuilder,
     private cookieService: CookieService,
+    private authGuardService: AuthGuardService
   ) {
     this.sidebarOpenedSubscription = this.appService.sidebarOpenedSubject.subscribe(
       opened => {
@@ -64,14 +65,10 @@ export class AppComponent implements OnInit, OnDestroy {
         }
       }
     );
-    this.auth = this.cookieService.get('auth_token');
-    console.log(this.auth);
     // this.appService.sidebarOpenedSubject.next(window.innerWidth > 500);
   }
 
   ngOnInit() {
-    // this.auth = this.cookieService.get('auth_token');
-    console.log(this.auth);
     this.logo = 'assets/img/logo/mangol_logo.png';
     this.items = [
       {

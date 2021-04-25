@@ -6,5 +6,6 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class AppService {
   sidebarOpenedSubject = new BehaviorSubject<boolean>(null);
+  loginedSubject = new BehaviorSubject<boolean>(null);
   constructor() {}
 }

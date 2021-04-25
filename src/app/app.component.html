@@ -1,7 +1,7 @@
 <mat-toolbar>
     <mat-toolbar-row class="display-flex space-between">
         <div >
-            <button mat-icon-button class="sidebar-button" [matTooltip]="sidebarOpened ? 'Hide demos' : 'Show demos'"
+            <button *ngIf="activeRouteData !== '/login'" mat-icon-button class="sidebar-button" [matTooltip]="sidebarOpened ? 'Hide demos' : 'Show demos'"
                 matTooltipPosition="below" [@sidebarButtonState]="sidebarOpened ? 'opened' : 'closed'"
                 (click)="toggleSidebar()">
                 <mat-icon>keyboard_arrow_left</mat-icon>
@@ -20,13 +20,13 @@
                 <mat-icon>person</mat-icon>
               </button>
             <mat-menu #menu="matMenu">
-                <button  mat-menu-item  (click)="registration()" >
+                <button *ngIf="authGuardService.isLogined()"  mat-menu-item  (click)="registration()" >
                     <mat-icon>person_add</mat-icon>
                     Tạo mới thành viên
                 </button>
                 <!-- <button  mat-menu-item (click)="goToInfo()"> <mat-icon>info</mat-icon> Thông tin tài khoản</button> -->
-                <button mat-menu-item (click)="login()"> <mat-icon>login</mat-icon>Đăng nhập</button>
-                <button mat-menu-item (click)="logout()"> <mat-icon>logout</mat-icon> Đăng xuất</button>
+                <button *ngIf="!authGuardService.isLogined()" mat-menu-item (click)="login()"> <mat-icon>login</mat-icon>Đăng nhập</button>
+                <button *ngIf="authGuardService.isLogined()" mat-menu-item (click)="logout()"> <mat-icon>logout</mat-icon> Đăng xuất</button>
             </mat-menu>
         </div>
     </mat-toolbar-row>
@@ -34,15 +34,13 @@
 <mat-drawer-container class="demo-drawer-container" autosize>
     <!-- Menu -->
     <mat-drawer #drawer class="demo-sidenav" mode="side" [opened]="sidebarOpened">
-        <h3 class="text-align-center mt-0">Nhập dữ liệu nguồn thải</h3>
-        <app-waste-sources class="display-flex"></app-waste-sources>
-        <!-- <mat-card *ngFor="let item of items"
-            [ngClass]="{'active': activeRouteData === item.number}"
-            (click)="navigate(item)">
-            <span>
-                {{item.title}}
-            </span>
-        </mat-card> -->
+        <div *ngIf="authGuardService.isLogined()">
+            <h3 class="text-align-center mt-0">Nhập dữ liệu nguồn thải</h3>
+            <app-waste-sources class="display-flex"></app-waste-sources>
+        </div>
+        <br>
+        <h3 class="text-align-center mt-0">Chú Thích</h3>
+        <app-legend></app-legend>
     </mat-drawer>
     <div class="demo-sidenav-content" [@routeState]="getAnimationData(rOutlet)">
         <router-outlet #rOutlet="outlet"></router-outlet>
