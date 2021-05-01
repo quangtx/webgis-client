@@ -117,9 +117,11 @@ export class HomeComponent implements OnInit, OnDestroy {
                 querySrs: 'EPSG:900913',
                 layer: new VectorLayer({
                   source: new VectorSource({
-                    url:'http://localhost:3000/nguonthai',
+                    //url:'http://localhost:3000/nguonthai',
                     // url:'assets/geojson/province.geojson',
-                      // 'http://188.166.116.137:8080/geoserver/gwc/service/wms',
+                     // url: 'http://188.166.116.137:8080/geoserver/gwc/service/wms',
+                      //url: 'http://localhost:8081/geoserver/SongHong/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=SongHong%3Anguonthai&maxFeatures=1500&outputFormat=application%2Fjson',
+                      url: 'https://master.demo.geonode.org/geoserver/ows?service=WMS&version=1.1.1&request=GetFeatureInfo&exceptions=application%2Fjson&layers=geonode:congtieu20&query_layers=geonode:congtieu20&styles=&x=51&y=51&height=101&width=101&srs=EPSG:3857&bbox=11696067.95308154,2182577.6296796077,11957829.071935963,2490338.74853403&feature_count=300&info_format=application%2Fjson&ENV=&access_token=SfR2dhmCnSzBsC2DV8qu6EfqpYyQQA',
                     format: new pseudoGeoJSONFormat({
                       dataProjection: 'EPSG:900913',
                       featureProjection: 'EPSG:900913'
